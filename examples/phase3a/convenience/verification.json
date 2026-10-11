@@ -1,0 +1,55 @@
+{
+  "instruction": "中央区の空き地にコンビニを作って",
+  "plan_id": "c974a4a5416b8b0882017c62d33542e9082d8ccee3899bfc0f15bb25b12cb487",
+  "seed": 42,
+  "source_project": "examples/managed-city/project.json",
+  "building_counts": {
+    "before": 51,
+    "after": 52,
+    "undo": 51
+  },
+  "project_restored_exactly": true,
+  "schematic_restored_byte_for_byte": true,
+  "validation": {
+    "valid": true,
+    "roads_connected": true,
+    "road_components": 1,
+    "building_overlaps": 0,
+    "building_count": 52,
+    "district_count": 6,
+    "building_types": [
+      "apartment",
+      "factory",
+      "house",
+      "mixed_use",
+      "school",
+      "shop",
+      "station"
+    ],
+    "frontage_validated": 52,
+    "achieved_building_coverage": 0.052673339843750014,
+    "roads_unchanged": true,
+    "landscape_unchanged": true,
+    "existing_buildings_preserved": 51,
+    "added_building_ids": [
+      51
+    ],
+    "changed_building_ids": [],
+    "added_site_indices": [],
+    "errors": []
+  },
+  "fascia_blocks": {
+    "minecraft:lime_concrete": 6,
+    "minecraft:blue_concrete": 2
+  },
+  "schematics": {
+    "applied": {
+      "bytes": 28392,
+      "sha256": "eb8d397e4b30fb4b6b54fbf4a013e76ed15c0a57854e0944d3d7410282106523"
+    },
+    "undone": {
+      "bytes": 28289,
+      "sha256": "bc29a5a6fe40e94934b1dee758e7c767686bfc274c07d2ef58422c0d1fde659f"
+    }
+  }
+}

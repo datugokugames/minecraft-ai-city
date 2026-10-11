@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "engine_version": "phase3a-1",
+  "plan_id": "c974a4a5416b8b0882017c62d33542e9082d8ccee3899bfc0f15bb25b12cb487",
+  "base_project_sha256": "67ea5eb60069f8a9b7a9dfbb7af44a5b99759fe9eef17bdd5862c4c25c0d7246",
+  "instruction": "中央区の空き地にコンビニを作って",
+  "parser_source": "rules",
+  "seed": 42,
+  "intent": {
+    "action": "add_buildings",
+    "building_type": "convenience_store",
+    "count": 1,
+    "palette": null,
+    "selection": {
+      "city_name": null,
+      "ward": "中央区",
+      "district": null,
+      "building_id": null,
+      "point": null,
+      "bounds": null,
+      "station_side": null
+    }
+  },
+  "changes": {
+    "added_buildings": [
+      {
+        "id": 51,
+        "district_id": 5,
+        "kind": "shop",
+        "x": 163,
+        "z": 107,
+        "width": 10,
+        "depth": 8,
+        "floors": 1,
+        "facing": "north",
+        "palette": "modern",
+        "angle": 92.48161312106357,
+        "footprint": [
+          [
+            171.77975477749504,
+            116.16850595646395
+          ],
+          [
+            163.78725743265602,
+            115.82211572458482
+          ],
+          [
+            164.22024522250493,
+            105.83149404353605
+          ],
+          [
+            172.21274256734392,
+            106.17788427541518
+          ],
+          [
+            171.77975477749504,
+            116.16850595646395
+          ]
+        ],
+        "entrance": [
+          171.9962486724195,
+          111.17319511593956
+        ],
+        "access_path": [
+          [
+            171.9962486724195,
+            111.17319511593956
+          ],
+          [
+            178.32549607812118,
+            111.87490351572306
+          ]
+        ],
+        "variant": 0,
+        "detail": "convenience_store"
+      }
+    ],
+    "changed_buildings": [],
+    "added_sites": [],
+    "site_district_ids": []
+  },
+  "after_project_sha256": "b47ee4e1f3d6cad29dfd2d635987a499ecf8391052cb52c3ca14299d052e43f7",
+  "validation": {
+    "valid": true,
+    "roads_connected": true,
+    "road_components": 1,
+    "building_overlaps": 0,
+    "building_count": 52,
+    "district_count": 6,
+    "building_types": [
+      "apartment",
+      "factory",
+      "house",
+      "mixed_use",
+      "school",
+      "shop",
+      "station"
+    ],
+    "frontage_validated": 52,
+    "achieved_building_coverage": 0.052673339843750014,
+    "roads_unchanged": true,
+    "landscape_unchanged": true,
+    "existing_buildings_preserved": 51,
+    "added_building_ids": [
+      51
+    ],
+    "changed_building_ids": [],
+    "added_site_indices": [],
+    "errors": []
+  },
+  "assumptions": [
+    "座標は都市ローカルX/Z。Xの増加は東、Zの増加は南。",
+    "空き地は既存の建物・登録敷地・交通施設・通路に占有されていない土地。既存登録敷地は置換しない。",
+    "建物本体と屋根余白を範囲内に配置。新しい接道通路は既存道路へ接続するため範囲外に出る場合がある。",
+    "コンビニは1階、住宅は2階、マンションは都市計画上限内の最大4階。座標指定の中心はブロックへ最大0.5丸める。"
+  ]
+}

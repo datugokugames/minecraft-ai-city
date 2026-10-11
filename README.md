@@ -10,9 +10,28 @@
 
 [6シードの比較画像](examples/natural-comparison/comparison.png) / [品質比較JSON](examples/natural-comparison/comparison.json)
 
-**v0.2.1では、既存都市を保ったまま都市名・区・地区・占有敷地を管理する `project` コマンドを追加しました。** [管理機能の使い方](docs/PROJECTS.md) / [統合要件と段階的な開発方針](docs/ROADMAP.md)。自然言語編集・Web地図・Paper連携は後続フェーズです。
+**v0.3.0 / Phase 3Aでは、日本語から既存都市へ建物・公園を追加し、建物の外観を変更できます。** `edit plan` で変更前後の地図とJSONを確認し、`edit apply --approve ...` で確定、`edit undo` で復元します。APIキーなしでも限定日本語文法で動きます。[編集機能の使い方](docs/EDITING.md) / [管理機能](docs/PROJECTS.md) / [段階的な開発方針](docs/ROADMAP.md)。Web地図・Paper連携は後続フェーズです。
 
-再開後の最終確認は **172テスト通過**。6シード比較、新旧schematicと管理情報変更前後の再現性を確認済みです。[検証記録](VERIFICATION.md) / [開発・再開ログ](DEVELOPMENT_LOG.md) / [生成例一覧](examples/README.md)
+既存172テストを含む**232テスト**が成功し、旧形式の再現性も維持しています。[検証記録](VERIFICATION.md) / [開発・再開ログ](DEVELOPMENT_LOG.md) / [生成例一覧](examples/README.md)
+
+## 日本語でコンビニを追加する
+
+```bash
+citygen edit plan --project examples/managed-city/project.json \
+  --instruction "中央区の空き地にコンビニを作って" \
+  --parser rules --seed 42 --output output/store-review
+```
+
+`output/store-review/comparison.png` と `plan.json` を確認後、表示された `plan_id` を `<PLAN_ID>` に入れて承認します。
+
+```bash
+citygen edit apply --project examples/managed-city/project.json \
+  --plan output/store-review/plan.json --approve "<PLAN_ID>" --output output/store-applied
+citygen edit undo --project output/store-applied/project.json \
+  --history output/store-applied/history.json --approve "<PLAN_ID>" --output output/store-undone
+```
+
+元ファイルは保持し、新規の出力先に `project.json`、`city.schem`、PNG、履歴、変更前スナップショットを保存します。[実行済みの変更前後画像](examples/phase3a/convenience/review/comparison.png) / [編集後のschematic](examples/phase3a/convenience/applied/city.schem)。場所指定・対応文法・承認・Undoの詳細は [EDITING.md](docs/EDITING.md) を参照してください。
 
 ## 1. 環境構築
 
@@ -204,6 +223,12 @@ src/minecraft_city/
   building.py     Minecraftブロック建築
   schematic.py    Sponge v2 NBT/VarInt出力
   project.py      名前付きの都市・区・地区・占有敷地管理、参照検証
+  edit_language.py 日本語ルール・構造化LLM編集指示
+  edit_models.py   編集計画・差分・履歴のJSON契約
+  edit_geometry.py 対象検索・衝突のない接道空地の探索
+  editing.py       計画再検証・明示承認・スナップショット・Undo
+  edit_cli.py      plan/apply/undoのCLI
+  exporting.py     生成と編集が共有するPNG/JSON/schematic出力
   cli.py          コマンドライン
 tests/           自動テスト
 examples/osm-v2/    実OSM分析・比較・元データキャッシュ
@@ -212,6 +237,7 @@ examples/natural-city/ 自然な道路網の実データ60:40生成例
 examples/natural-comparison/ 6シードのPNG・都市JSON・品質比較
 docs/NATURAL_CITY.md 自然な都市構造の方式・指標・制約
 docs/PROJECTS.md    階層管理・設定JSON・互換性
+docs/EDITING.md     Phase 3A日本語編集・承認・Undo
 docs/ROADMAP.md     Phase 1〜4の実装状況と後続設計
 ```
 
@@ -224,7 +250,7 @@ OSMnx/GeoPandasは必須にせず、範囲を限定したOverpass取得、Shapel
 - 建築は種類別パラメトリック雛形です。詳細な内装、階段・エレベーター、学校の校庭、営業駅のホーム・改札・鉄道ダイヤは未実装です。駅舎の雛形は実装しています。2階以上には床がありますが、屋内昇降設備はありません。
 - organicは全建物の入口専用路と幾何上の接道・閉塞検査を実装しています。Minecraft内の歩行AIによる経路テスト、実OSMの全立体交差を分離した交通グラフは未実装です。回転建物の扉・階段の向きはMinecraftが持つ4方位へ丸めます。
 - プレビュー・seed変更はCLIで行います。ブラウザ/Tkのインタラクティブ編集GUI、Minecraftへの直接接続、`.mcworld`/Anvil保存は未実装です。
-- `project` による区・地区の登録や希望用途の保存は実装済みですが、範囲指定による実際の拡張・再開発、変更の承認・undoは未実装です。新しい管理地区は空の予約情報として保存し、既存の道路・建物を変更しません。敷地は占有形状で、完全な宅地分割ではありません。
+- `project` による区・地区の登録と、`edit` による既存地区への建物/公園追加・外観変更・承認・Undoは実装済みです。都市外への拡張、建物削除・移動・大規模再開発、複数操作の一括実行、Redoは未実装です。新しい管理地区は空の予約情報として保存します。敷地は占有形状で、完全な宅地分割ではありません。
 - プレビューは敷地と地区の平面図で、Minecraftの3Dレンダリングではありません。
 - 実AI APIとゲーム本体内の読み込み検証は上記の通り未実施です。
 

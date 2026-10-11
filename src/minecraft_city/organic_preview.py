@@ -88,7 +88,7 @@ def render_organic(city, path, scale=4):
         p = polygon.centroid
         draw.text(
             (p.x * scale - 3, p.y * scale - 5),
-            "P" if site.kind == "parking" else "·",
+            "P" if site.kind == "parking" else "PARK" if site.kind == "park" else "·",
             font=_font(max(8, scale * 2)),
             fill="#edf0d7",
         )

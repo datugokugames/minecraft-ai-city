@@ -145,6 +145,29 @@ def validate_organic(city):
             errors.append(f"site {i}: transport/river/boundary collision")
         if any(envelope.intersects(p) for p in envelopes):
             errors.append(f"site {i}: overlaps building")
+        for j, other in enumerate(city.sites):
+            if j > i and envelope.intersects(Polygon(other.polygon).buffer(1, join_style="mitre")):
+                errors.append(f"sites {i}/{j} overlap")
+        if site.kind == "park":
+            if len(site.access_path) < 2:
+                errors.append(f"site {i}: park missing road access")
+                continue
+            path = LineString(site.access_path)
+            if (
+                Point(path.coords[0]).distance(Polygon(site.polygon).boundary) > 0.1
+                or Point(path.coords[-1]).distance(unary_union(lines)) > 0.1
+            ):
+                errors.append(f"site {i}: park access is not attached to parcel and road")
+            obstacles = unary_union(
+                [
+                    water,
+                    rail,
+                    *envelopes,
+                    *[Polygon(s.polygon).buffer(1) for j, s in enumerate(city.sites) if j != i],
+                ]
+            )
+            if path.buffer(0.7).intersects(obstacles):
+                errors.append(f"site {i}: park access is blocked")
     for i, (b, shape, envelope) in enumerate(zip(city.buildings, shapes, envelopes)):
         expected = affinity.rotate(box(b.x, b.z, b.x + b.width, b.z + b.depth), b.angle)
         if shape.symmetric_difference(expected).area > 0.001:

@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "action": "undo",
+  "plan_id": "c974a4a5416b8b0882017c62d33542e9082d8ccee3899bfc0f15bb25b12cb487",
+  "approved_plan_id": "c974a4a5416b8b0882017c62d33542e9082d8ccee3899bfc0f15bb25b12cb487",
+  "before_project_sha256": "b47ee4e1f3d6cad29dfd2d635987a499ecf8391052cb52c3ca14299d052e43f7",
+  "after_project_sha256": "67ea5eb60069f8a9b7a9dfbb7af44a5b99759fe9eef17bdd5862c4c25c0d7246"
+}

@@ -1,5 +1,33 @@
 # 実行検証記録
 
+## v0.3.0 / Phase 3A 日本語編集
+
+2026-10-11、Python 3.12.14。mainの `b377b87` を基点に作業ブランチで実装。既存生成例と履歴を維持した。
+
+| 検証 | 結果 |
+| --- | --- |
+| 既存テスト | 172件を維持 |
+| 編集テスト | 60件追加。ルール/AI解析、曖昧さ・捏造選択拒否、配置、衝突、承認、差分、履歴、Undo、旧JSON互換性 |
+| 全 `pytest -q` | **232 passed、53.50秒** |
+| `ruff format --check src tests` | 34 files already formatted |
+| `ruff check src tests` | All checks passed |
+| `python -m pip check` | No broken requirements found |
+| 複数編集シード | 7 / 42 / 2026で住宅5棟、駅東側マンションを追加・幾何検証 |
+| 未承認・古い計画・改変計画・不完全履歴 | 拒否。元プロジェクトを保持 |
+| 承認済みschematic | nbtlibで寸法・全ブロック配列を読み戻し。店舗帯看板のブロック実在も検証 |
+| 外観変更 | ID・位置・敷地・所属・隣接建物を保持。実schematicを出力 |
+| 公園追加 | 草地・園路・接道を検証し、実schematicを出力 |
+| 連続編集/複数Undo | 逆順の履歴で元状態へ復元。異なる現在状態へのUndoを拒否 |
+| v0.3.0 wheel | ビルド・別インストール先からのCLI plan/apply成功。projectとschematicが同梱例と一致 |
+| コミット前の除外/秘密パターン確認 | 168ファイル、仮想環境・キャッシュ・認証ファイル混入0、既知トークン/秘密鍵パターン一致0（網羅保証ではない） |
+| コンビニ実行例 | `examples/phase3a/convenience/` に計画、前後PNG、承認後project/schematic、Undo、履歴を保存 |
+
+実行例は実OSM特徴の既存管理都市へ「中央区の空き地にコンビニを作って」、編集seed=42。51→52→51棟、道路1成分、重複0、全52棟接道。変更前の51棟・道路・鉄道・河川・区/地区名を保持。Undo後のprojectが同一、schematicも元ファイルとバイト一致した。バイト数とSHA256は [検証JSON](examples/phase3a/convenience/verification.json) を参照。
+
+限定文法は実入力、APIはモックで検証。実OpenAI通信とMinecraft/WorldEdit本体への貼り付けは未検証。Web/Paper/Bedrock、既存登録空地の置換、削除・移動・都市外拡張・Redo・チャンク差分は未実装。
+
+以下の過去版の未実装・未検証の記述は当時の記録。
+
 ## v0.2.1 統合指示後の再開
 
 2026-10-11、Python 3.12.14。前版を保持して管理機能を追加した。

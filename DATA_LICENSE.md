@@ -16,6 +16,8 @@ The following are distributed under ODbL 1.0, separately from the MIT-licensed c
   `examples/natural-comparison/`.
 - The same OSM-derived fields embedded in `examples/management/`,
   `examples/managed-city/` and `examples/phase2-comparison/` (v0.2.1).
+- The same retained OSM-derived fields in `examples/phase3a/` editing plans,
+  snapshots, reports and project files (v0.3.0). Original source data is unchanged.
 
 Downloaded on 2026-10-11 using https://overpass-api.de/api/interpreter.
 The region names identify only these small bounding boxes, not whole-city statistics:
