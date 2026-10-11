@@ -21,7 +21,7 @@
 
 最初のHTTPテストは実行サンドボックスのソケット制限により失敗したため、ネットワークを有効にして再実行し成功。ブラウザテストではテスト用文字列evalがCSPに拒否されたため、CSPを弱めずテスト側を関数形式へ修正した。クライアント切断時も保存完了済み状態を維持する。
 
-ローカルWebKitは共有ライブラリ不足のため未起動。GitHub ActionsにはChromium/WebKitの実ブラウザジョブを追加した。実iPhone Safari、Windows 8GB/HDD負荷、実OpenAI、Minecraft/WorldEdit本体は未検証。LAN用HTTPを前提とし、外部公開・共同編集の権限・Paper/Bedrockは未実装。
+ローカルWebKitは共有ライブラリ不足のため未起動。GitHub Actionsでは実装コミット `f4ec22d` のPython 3.10/3.12・Chromium/WebKitの全4ジョブが成功した（[記録](examples/phase3b/ci-verification.json)）。実iPhone Safari、Windows 8GB/HDD負荷、実OpenAI、Minecraft/WorldEdit本体は未検証。LAN用HTTPを前提とし、外部公開・共同編集の権限・Paper/Bedrockは未実装。
 
 ## v0.3.0 / Phase 3A 日本語編集
 

@@ -7,7 +7,8 @@
 - [PC画面](desktop-map.png)
 - [ブラウザからダウンロードしたproject](edited-project.json)
 - [ブラウザからダウンロードしたschematic](edited-city.schem)
-- [検証JSON](verification.json)
+- [ローカルChromiumの検証JSON](verification.json)
+- [GitHub CI結果](ci-verification.json)：Python 3.10/3.12・Chromium/WebKit成功
 
 既存の51棟都市で「中央区の空き地にコンビニを作って」→プレビュー→承認→52棟→ダウンロード→Undo→51棟を実行しました。Undo後のschematicは元とバイト一致し、元ファイルは変更していません。
 

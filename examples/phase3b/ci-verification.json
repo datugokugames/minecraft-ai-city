@@ -1,0 +1,29 @@
+{
+  "conclusion": "success",
+  "databaseId": 38179224072,
+  "headSha": "f4ec22d3958bb830910f34ab589fb63fa0ca3e93",
+  "jobs": [
+    {
+      "conclusion": "success",
+      "name": "browser (chromium)",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "test (3.12)",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "test (3.10)",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "name": "browser (webkit)",
+      "status": "completed"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/datugokugames/minecraft-ai-city/actions/runs/38179224072"
+}
