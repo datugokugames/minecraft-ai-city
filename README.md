@@ -10,9 +10,25 @@
 
 [6シードの比較画像](examples/natural-comparison/comparison.png) / [品質比較JSON](examples/natural-comparison/comparison.json)
 
-**v0.3.0 / Phase 3Aでは、日本語から既存都市へ建物・公園を追加し、建物の外観を変更できます。** `edit plan` で変更前後の地図とJSONを確認し、`edit apply --approve ...` で確定、`edit undo` で復元します。APIキーなしでも限定日本語文法で動きます。[編集機能の使い方](docs/EDITING.md) / [管理機能](docs/PROJECTS.md) / [段階的な開発方針](docs/ROADMAP.md)。Web地図・Paper連携は後続フェーズです。
+**v0.3.0 / Phase 3Aでは、日本語から既存都市へ建物・公園を追加し、建物の外観を変更できます。** `edit plan` で変更前後の地図とJSONを確認し、`edit apply --approve ...` で確定、`edit undo` で復元します。APIキーなしでも限定日本語文法で動きます。[編集機能の使い方](docs/EDITING.md) / [管理機能](docs/PROJECTS.md) / [段階的な開発方針](docs/ROADMAP.md)。Web地図は下記Phase 3Bで追加。Paper連携は後続フェーズです。
 
 既存172テストを含む**232テスト**が成功し、旧形式の再現性も維持しています。[検証記録](VERIFICATION.md) / [開発・再開ログ](DEVELOPMENT_LOG.md) / [生成例一覧](examples/README.md)
+
+## iPhone・ブラウザから都市を編集する（v0.3.1）
+
+Phase 3Bでは、地図のタップ・ドラッグ・ピンチ操作、日本語の指示、前後プレビュー、明示承認、Undo、project/`.schem` のダウンロードが使えます。Phase 3Aの編集エンジンを共有しています。
+
+環境構築後に起動します。表示される `#token=...` を含むURLを開いてください。
+
+```bash
+citygen web --project examples/managed-city/project.json --state-dir output/web-session --parser rules
+```
+
+既定はPC内限定です。iPhoneからは同じWi-Fi上で `--lan --host <PCのプライベートIPv4>` を追加します。再開時は `--project` を省略し、同じ `--state-dir` を指定します。
+
+[Web UIの起動・iPhone接続・使い方](docs/WEB_UI.md) / [スマートフォン画面](examples/phase3b/mobile-review.png) / [PC画面](examples/phase3b/desktop-map.png) / [ブラウザで編集したschematic](examples/phase3b/edited-city.schem)
+
+既存232件を含む **245テスト成功**。実サーバーとiPhoneサイズのChromiumで一連の操作を自動検証しました。実iPhoneでの検証状況は [検証記録](VERIFICATION.md) を参照してください。外部公開・Paper・Bedrock対応は含みません。
 
 ## 日本語でコンビニを追加する
 
@@ -229,6 +245,9 @@ src/minecraft_city/
   editing.py       計画再検証・明示承認・スナップショット・Undo
   edit_cli.py      plan/apply/undoのCLI
   exporting.py     生成と編集が共有するPNG/JSON/schematic出力
+  web.py           非公開/LAN向けHTTP API
+  web_state.py     作業コピー・現在状態・履歴の管理
+  web_static/      iPhone対応HTML/CSS/JavaScript
   cli.py          コマンドライン
 tests/           自動テスト
 examples/osm-v2/    実OSM分析・比較・元データキャッシュ
@@ -238,6 +257,7 @@ examples/natural-comparison/ 6シードのPNG・都市JSON・品質比較
 docs/NATURAL_CITY.md 自然な都市構造の方式・指標・制約
 docs/PROJECTS.md    階層管理・設定JSON・互換性
 docs/EDITING.md     Phase 3A日本語編集・承認・Undo
+docs/WEB_UI.md      Webサーバー起動・iPhone接続・地図操作
 docs/ROADMAP.md     Phase 1〜4の実装状況と後続設計
 ```
 
@@ -249,7 +269,7 @@ OSMnx/GeoPandasは必須にせず、範囲を限定したOverpass取得、Shapel
 - organicは接続需要と障害物を考慮した曲線・分岐型、legacyは格子型です。実DEMによる道路勾配設計、地下鉄、交通シミュレーション、大規模都市の分割出力は未実装です。丘陵・河川形状は合成で、OSMの地形そのものを再現しません。
 - 建築は種類別パラメトリック雛形です。詳細な内装、階段・エレベーター、学校の校庭、営業駅のホーム・改札・鉄道ダイヤは未実装です。駅舎の雛形は実装しています。2階以上には床がありますが、屋内昇降設備はありません。
 - organicは全建物の入口専用路と幾何上の接道・閉塞検査を実装しています。Minecraft内の歩行AIによる経路テスト、実OSMの全立体交差を分離した交通グラフは未実装です。回転建物の扉・階段の向きはMinecraftが持つ4方位へ丸めます。
-- プレビュー・seed変更はCLIで行います。ブラウザ/Tkのインタラクティブ編集GUI、Minecraftへの直接接続、`.mcworld`/Anvil保存は未実装です。
+- 生成の再実行はCLI、既存都市の選択・日本語編集・プレビュー・承認・UndoはCLI/Webで行えます。Tk GUI、Minecraftへの直接接続、`.mcworld`/Anvil保存は未実装です。
 - `project` による区・地区の登録と、`edit` による既存地区への建物/公園追加・外観変更・承認・Undoは実装済みです。都市外への拡張、建物削除・移動・大規模再開発、複数操作の一括実行、Redoは未実装です。新しい管理地区は空の予約情報として保存します。敷地は占有形状で、完全な宅地分割ではありません。
 - プレビューは敷地と地区の平面図で、Minecraftの3Dレンダリングではありません。
 - 実AI APIとゲーム本体内の読み込み検証は上記の通り未実施です。

@@ -1,5 +1,15 @@
 # 開発状況と再開記録
 
+## Phase 3B：LAN向けWeb地図（v0.3.1、2026-10-11）
+
+- PR #1の実装と232テスト、両Python版のCI成功を確認し、mainへマージ。作業ブランチをmainから作成して既存成果を保持した。
+- Python標準HTTPサーバー + 静的HTML/CSS/JSで、追加の実行時依存なしにiPhone向け地図・日本語編集を実装。Phase 3Aのエンジンを呼び、別の建築アルゴリズムは追加しない。
+- 地図のタップ・ドラッグ・ピンチ、区/地区/建物、位置/矩形指定、チャット風入力、前後プレビュー、提案箇所の拡大、承認・Undo・ダウンロードを追加。
+- 保存先固定、loopback既定、明示LAN bind、起動時トークン、Host/Origin制限、JSONサイズ制限、1処理ずつの編集、revision確認、現在状態の原子的更新、プロセスロックを実装。
+- 実HTTPテスト13件を追加し全245件成功。実ChromiumのiPhoneサイズとデスクトップで編集・Undoを完走。WebKitのCI検証も追加し、Python両版・Chromium/WebKitの全ジョブが成功。
+- wheelからのCLI起動/終了/再開、静的アセット同梱を確認。スクリーンショットとブラウザでダウンロードしたファイルを `examples/phase3b/` へ保存。
+- 実機iPhone/Windows負荷、公開用認証・TLS、Paper/Bedrockは後続。再開方法・LAN設定・異常終了時の手順は `docs/WEB_UI.md` に記載。
+
 ## Phase 3A：承認付き日本語編集（v0.3.0、2026-10-11）
 
 - 既存作業ファイル・Git履歴・origin/mainを確認。mainの `b377b87` から `feature/phase3a-city-editing` を作成。旧生成例・ZIP・Git履歴を維持した。

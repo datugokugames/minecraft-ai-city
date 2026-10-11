@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "minecraft-ai-city"
-version = "0.3.0"
+version = "0.3.1"
 description = "Metric-driven original Japanese cities for Minecraft Java Edition"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -17,12 +17,16 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
+browser = ["playwright>=1.50,<2"]
 
 [project.scripts]
 citygen = "minecraft_city.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+minecraft_city = ["web_static/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
