@@ -81,7 +81,9 @@ def _location(text, project, selection):
 
 
 def parse_rules(instruction, project, selection=None):
-    text = unicodedata.normalize("NFKC", instruction).strip().rstrip("。！!")
+    text = (
+        unicodedata.normalize("NFKC", instruction).strip().rstrip("。！!").replace("この辺", "ここ")
+    )
     selection = selection or Selection()
     if not text or len(text) > 2000:
         raise ClarificationRequired("1〜2000文字の建築指示を指定してください。")

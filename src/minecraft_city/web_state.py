@@ -48,6 +48,7 @@ class Workspace:
         self.root.mkdir(parents=True, exist_ok=True)
         self.lock = threading.Lock()
         self.parser = parser
+        self.paper = None
         self.lockfile = self.root / "server.lock"
         # A second process must never race the atomic state pointer.
         self.fd = os.open(self.lockfile, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
@@ -120,6 +121,7 @@ class Workspace:
         p = self.project
         physical = {d.id: d for d in p.city.districts}
         return {
+            "paper": self.paper.summary() if self.paper else None,
             "city_name": p.city_name,
             "size": p.city.size,
             "revision": self.data["revision"],
@@ -150,6 +152,8 @@ class Workspace:
         }
 
     def plan(self, value):
+        if self.paper:
+            self.paper.guard()
         req = PlanRequest.model_validate(value)
         self.check_revision(req.revision)
         plan, _ = prepare_edit(self.project, req.instruction, req.selection, req.seed, self.parser)
@@ -159,6 +163,8 @@ class Workspace:
         return {"review": name, "plan": plan.model_dump(mode="json")}
 
     def apply(self, value):
+        if self.paper:
+            self.paper.web_guard()
         req = ApplyRequest.model_validate(value)
         self.check_revision(req.revision)
         if req.review not in self.data["reviews"]:
@@ -179,6 +185,8 @@ class Workspace:
         return self.state()
 
     def undo(self, value):
+        if self.paper:
+            self.paper.web_guard()
         req = UndoRequest.model_validate(value)
         self.check_revision(req.revision)
         if not self.data["stack"]:

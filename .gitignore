@@ -20,6 +20,10 @@ output/
 web-data/
 server.lock
 session.tmp
+target/
+*.jar
+paper-local*.json
+paper-private*.json
 build/
 dist/
 *.zip

@@ -62,6 +62,9 @@ function buttons() {
   $("refresh").disabled = busy;
   $("undo").disabled = busy || !state?.undo;
   $("approve").disabled = busy || !pending;
+  $("approve").textContent = state?.paper
+    ? "ゲーム内の承認手順"
+    : "承認して建築する";
 }
 async function work(label, fn) {
   if (busy) return;
@@ -175,8 +178,9 @@ function zoom(factor, x = view[0] + view[2] / 2, z = view[1] + view[3] / 2) {
   view = [x - (x - view[0]) * ratio, z - (z - view[1]) * ratio, width, width];
   viewBox();
 }
-async function refresh(reset = false) {
-  const latest = await json("/api/state");
+async function refresh(reset = false, supplied = null) {
+  const latest = supplied || (await json("/api/state"));
+  const changed = !state || state.revision !== latest.revision;
   if (!state || state.revision !== latest.revision) {
     selection = {};
     invalidate();
@@ -194,7 +198,8 @@ async function refresh(reset = false) {
   if (reset) view = [0, 0, state.size, state.size];
   viewBox();
   paint();
-  await picture("map-image", "/api/files/current/map.png", true);
+  if (changed || !objectURLs.has("map-image"))
+    await picture("map-image", "/api/files/current/map.png", true);
 }
 $("ward").onchange = () => {
   selection = $("ward").value ? { ward: $("ward").value } : {};
@@ -283,7 +288,13 @@ $("cancel").onclick = () => {
   invalidate();
   message("計画を見送りました。都市は変更していません。");
 };
-$("approve").onclick = () =>
+$("approve").onclick = () => {
+  if (state.paper) {
+    message(
+      `ゲーム内で /city review ${pending.review} を実行し、/city preview → /city approve で反映してください。都市はワールド反映後に更新されます。`,
+    );
+    return;
+  }
   work("承認済みの建築を保存しています…", async () => {
     await json("/api/apply", {
       revision: state.revision,
@@ -294,7 +305,14 @@ $("approve").onclick = () =>
     await refresh();
     message("建築を反映しました。新しいproject.jsonと.schemを保存できます。");
   });
+};
 $("undo").onclick = () => {
+  if (state.paper) {
+    message(
+      "ゲーム内で /city undo → /city preview → /city approve を実行してください。ワールドと都市を同時に復元します。",
+    );
+    return;
+  }
   $("undo-confirm").hidden = false;
 };
 $("undo-cancel").onclick = () => {
@@ -482,3 +500,17 @@ $("map").addEventListener(
   { passive: false },
 );
 work("都市を読み込んでいます…", () => refresh(true));
+
+setInterval(async () => {
+  if (!state?.paper || busy) return;
+  try {
+    const latest = await json("/api/state");
+    if (latest.revision !== state.revision) {
+      await refresh(false, latest);
+      buttons();
+      message("ゲーム内の建築結果に地図を更新しました。");
+    }
+  } catch (error) {
+    /* Retry next interval; explicit refresh reports errors. */
+  }
+}, 15000);
