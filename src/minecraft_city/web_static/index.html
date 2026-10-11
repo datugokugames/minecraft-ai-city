@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <title>まちづくり / Minecraft AI City</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="/"
+        >▦ <span>まちづくり<small>MINECRAFT AI CITY</small></span></a
+      ><span class="local">● LOCAL WORKSPACE</span>
+    </header>
+    <main>
+      <section class="map-panel" aria-label="都市地図">
+        <div class="map-heading">
+          <div>
+            <span class="eyebrow">YOUR GROWING CITY</span>
+            <h1 id="city-name">都市に接続しています…</h1>
+            <p id="city-stats">起動時に表示されたURLで開いてください</p>
+          </div>
+          <button id="refresh" title="最新の都市を読み込む">↻ 更新</button>
+        </div>
+        <div class="map-tools" role="group" aria-label="地図の操作">
+          <button data-mode="select" class="active">選択・移動</button
+          ><button data-mode="point">位置を指定</button
+          ><button data-mode="rect">範囲を指定</button
+          ><button id="clear">選択を解除</button>
+        </div>
+        <div id="map-wrap">
+          <svg
+            id="map"
+            viewBox="0 0 256 256"
+            role="img"
+            aria-label="都市地図。ドラッグで移動、ピンチで拡大、タップで建物を選択"
+          >
+            <image id="map-image" x="0" y="0" width="256" height="256"></image>
+            <g id="district-shapes"></g>
+            <g id="building-shapes"></g>
+            <g id="selection-shape"></g>
+          </svg>
+          <div class="zoom-tools">
+            <button id="zoom-in" aria-label="拡大">＋</button
+            ><button id="zoom-out" aria-label="縮小">−</button
+            ><button id="fit">全体</button>
+          </div>
+          <span class="north">↑ N</span>
+        </div>
+        <div class="legend">
+          <span>■ 住宅</span><span>■ 商業</span><span>■ 工業</span
+          ><span>■ 公園</span><span>━ 鉄道</span>
+        </div>
+        <p class="map-help">
+          タップで選択 · ドラッグで移動 · 2本指でズーム<br /><a
+            href="https://www.openstreetmap.org/copyright"
+            target="_blank"
+            rel="noreferrer"
+            >© OpenStreetMap contributors</a
+          >
+          · 元都市の出典はproject.jsonを参照
+        </p>
+      </section>
+      <aside class="editor" aria-label="都市編集">
+        <span class="eyebrow">PLAN YOUR NEXT CHANGE</span>
+        <h2>この街に、何をつくる？</h2>
+        <div class="selectors">
+          <label
+            >区<select id="ward">
+              <option value="">都市全体</option>
+            </select></label
+          ><label
+            >地区<select id="district">
+              <option value="">すべての地区</option>
+            </select></label
+          >
+        </div>
+        <p id="selected" class="selection-info">場所を選択してください</p>
+        <div id="messages" class="messages" role="log" aria-live="polite">
+          <p class="assistant">
+            地図で場所を選び、日本語で指示してください。建築前に変更案を確認できます。
+          </p>
+        </div>
+        <form id="chat">
+          <label for="instruction">建築の指示</label
+          ><textarea
+            id="instruction"
+            rows="3"
+            maxlength="2000"
+            placeholder="中央区の空き地にコンビニを作って"
+            required
+          ></textarea>
+          <div class="compose-bottom">
+            <label class="seed"
+              >シード
+              <input
+                id="seed"
+                type="number"
+                value="42"
+                min="0"
+                max="2147483647" /></label
+            ><button type="submit" class="primary" id="plan-button">
+              計画をつくる ↗
+            </button>
+          </div>
+        </form>
+        <p id="status" role="status" aria-live="polite"></p>
+        <section id="review" hidden aria-label="建築計画の確認">
+          <div class="review-heading">
+            <h3>建築プレビュー</h3>
+            <span class="badge">未反映</span>
+          </div>
+          <p id="review-summary"></p>
+          <button id="focus-change">地図で変更箇所を見る</button>
+          <div class="compare">
+            <figure>
+              <figcaption>変更前</figcaption>
+              <img id="before" alt="変更前の都市" />
+            </figure>
+            <figure>
+              <figcaption>変更後</figcaption>
+              <img id="after" alt="変更後の都市" />
+            </figure>
+          </div>
+          <details>
+            <summary>対象・検査結果・補完条件</summary>
+            <pre id="plan-details"></pre>
+          </details>
+          <button id="download-plan">計画JSONを保存</button
+          ><button id="download-comparison">比較画像を保存</button>
+          <div class="review-actions">
+            <button id="cancel">見送る</button
+            ><button id="approve" class="primary">承認して建築する</button>
+          </div>
+        </section>
+        <div class="exports">
+          <h3>都市を持ち出す</h3>
+          <button data-download="project.json">↓ project.json</button
+          ><button data-download="city.schem">↓ Minecraft .schem</button>
+        </div>
+        <div class="undo-area">
+          <button id="undo" disabled>直前の建築を取り消す</button>
+          <div id="undo-confirm" hidden>
+            <p>直前の編集前へ戻した新しい都市を保存します。</p>
+            <button id="undo-cancel">戻る</button
+            ><button id="undo-approve">承認してUndo</button>
+          </div>
+        </div>
+        <p class="footnote">
+          元ファイルを保持して新しい状態を保存します。Minecraftへの反映はWorldEditから行います。
+        </p>
+      </aside>
+    </main>
+    <footer>
+      まちづくり / Phase 3B <span>現実の特徴から、ここだけの街へ。</span>
+    </footer>
+  </body>
+</html>

@@ -25,6 +25,13 @@ def parser():
     from .edit_cli import add_edit_parser
 
     add_edit_parser(sub)
+    web = sub.add_parser("web", help="Serve a private local/LAN city editing UI")
+    web.add_argument("--project", type=Path, help="Initial project; omit when resuming")
+    web.add_argument("--state-dir", type=Path, required=True)
+    web.add_argument("--host", default="127.0.0.1")
+    web.add_argument("--port", type=int, default=8765)
+    web.add_argument("--lan", action="store_true")
+    web.add_argument("--parser", choices=["rules", "auto", "ai"], default="auto")
     analyze = sub.add_parser(
         "analyze", help="Analyze synthetic samples or small OSM bounding boxes"
     )
@@ -108,7 +115,11 @@ def parser():
 
 
 def run(args):
-    if args.command == "edit":
+    if args.command == "web":
+        from .web import serve
+
+        serve(args)
+    elif args.command == "edit":
         from .edit_cli import run_edit
 
         run_edit(args)

@@ -1,3 +1,3 @@
 """Original city synthesis from aggregate urban statistics."""
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"

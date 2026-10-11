@@ -17,6 +17,9 @@ __pycache__/
 .coverage.*
 htmlcov/
 output/
+web-data/
+server.lock
+session.tmp
 build/
 dist/
 *.zip
