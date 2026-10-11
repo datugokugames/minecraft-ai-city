@@ -242,6 +242,8 @@ OSMnx/GeoPandasは必須にせず、範囲を限定したOverpass取得、Shapel
 
 保存先は [datugokugames/minecraft-ai-city](https://github.com/datugokugames/minecraft-ai-city) です。コード・テスト・ドキュメント・公開OSM資料・生成例を管理します。仮想環境、キャッシュ、ビルド出力、ZIPや認証情報は含めません。pushとpull requestでPython 3.10/3.12のGitHub Actionsが実行されます。
 
+2026-10-11時点でローカルコミットは作成済みですが、この作業環境からのGit pushと接続アプリによるファイル作成はどちらも403で拒否され、GitHubへの反映は未完了です。接続アプリの書き込み権限が必要です。以下のclone手順はアップロード完了後に使用してください。
+
 ```bash
 git clone https://github.com/datugokugames/minecraft-ai-city.git
 cd minecraft-ai-city
