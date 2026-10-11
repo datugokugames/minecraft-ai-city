@@ -53,4 +53,4 @@ citygen project export --project output/project-configured.json --output output/
 
 `create_project` / `configure_project` / `load_project` / `save_project` / `project_summary` を `minecraft_city.project` から利用できます。CLIと将来のWeb・ゲーム内操作はこのデータを共有できます。
 
-現在は管理情報の操作のみです。区単位の**実際の拡張・再開発**、日本語の解釈、範囲選択、実ワールドへの反映は [段階的な開発方針](ROADMAP.md) の後続フェーズです。
+`project` コマンドは管理情報の操作のみです。v0.3.0の [`edit` コマンド](EDITING.md) は同じプロジェクトを使い、日本語による既存地区への建物/公園追加・外観変更・明示承認・Undoを実装しています。都市外の拡張・再開発・実ワールドへの直接反映は [段階的な開発方針](ROADMAP.md) の後続フェーズです。

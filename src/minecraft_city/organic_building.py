@@ -117,10 +117,40 @@ def build_organic(city):
                 "smooth_stone"
             )
         v.blocks[3, area] = v.state(
-            "light_gray_concrete" if site.kind == "parking" else "coarse_dirt"
+            "light_gray_concrete"
+            if site.kind == "parking"
+            else "grass_block[snowy=false]"
+            if site.kind == "park"
+            else "coarse_dirt"
         )
         if site.kind == "parking":
             v.blocks[3, area & (xx % 4 == 0)] = v.state("white_concrete")
+        elif site.kind == "park":
+            polygon = Polygon(site.polygon)
+            cx, cz = int(polygon.centroid.x), int(polygon.centroid.y)
+            path = area & ((abs(xx - cx) <= 1) | (abs(zz - cz) <= 1))
+            v.blocks[3, path] = v.state("gravel")
+            for z in range(
+                max(2, math.floor(polygon.bounds[1]) + 2),
+                min(size - 2, math.ceil(polygon.bounds[3]) - 1),
+            ):
+                for x in range(
+                    max(2, math.floor(polygon.bounds[0]) + 2),
+                    min(size - 2, math.ceil(polygon.bounds[2]) - 1),
+                ):
+                    if not polygon.covers(Point(x + 0.5, z + 0.5)) or path[z, x]:
+                        continue
+                    if x % 4 == 0 and z % 4 == 0:
+                        v.put(x, 4, z, "poppy")
+            if polygon.covers(Point(cx - 3, cz - 3).buffer(2)):
+                _tree(v, cx - 3, cz - 3)
+            if polygon.covers(Point(cx + 2, cz + 2)):
+                v.put(
+                    cx + 2,
+                    4,
+                    cz + 2,
+                    "oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]",
+                )
     park = Polygon(city.districts[5].polygon)
     for z in range(8, size - 8, 9):
         for x in range(8, size - 8, 9):

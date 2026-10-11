@@ -10,46 +10,11 @@ from pathlib import Path
 import requests
 
 from .analysis import PRESETS, analyze_osm, sample_profile
-from .building import build_city
+from .exporting import export_city
 from .generation import generate_city, validate_city
 from .models import City, CityPlan, Metrics, load_profile, save_json
 from .planning import blend_profiles, make_plan
 from .preview import render_preview
-from .schematic import write_schematic
-
-
-def export_city(city, output):
-    output = Path(output)
-    output.mkdir(parents=True, exist_ok=True)
-    city.validation = validate_city(city)
-    volume = build_city(city)
-    metadata = write_schematic(
-        volume,
-        output / "city.schem",
-        city.plan.name,
-        "; ".join(sorted({source["attribution"] for source in city.sources})),
-    )
-    render_preview(city, output / "preview.png")
-    save_json(output / "city.json", city)
-    save_json(output / "plan.json", city.plan)
-    save_json(
-        output / "report.json",
-        {
-            "validation": city.validation,
-            "schematic": metadata,
-            "sources": city.sources,
-            "planning_source": city.planning_source,
-            "layout": city.layout,
-            "quality": city.quality,
-        },
-    )
-    print(
-        json.dumps(
-            {"output": str(output.resolve()), **city.validation, "schematic": metadata},
-            ensure_ascii=False,
-            indent=2,
-        )
-    )
 
 
 def parser():
@@ -57,6 +22,9 @@ def parser():
         description="Minecraft AI City Generator — original Japanese cities"
     )
     sub = root.add_subparsers(dest="command", required=True)
+    from .edit_cli import add_edit_parser
+
+    add_edit_parser(sub)
     analyze = sub.add_parser(
         "analyze", help="Analyze synthetic samples or small OSM bounding boxes"
     )
@@ -140,7 +108,11 @@ def parser():
 
 
 def run(args):
-    if args.command == "project":
+    if args.command == "edit":
+        from .edit_cli import run_edit
+
+        run_edit(args)
+    elif args.command == "project":
         from .project import (
             ProjectSettings,
             configure_project,

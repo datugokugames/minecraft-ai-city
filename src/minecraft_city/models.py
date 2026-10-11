@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_serializer, model_validator
 
 
 class StrictModel(BaseModel):
@@ -112,6 +112,15 @@ class Building(StrictModel):
     entrance: tuple[float, float] | None = None
     access_path: list[tuple[float, float]] = Field(default_factory=list)
     variant: int = Field(default=0, ge=0, le=7)
+    detail: Literal["convenience_store"] | None = None
+
+    @model_serializer(mode="wrap")
+    def compatible_detail(self, handler):
+        data = handler(self)
+        # Preserve v0.2.1 City JSON/digests exactly when no new template is used.
+        if self.detail is None:
+            data.pop("detail", None)
+        return data
 
 
 class RoadSpec(StrictModel):

@@ -92,6 +92,15 @@ def build_structure(v: BlockVolume, b):
             v.put(ax, 6, az, "red_concrete" if along % 2 else "white_concrete")
             ax, az = _front_point(b, along)
             v.put(ax, 7, az, "yellow_concrete" if b.kind == "shop" else "cyan_concrete")
+        if b.detail == "convenience_store":
+            # Generic unbranded convenience-store fascia, glazed storefront and counter.
+            for along in range(1, front_length - 1):
+                ax, az = _front_point(b, along, 1)
+                v.put(ax, 6, az, "white_concrete")
+                if abs(along - front_length // 2) > 1:
+                    ax, az = _front_point(b, along)
+                    v.put(ax, 5, az, "glass")
+            v.fill(x + 2, 4, z + d - 3, x + w - 2, 5, z + d - 2, "quartz_block")
     roof_y = 3 + b.floors * 4
     v.fill(x - 1, roof_y, z - 1, x + w + 1, roof_y + 1, z + d + 1, roof)
     if b.kind == "house" or b.palette == "traditional":
@@ -120,6 +129,11 @@ def build_structure(v: BlockVolume, b):
             for xx in (x, x + w - 1):
                 v.put(xx, roof_y + 1, zz, roof)
         v.fill(x + 2, roof_y + 1, z + 2, x + 4, roof_y + 2, z + 4, "iron_block")
+    if b.detail == "convenience_store":
+        # Paint fascia after the roof so the one-floor roof cannot erase the sign.
+        for along in range(1, front_length - 1):
+            ax, az = _front_point(b, along, 1)
+            v.put(ax, 7, az, "lime_concrete" if along % 3 else "blue_concrete")
 
 
 def _tree(v, x, z):
