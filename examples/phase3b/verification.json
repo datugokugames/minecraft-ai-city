@@ -1,0 +1,13 @@
+{
+  "browser": "chromium",
+  "viewport": "iPhone 13 emulation (390x664)",
+  "building_and_district_selection": true,
+  "point_and_rectangle": true,
+  "pinch_zoom": true,
+  "unapproved_unchanged": true,
+  "approved_buildings": 52,
+  "undo_buildings": 51,
+  "undo_schematic_byte_equal": true,
+  "javascript_errors": [],
+  "download_sha256": "eb8d397e4b30fb4b6b54fbf4a013e76ed15c0a57854e0944d3d7410282106523"
+}

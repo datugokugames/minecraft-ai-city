@@ -18,6 +18,8 @@ The following are distributed under ODbL 1.0, separately from the MIT-licensed c
   `examples/managed-city/` and `examples/phase2-comparison/` (v0.2.1).
 - The same retained OSM-derived fields in `examples/phase3a/` editing plans,
   snapshots, reports and project files (v0.3.0). Original source data is unchanged.
+- Retained OSM-derived fields in `examples/phase3b/edited-project.json` (v0.3.1).
+  The Web UI screenshots also retain map attribution.
 
 Downloaded on 2026-10-11 using https://overpass-api.de/api/interpreter.
 The region names identify only these small bounding boxes, not whole-city statistics:

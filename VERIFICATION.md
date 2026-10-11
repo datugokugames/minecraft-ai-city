@@ -1,5 +1,28 @@
 # 実行検証記録
 
+## v0.3.1 / Phase 3B Web地図
+
+2026-10-11。PR #1の232テスト・Python 3.10/3.12のActions成功・変更内容を確認し、ユーザーの指示に従いmainへマージ（`e1fdb88`）。そのmainから `feature/phase3b-web-ui` を作成した。
+
+| 検証 | 結果 |
+| --- | --- |
+| 全pytest | **245 passed、77.78秒**（既存232 + Web13） |
+| Ruff format/check | src/tests/scriptsの38ファイル、成功 |
+| pip check / JavaScript構文検査 | 成功 |
+| 実HTTPサーバー | 地図・選択データ・計画・承認・出力・Undo成功 |
+| セッション保護 | 未認証、外部Origin、不正Host、任意パス、過大/不正JSON、同時処理、古いrevisionを拒否 |
+| 履歴/再開 | 再起動後に現在都市とUndo履歴を復元。2プロセス同時起動を拒否 |
+| 保存障害 | 状態ポインター更新失敗時に以前の現在状態を保持 |
+| 実Chromium / iPhone 13相当 | 地図、建物/区/地区選択、座標/矩形、ズーム/ピンチ、日本語指示→計画→承認→ダウンロード→Undo成功、JS例外0 |
+| PC表示 | 1440px幅で画面取得、モバイル390px幅で横はみ出しなし |
+| v0.3.1 wheel | 別インストール先からCLIのサーバー起動・HTTP取得・終了・再開成功。HTML/CSS/JSをwheelへ同梱 |
+
+ブラウザからダウンロードしたschematicは28,392バイト、SHA256 `eb8d397e4b30fb4b6b54fbf4a013e76ed15c0a57854e0944d3d7410282106523`。Phase 3Aで同じ指示を実行した出力と一致した。51→52→51棟、承認前の保持とUndo後の元schematicとのバイト一致を確認。[画面と成果物](examples/phase3b/README.md)。
+
+最初のHTTPテストは実行サンドボックスのソケット制限により失敗したため、ネットワークを有効にして再実行し成功。ブラウザテストではテスト用文字列evalがCSPに拒否されたため、CSPを弱めずテスト側を関数形式へ修正した。クライアント切断時も保存完了済み状態を維持する。
+
+ローカルWebKitは共有ライブラリ不足のため未起動。GitHub ActionsにはChromium/WebKitの実ブラウザジョブを追加した。実iPhone Safari、Windows 8GB/HDD負荷、実OpenAI、Minecraft/WorldEdit本体は未検証。LAN用HTTPを前提とし、外部公開・共同編集の権限・Paper/Bedrockは未実装。
+
 ## v0.3.0 / Phase 3A 日本語編集
 
 2026-10-11、Python 3.12.14。mainの `b377b87` を基点に作業ブランチで実装。既存生成例と履歴を維持した。
