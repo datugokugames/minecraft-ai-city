@@ -1,0 +1,45 @@
+{
+  "validation": {
+    "valid": true,
+    "roads_connected": true,
+    "road_components": 1,
+    "building_overlaps": 0,
+    "building_count": 33,
+    "district_count": 36,
+    "building_types": [
+      "apartment",
+      "house",
+      "mixed_use",
+      "school",
+      "shop"
+    ],
+    "achieved_building_coverage": 0.171478271484375
+  },
+  "schematic": {
+    "format": "Sponge Schematic v2",
+    "minecraft_data_version": 3465,
+    "width": 256,
+    "height": 32,
+    "length": 256,
+    "palette_size": 42,
+    "non_air_blocks": 339633,
+    "compressed_bytes": 13565
+  },
+  "sources": [
+    {
+      "name": "tokyo",
+      "source": "osm",
+      "weight": 0.6,
+      "attribution": "© OpenStreetMap contributors, ODbL 1.0 — https://www.openstreetmap.org/copyright",
+      "retrieved_at": "2026-10-11T00:55:56.061477+00:00"
+    },
+    {
+      "name": "kyoto",
+      "source": "osm",
+      "weight": 0.4,
+      "attribution": "© OpenStreetMap contributors, ODbL 1.0 — https://www.openstreetmap.org/copyright",
+      "retrieved_at": "2026-10-11T00:56:28.846412+00:00"
+    }
+  ],
+  "planning_source": "rules"
+}

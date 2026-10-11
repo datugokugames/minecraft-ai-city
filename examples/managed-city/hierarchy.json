@@ -1,0 +1,179 @@
+{
+  "city_name": "青葉市",
+  "city_sha256": "31811a66af8b05163d3add12910ab5d949594361956bc91e67f919ae5cd0df66",
+  "size": 256,
+  "wards": [
+    {
+      "id": "ward-1",
+      "name": "中央区",
+      "districts": [
+        {
+          "id": "district-0",
+          "name": "青葉駅前",
+          "ward_id": "ward-1",
+          "city_district_id": 0,
+          "preferred_use": "commercial",
+          "preferred_style": "modern",
+          "developed": true,
+          "actual_use": "commercial",
+          "character": "station",
+          "parcel_count": 11,
+          "building_ids": [
+            10,
+            11,
+            12,
+            13,
+            14,
+            22,
+            29,
+            30,
+            31,
+            41,
+            44
+          ],
+          "site_indices": []
+        },
+        {
+          "id": "district-1",
+          "name": "旧市街 1",
+          "ward_id": "ward-1",
+          "city_district_id": 1,
+          "preferred_use": "residential",
+          "preferred_style": "mixed",
+          "developed": true,
+          "actual_use": "residential",
+          "character": "old_town",
+          "parcel_count": 13,
+          "building_ids": [
+            7,
+            8,
+            9,
+            26,
+            27,
+            28,
+            43,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50
+          ],
+          "site_indices": []
+        },
+        {
+          "id": "district-3",
+          "name": "新興住宅地区 3",
+          "ward_id": "ward-1",
+          "city_district_id": 3,
+          "preferred_use": "residential",
+          "preferred_style": "mixed",
+          "developed": true,
+          "actual_use": "residential",
+          "character": "planned",
+          "parcel_count": 8,
+          "building_ids": [
+            1,
+            18,
+            19,
+            24,
+            25,
+            35,
+            36
+          ],
+          "site_indices": [
+            0
+          ]
+        },
+        {
+          "id": "district-4",
+          "name": "工業地区 4",
+          "ward_id": "ward-1",
+          "city_district_id": 4,
+          "preferred_use": "industrial",
+          "preferred_style": "mixed",
+          "developed": true,
+          "actual_use": "industrial",
+          "character": "industrial",
+          "parcel_count": 4,
+          "building_ids": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "site_indices": []
+        },
+        {
+          "id": "district-5",
+          "name": "河川沿い地区 5",
+          "ward_id": "ward-1",
+          "city_district_id": 5,
+          "preferred_use": "park",
+          "preferred_style": "mixed",
+          "developed": true,
+          "actual_use": "park",
+          "character": "riverside",
+          "parcel_count": 7,
+          "building_ids": [
+            0,
+            2,
+            15,
+            16,
+            20,
+            21,
+            23
+          ],
+          "site_indices": []
+        }
+      ]
+    },
+    {
+      "id": "north",
+      "name": "北区",
+      "districts": [
+        {
+          "id": "district-2",
+          "name": "北の住宅地区",
+          "ward_id": "north",
+          "city_district_id": 2,
+          "preferred_use": "residential",
+          "preferred_style": "mixed",
+          "developed": true,
+          "actual_use": "residential",
+          "character": "suburban",
+          "parcel_count": 11,
+          "building_ids": [
+            17,
+            32,
+            33,
+            34,
+            37,
+            38,
+            39,
+            40,
+            42
+          ],
+          "site_indices": [
+            1,
+            2
+          ]
+        },
+        {
+          "id": "north-future",
+          "name": "北区拡張予定地",
+          "ward_id": "north",
+          "city_district_id": null,
+          "preferred_use": "residential",
+          "preferred_style": "traditional",
+          "developed": false,
+          "actual_use": null,
+          "character": null,
+          "parcel_count": 0,
+          "building_ids": [],
+          "site_indices": []
+        }
+      ]
+    }
+  ]
+}

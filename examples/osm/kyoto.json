@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "name": "kyoto",
+  "source": "osm",
+  "attribution": "© OpenStreetMap contributors, ODbL 1.0 — https://www.openstreetmap.org/copyright",
+  "bounds": [
+    35.001,
+    135.758,
+    35.007,
+    135.766
+  ],
+  "retrieved_at": "2026-10-11T00:56:28.846412+00:00",
+  "notes": [
+    "Unspecified building heights use 9 m; levels use 3 m/level.",
+    "Blocks are closed faces of a 2D road graph, not cadastral parcels.",
+    "2D intersections include bridge/tunnel crossings; not traffic topology.",
+    "Land-use shares use classified polygons only; missing tags use 65/25/10."
+  ],
+  "metrics": {
+    "area_km2": 0.48576874128445763,
+    "road_density_km_km2": 30.151589001378678,
+    "intersection_count": 210,
+    "intersection_density_km2": 432.3044736158264,
+    "building_count": 2191,
+    "building_density_km2": 4510.376674725122,
+    "building_coverage": 0.5324510064880805,
+    "mean_building_area_m2": 118.05023058756619,
+    "median_block_area_m2": 369.5485012983537,
+    "mean_block_compactness": 0.6205134913189564,
+    "orthogonal_road_share": 0.9844836774480353,
+    "mean_height_m": 9.582838886353263,
+    "height_tag_coverage": 0.06207211319032405,
+    "landuse_tag_coverage": 0.005173926005523861,
+    "residential_share": 0.0,
+    "commercial_share": 0.0,
+    "park_share": 1.0
+  }
+}

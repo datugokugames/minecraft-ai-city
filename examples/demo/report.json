@@ -1,0 +1,45 @@
+{
+  "validation": {
+    "valid": true,
+    "roads_connected": true,
+    "road_components": 1,
+    "building_overlaps": 0,
+    "building_count": 61,
+    "district_count": 16,
+    "building_types": [
+      "apartment",
+      "house",
+      "mixed_use",
+      "school",
+      "shop"
+    ],
+    "achieved_building_coverage": 0.200714111328125
+  },
+  "schematic": {
+    "format": "Sponge Schematic v2",
+    "minecraft_data_version": 3465,
+    "width": 256,
+    "height": 32,
+    "length": 256,
+    "palette_size": 42,
+    "non_air_blocks": 352310,
+    "compressed_bytes": 17252
+  },
+  "sources": [
+    {
+      "name": "tokyo-inspired synthetic sample",
+      "source": "synthetic_sample",
+      "weight": 0.6,
+      "attribution": "Project-generated synthetic fixture; not measured OSM data.",
+      "retrieved_at": null
+    },
+    {
+      "name": "kyoto-inspired synthetic sample",
+      "source": "synthetic_sample",
+      "weight": 0.4,
+      "attribution": "Project-generated synthetic fixture; not measured OSM data.",
+      "retrieved_at": null
+    }
+  ],
+  "planning_source": "rules"
+}

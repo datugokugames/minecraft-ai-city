@@ -1,0 +1,128 @@
+{
+  "metrics": {
+    "road_sinuosity": 1.4845287761610146,
+    "turn_degrees_per_km": 2659.942219953949,
+    "orientation_entropy": 0.8935606569674384,
+    "t_junction_share": 0.625,
+    "cross_junction_share": 0.1875,
+    "irregular_junction_share": 0.1875,
+    "dead_end_share": 0.12727272727272726,
+    "road_spacing_cv": 1.0281974214165808,
+    "block_area_cv": 1.2571196034446366,
+    "block_elongation": 2.272593097412847
+  },
+  "orthogonal_concentration": 0.005068413540641064,
+  "grid_monotony_detected": false,
+  "road_components": 1,
+  "degree_counts": {
+    "1": 7,
+    "2": 151,
+    "3": 32,
+    "4": 15,
+    "5": 1
+  },
+  "unclassified_road_endings": 0,
+  "unclassified_end_coordinates": [],
+  "enclosed_block_count": 21,
+  "block_area_quantiles": [
+    109.03826015523157,
+    399.56469452702083,
+    1674.6423940585207
+  ],
+  "direction_15deg_share": [
+    0.0912397882838218,
+    0.013919506778054558,
+    0.04503434303656659,
+    0.16611671440232254,
+    0.01930388044045393,
+    0.1453883055385145,
+    0.13405767855196962,
+    0.013941925338619147,
+    0.13428469472227353,
+    0.11778452832340103,
+    0.014637568755609178,
+    0.10429106582839366
+  ],
+  "frontage_access_fraction": 1.0,
+  "mean_access_length": 7.1059989592083355,
+  "building_area_cv": 0.3134083200698164,
+  "districts": {
+    "station": {
+      "building_count": 11,
+      "mean_floors": 3.5454545454545454,
+      "mean_footprint": 71.72727272727273,
+      "road_length_per_area": 0.021190036518773703,
+      "mean_road_width": 5.022845481893227,
+      "building_types": {
+        "apartment": 6,
+        "station": 1,
+        "shop": 3,
+        "mixed_use": 1
+      }
+    },
+    "old_town": {
+      "building_count": 9,
+      "mean_floors": 1.4444444444444444,
+      "mean_footprint": 60.111111111111086,
+      "road_length_per_area": 0.05558830839174633,
+      "mean_road_width": 3.339047058413593,
+      "building_types": {
+        "house": 5,
+        "shop": 3,
+        "mixed_use": 1
+      }
+    },
+    "suburban": {
+      "building_count": 14,
+      "mean_floors": 1.4285714285714286,
+      "mean_footprint": 59.428571428571395,
+      "road_length_per_area": 0.02700915983539761,
+      "mean_road_width": 4.761374767137447,
+      "building_types": {
+        "house": 13,
+        "apartment": 1
+      }
+    },
+    "planned": {
+      "building_count": 6,
+      "mean_floors": 1.6666666666666667,
+      "mean_footprint": 55.999999999999964,
+      "road_length_per_area": 0.036979682112356624,
+      "mean_road_width": 5.525670156401637,
+      "building_types": {
+        "apartment": 1,
+        "house": 4,
+        "school": 1
+      }
+    },
+    "industrial": {
+      "building_count": 4,
+      "mean_floors": 1.25,
+      "mean_footprint": 112.99999999999983,
+      "road_length_per_area": 0.013897673831428321,
+      "mean_road_width": 6.366808483127958,
+      "building_types": {
+        "factory": 3,
+        "house": 1
+      }
+    },
+    "riverside": {
+      "building_count": 8,
+      "mean_floors": 1.625,
+      "mean_footprint": 55.12500000000003,
+      "road_length_per_area": 0.03946092604255072,
+      "mean_road_width": 5.197960756846156,
+      "building_types": {
+        "apartment": 2,
+        "house": 6
+      }
+    }
+  },
+  "station_taller_than_suburbs": true,
+  "warnings": [],
+  "criteria": {
+    "grid": "orthogonal>0.8 AND cross_share>0.35 AND spacing_cv<0.4",
+    "block_diversity": "at least 3 closed faces and area CV>=0.25",
+    "endings": "degree-1 endpoints must match recorded cul-de-sac or regional gateway"
+  }
+}

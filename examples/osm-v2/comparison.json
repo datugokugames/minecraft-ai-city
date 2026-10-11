@@ -1,0 +1,160 @@
+{
+  "profiles": [
+    {
+      "name": "tokyo",
+      "source": "osm",
+      "attribution": "© OpenStreetMap contributors, ODbL 1.0 — https://www.openstreetmap.org/copyright"
+    },
+    {
+      "name": "kyoto",
+      "source": "osm",
+      "attribution": "© OpenStreetMap contributors, ODbL 1.0 — https://www.openstreetmap.org/copyright"
+    }
+  ],
+  "metrics": {
+    "area_km2": [
+      0.4817113205993736,
+      0.48576874128445763
+    ],
+    "road_density_km_km2": [
+      66.31906235514536,
+      30.151589001378678
+    ],
+    "intersection_count": [
+      722,
+      210
+    ],
+    "intersection_density_km2": [
+      1498.8229861437449,
+      432.3044736158264
+    ],
+    "building_count": [
+      1913,
+      2191
+    ],
+    "building_density_km2": [
+      3971.2581336467924,
+      4510.376674725122
+    ],
+    "building_coverage": [
+      0.36619698561021546,
+      0.5324510064880805
+    ],
+    "mean_building_area_m2": [
+      92.21183143638639,
+      118.05023058756619
+    ],
+    "median_block_area_m2": [
+      274.6802502383338,
+      369.5485012983537
+    ],
+    "mean_block_compactness": [
+      0.5566112383298495,
+      0.6205134913189564
+    ],
+    "orthogonal_road_share": [
+      0.7672249897046894,
+      0.9844836774480353
+    ],
+    "mean_height_m": [
+      9.294040773653947,
+      9.582838886353263
+    ],
+    "height_tag_coverage": [
+      0.05541035023523262,
+      0.06207211319032405
+    ],
+    "landuse_tag_coverage": [
+      0.022048342358328296,
+      0.005173926005523861
+    ],
+    "residential_share": [
+      0.0,
+      0.0
+    ],
+    "commercial_share": [
+      0.0,
+      0.0
+    ],
+    "park_share": [
+      1.0,
+      1.0
+    ],
+    "road_sinuosity": [
+      1.131710439480821,
+      1.0161423810058174
+    ],
+    "turn_degrees_per_km": [
+      276.05007163585475,
+      174.64298798835026
+    ],
+    "orientation_entropy": [
+      0.7076919715342257,
+      0.5054030708677775
+    ],
+    "t_junction_share": [
+      0.43351800554016623,
+      0.49523809523809526
+    ],
+    "cross_junction_share": [
+      0.47368421052631576,
+      0.49047619047619045
+    ],
+    "irregular_junction_share": [
+      0.09279778393351801,
+      0.014285714285714285
+    ],
+    "dead_end_share": [
+      0.06838709677419355,
+      0.09090909090909091
+    ],
+    "road_spacing_cv": [
+      1.0863719569512467,
+      1.0757719873799736
+    ],
+    "block_area_cv": [
+      1.377806049417051,
+      1.7283553231513207
+    ],
+    "block_elongation": [
+      4.14609711463484,
+      3.8071894899185605
+    ],
+    "arterial_share": [
+      0.20778712188960574,
+      0.15940685472437302
+    ],
+    "alley_share": [
+      0.5626770892453353,
+      0.4002891968830944
+    ],
+    "mean_road_width_m": [
+      3.9789487366947496,
+      4.120852232801693
+    ],
+    "width_tag_coverage": [
+      0.0,
+      0.0
+    ],
+    "river_density_km_km2": [
+      0.6766099946573098,
+      0.0
+    ],
+    "railway_density_km_km2": [
+      2.543803817666895,
+      3.0060407731632655
+    ],
+    "barrier_crossings_km2": [
+      97.56880934730749,
+      104.98822930670069
+    ],
+    "terrain_relief_m": [
+      2.9,
+      0.0
+    ],
+    "elevation_sample_count": [
+      33,
+      0
+    ]
+  }
+}

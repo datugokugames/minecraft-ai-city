@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "minecraft-ai-city"
+version = "0.2.1"
+description = "Metric-driven original Japanese cities for Minecraft Java Edition"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+  "numpy>=1.26,<3", "shapely>=2.1,<3", "networkx>=3.2,<4",
+  "pyproj>=3.6,<4", "Pillow>=10.2,<13", "nbtlib>=2.0.4,<3",
+  "pydantic>=2.7,<3", "requests>=2.31,<3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
+
+[project.scripts]
+citygen = "minecraft_city.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100

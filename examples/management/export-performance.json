@@ -1,0 +1,7 @@
+{
+  "operation": "project export, validation + building + PNG + schematic",
+  "platform": "linux",
+  "elapsed_seconds": 1.349,
+  "child_peak_rss_kib": 112008,
+  "note": "Linux cloud observation only; not a Windows/Paper benchmark"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "name": "Aobamachi 2026",
+  "description": "A compact original Japanese town synthesized from aggregate urban metrics.",
+  "style": "mixed",
+  "road_spacing": 32,
+  "road_width": 7,
+  "irregularity": 0.10660053587755508,
+  "residential_ratio": 0.64,
+  "commercial_ratio": 0.246,
+  "park_ratio": 0.114,
+  "building_coverage": 0.43269859396136146,
+  "max_floors": 5,
+  "railway": true
+}

@@ -1,0 +1,1627 @@
+{
+  "schema_version": 1,
+  "size": 256,
+  "seed": 42,
+  "plan": {
+    "schema_version": 1,
+    "name": "Aobamachi 42",
+    "description": "A compact original Japanese town synthesized from aggregate urban metrics.",
+    "style": "mixed",
+    "road_spacing": 50,
+    "road_width": 7,
+    "irregularity": 0.06116814692820413,
+    "residential_ratio": 0.6,
+    "commercial_ratio": 0.3,
+    "park_ratio": 0.1,
+    "building_coverage": 0.18,
+    "max_floors": 5,
+    "railway": true
+  },
+  "planning_source": "rules",
+  "sources": [
+    {
+      "name": "tokyo-inspired synthetic sample",
+      "source": "synthetic_sample",
+      "weight": 0.6,
+      "attribution": "Project-generated synthetic fixture; not measured OSM data.",
+      "retrieved_at": null
+    },
+    {
+      "name": "kyoto-inspired synthetic sample",
+      "source": "synthetic_sample",
+      "weight": 0.4,
+      "attribution": "Project-generated synthetic fixture; not measured OSM data.",
+      "retrieved_at": null
+    }
+  ],
+  "blended_metrics": {
+    "area_km2": 0.36,
+    "road_density_km_km2": 27.333333333333336,
+    "intersection_count": 64,
+    "intersection_density_km2": 178.33333333333331,
+    "building_count": 328,
+    "building_density_km2": 912.2222222222222,
+    "building_coverage": 0.14207944444444442,
+    "mean_building_area_m2": 155.74068113772455,
+    "median_block_area_m2": 7375.0,
+    "mean_block_compactness": 0.7853981633974484,
+    "orthogonal_road_share": 1.0,
+    "mean_height_m": 11.11931137724551,
+    "height_tag_coverage": 1.0,
+    "landuse_tag_coverage": 1.0,
+    "residential_share": 0.6,
+    "commercial_share": 0.3,
+    "park_share": 0.1
+  },
+  "roads": [
+    [
+      [
+        18.0,
+        18.0
+      ],
+      [
+        74.28,
+        18.0
+      ]
+    ],
+    [
+      [
+        18.0,
+        18.0
+      ],
+      [
+        18.0,
+        60.6
+      ]
+    ],
+    [
+      [
+        74.28,
+        18.0
+      ],
+      [
+        124.08,
+        18.0
+      ]
+    ],
+    [
+      [
+        74.28,
+        18.0
+      ],
+      [
+        75.05,
+        60.44
+      ]
+    ],
+    [
+      [
+        124.08,
+        18.0
+      ],
+      [
+        182.69,
+        18.0
+      ]
+    ],
+    [
+      [
+        124.08,
+        18.0
+      ],
+      [
+        124.07,
+        59.55
+      ]
+    ],
+    [
+      [
+        182.69,
+        18.0
+      ],
+      [
+        238.0,
+        18.0
+      ]
+    ],
+    [
+      [
+        182.69,
+        18.0
+      ],
+      [
+        182.97,
+        59.3
+      ]
+    ],
+    [
+      [
+        238.0,
+        18.0
+      ],
+      [
+        238.0,
+        60.45
+      ]
+    ],
+    [
+      [
+        18.0,
+        60.6
+      ],
+      [
+        75.05,
+        60.44
+      ]
+    ],
+    [
+      [
+        18.0,
+        60.6
+      ],
+      [
+        18.0,
+        122.64
+      ]
+    ],
+    [
+      [
+        75.05,
+        60.44
+      ],
+      [
+        124.07,
+        59.55
+      ]
+    ],
+    [
+      [
+        75.05,
+        60.44
+      ],
+      [
+        75.22,
+        122.22
+      ]
+    ],
+    [
+      [
+        124.07,
+        59.55
+      ],
+      [
+        182.97,
+        59.3
+      ]
+    ],
+    [
+      [
+        124.07,
+        59.55
+      ],
+      [
+        124.86,
+        123.03
+      ]
+    ],
+    [
+      [
+        182.97,
+        59.3
+      ],
+      [
+        238.0,
+        60.45
+      ]
+    ],
+    [
+      [
+        182.97,
+        59.3
+      ],
+      [
+        183.3,
+        121.98
+      ]
+    ],
+    [
+      [
+        238.0,
+        60.45
+      ],
+      [
+        238.0,
+        122.39
+      ]
+    ],
+    [
+      [
+        18.0,
+        122.64
+      ],
+      [
+        75.22,
+        122.22
+      ]
+    ],
+    [
+      [
+        18.0,
+        122.64
+      ],
+      [
+        18.0,
+        179.25
+      ]
+    ],
+    [
+      [
+        75.22,
+        122.22
+      ],
+      [
+        124.86,
+        123.03
+      ]
+    ],
+    [
+      [
+        75.22,
+        122.22
+      ],
+      [
+        74.32,
+        180.2
+      ]
+    ],
+    [
+      [
+        124.86,
+        123.03
+      ],
+      [
+        183.3,
+        121.98
+      ]
+    ],
+    [
+      [
+        124.86,
+        123.03
+      ],
+      [
+        124.52,
+        180.63
+      ]
+    ],
+    [
+      [
+        183.3,
+        121.98
+      ],
+      [
+        238.0,
+        122.39
+      ]
+    ],
+    [
+      [
+        183.3,
+        121.98
+      ],
+      [
+        182.62,
+        179.74
+      ]
+    ],
+    [
+      [
+        238.0,
+        122.39
+      ],
+      [
+        238.0,
+        179.88
+      ]
+    ],
+    [
+      [
+        18.0,
+        179.25
+      ],
+      [
+        74.32,
+        180.2
+      ]
+    ],
+    [
+      [
+        18.0,
+        179.25
+      ],
+      [
+        18.0,
+        238.0
+      ]
+    ],
+    [
+      [
+        74.32,
+        180.2
+      ],
+      [
+        124.52,
+        180.63
+      ]
+    ],
+    [
+      [
+        74.32,
+        180.2
+      ],
+      [
+        74.37,
+        238.0
+      ]
+    ],
+    [
+      [
+        124.52,
+        180.63
+      ],
+      [
+        182.62,
+        179.74
+      ]
+    ],
+    [
+      [
+        124.52,
+        180.63
+      ],
+      [
+        123.6,
+        238.0
+      ]
+    ],
+    [
+      [
+        182.62,
+        179.74
+      ],
+      [
+        238.0,
+        179.88
+      ]
+    ],
+    [
+      [
+        182.62,
+        179.74
+      ],
+      [
+        182.85,
+        238.0
+      ]
+    ],
+    [
+      [
+        238.0,
+        179.88
+      ],
+      [
+        238.0,
+        238.0
+      ]
+    ],
+    [
+      [
+        18.0,
+        238.0
+      ],
+      [
+        74.37,
+        238.0
+      ]
+    ],
+    [
+      [
+        74.37,
+        238.0
+      ],
+      [
+        123.6,
+        238.0
+      ]
+    ],
+    [
+      [
+        123.6,
+        238.0
+      ],
+      [
+        182.85,
+        238.0
+      ]
+    ],
+    [
+      [
+        182.85,
+        238.0
+      ],
+      [
+        238.0,
+        238.0
+      ]
+    ]
+  ],
+  "districts": [
+    {
+      "id": 0,
+      "kind": "residential",
+      "polygon": [
+        [
+          18.0,
+          18.0
+        ],
+        [
+          74.28,
+          18.0
+        ],
+        [
+          75.05,
+          60.44
+        ],
+        [
+          18.0,
+          60.6
+        ],
+        [
+          18.0,
+          18.0
+        ]
+      ]
+    },
+    {
+      "id": 1,
+      "kind": "residential",
+      "polygon": [
+        [
+          74.28,
+          18.0
+        ],
+        [
+          124.08,
+          18.0
+        ],
+        [
+          124.07,
+          59.55
+        ],
+        [
+          75.05,
+          60.44
+        ],
+        [
+          74.28,
+          18.0
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "kind": "residential",
+      "polygon": [
+        [
+          124.08,
+          18.0
+        ],
+        [
+          182.69,
+          18.0
+        ],
+        [
+          182.97,
+          59.3
+        ],
+        [
+          124.07,
+          59.55
+        ],
+        [
+          124.08,
+          18.0
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "kind": "residential",
+      "polygon": [
+        [
+          182.69,
+          18.0
+        ],
+        [
+          238.0,
+          18.0
+        ],
+        [
+          238.0,
+          60.45
+        ],
+        [
+          182.97,
+          59.3
+        ],
+        [
+          182.69,
+          18.0
+        ]
+      ]
+    },
+    {
+      "id": 4,
+      "kind": "residential",
+      "polygon": [
+        [
+          18.0,
+          60.6
+        ],
+        [
+          75.05,
+          60.44
+        ],
+        [
+          75.22,
+          122.22
+        ],
+        [
+          18.0,
+          122.64
+        ],
+        [
+          18.0,
+          60.6
+        ]
+      ]
+    },
+    {
+      "id": 5,
+      "kind": "commercial",
+      "polygon": [
+        [
+          75.05,
+          60.44
+        ],
+        [
+          124.07,
+          59.55
+        ],
+        [
+          124.86,
+          123.03
+        ],
+        [
+          75.22,
+          122.22
+        ],
+        [
+          75.05,
+          60.44
+        ]
+      ]
+    },
+    {
+      "id": 6,
+      "kind": "commercial",
+      "polygon": [
+        [
+          124.07,
+          59.55
+        ],
+        [
+          182.97,
+          59.3
+        ],
+        [
+          183.3,
+          121.98
+        ],
+        [
+          124.86,
+          123.03
+        ],
+        [
+          124.07,
+          59.55
+        ]
+      ]
+    },
+    {
+      "id": 7,
+      "kind": "park",
+      "polygon": [
+        [
+          182.97,
+          59.3
+        ],
+        [
+          238.0,
+          60.45
+        ],
+        [
+          238.0,
+          122.39
+        ],
+        [
+          183.3,
+          121.98
+        ],
+        [
+          182.97,
+          59.3
+        ]
+      ]
+    },
+    {
+      "id": 8,
+      "kind": "commercial",
+      "polygon": [
+        [
+          18.0,
+          122.64
+        ],
+        [
+          75.22,
+          122.22
+        ],
+        [
+          74.32,
+          180.2
+        ],
+        [
+          18.0,
+          179.25
+        ],
+        [
+          18.0,
+          122.64
+        ]
+      ]
+    },
+    {
+      "id": 9,
+      "kind": "commercial",
+      "polygon": [
+        [
+          75.22,
+          122.22
+        ],
+        [
+          124.86,
+          123.03
+        ],
+        [
+          124.52,
+          180.63
+        ],
+        [
+          74.32,
+          180.2
+        ],
+        [
+          75.22,
+          122.22
+        ]
+      ]
+    },
+    {
+      "id": 10,
+      "kind": "commercial",
+      "polygon": [
+        [
+          124.86,
+          123.03
+        ],
+        [
+          183.3,
+          121.98
+        ],
+        [
+          182.62,
+          179.74
+        ],
+        [
+          124.52,
+          180.63
+        ],
+        [
+          124.86,
+          123.03
+        ]
+      ]
+    },
+    {
+      "id": 11,
+      "kind": "residential",
+      "polygon": [
+        [
+          183.3,
+          121.98
+        ],
+        [
+          238.0,
+          122.39
+        ],
+        [
+          238.0,
+          179.88
+        ],
+        [
+          182.62,
+          179.74
+        ],
+        [
+          183.3,
+          121.98
+        ]
+      ]
+    },
+    {
+      "id": 12,
+      "kind": "residential",
+      "polygon": [
+        [
+          18.0,
+          179.25
+        ],
+        [
+          74.32,
+          180.2
+        ],
+        [
+          74.37,
+          238.0
+        ],
+        [
+          18.0,
+          238.0
+        ],
+        [
+          18.0,
+          179.25
+        ]
+      ]
+    },
+    {
+      "id": 13,
+      "kind": "residential",
+      "polygon": [
+        [
+          74.32,
+          180.2
+        ],
+        [
+          124.52,
+          180.63
+        ],
+        [
+          123.6,
+          238.0
+        ],
+        [
+          74.37,
+          238.0
+        ],
+        [
+          74.32,
+          180.2
+        ]
+      ]
+    },
+    {
+      "id": 14,
+      "kind": "residential",
+      "polygon": [
+        [
+          124.52,
+          180.63
+        ],
+        [
+          182.62,
+          179.74
+        ],
+        [
+          182.85,
+          238.0
+        ],
+        [
+          123.6,
+          238.0
+        ],
+        [
+          124.52,
+          180.63
+        ]
+      ]
+    },
+    {
+      "id": 15,
+      "kind": "park",
+      "polygon": [
+        [
+          182.62,
+          179.74
+        ],
+        [
+          238.0,
+          179.88
+        ],
+        [
+          238.0,
+          238.0
+        ],
+        [
+          182.85,
+          238.0
+        ],
+        [
+          182.62,
+          179.74
+        ]
+      ]
+    }
+  ],
+  "buildings": [
+    {
+      "id": 0,
+      "district_id": 0,
+      "kind": "house",
+      "x": 27,
+      "z": 27,
+      "width": 18,
+      "depth": 25,
+      "floors": 2,
+      "facing": "south",
+      "palette": "traditional"
+    },
+    {
+      "id": 1,
+      "district_id": 0,
+      "kind": "apartment",
+      "x": 48,
+      "z": 27,
+      "width": 18,
+      "depth": 25,
+      "floors": 2,
+      "facing": "south",
+      "palette": "traditional"
+    },
+    {
+      "id": 2,
+      "district_id": 1,
+      "kind": "house",
+      "x": 83,
+      "z": 27,
+      "width": 15,
+      "depth": 24,
+      "floors": 1,
+      "facing": "west",
+      "palette": "modern"
+    },
+    {
+      "id": 3,
+      "district_id": 1,
+      "kind": "house",
+      "x": 101,
+      "z": 27,
+      "width": 14,
+      "depth": 24,
+      "floors": 2,
+      "facing": "south",
+      "palette": "modern"
+    },
+    {
+      "id": 4,
+      "district_id": 2,
+      "kind": "apartment",
+      "x": 133,
+      "z": 27,
+      "width": 12,
+      "depth": 24,
+      "floors": 3,
+      "facing": "south",
+      "palette": "warm"
+    },
+    {
+      "id": 5,
+      "district_id": 2,
+      "kind": "house",
+      "x": 162,
+      "z": 27,
+      "width": 12,
+      "depth": 24,
+      "floors": 2,
+      "facing": "south",
+      "palette": "modern"
+    },
+    {
+      "id": 6,
+      "district_id": 3,
+      "kind": "house",
+      "x": 192,
+      "z": 27,
+      "width": 17,
+      "depth": 24,
+      "floors": 2,
+      "facing": "south",
+      "palette": "traditional"
+    },
+    {
+      "id": 7,
+      "district_id": 3,
+      "kind": "apartment",
+      "x": 212,
+      "z": 27,
+      "width": 17,
+      "depth": 24,
+      "floors": 4,
+      "facing": "north",
+      "palette": "modern"
+    },
+    {
+      "id": 8,
+      "district_id": 4,
+      "kind": "school",
+      "x": 27,
+      "z": 69,
+      "width": 18,
+      "depth": 13,
+      "floors": 2,
+      "facing": "north",
+      "palette": "warm"
+    },
+    {
+      "id": 9,
+      "district_id": 4,
+      "kind": "house",
+      "x": 48,
+      "z": 69,
+      "width": 18,
+      "depth": 13,
+      "floors": 1,
+      "facing": "north",
+      "palette": "warm"
+    },
+    {
+      "id": 10,
+      "district_id": 4,
+      "kind": "apartment",
+      "x": 27,
+      "z": 85,
+      "width": 18,
+      "depth": 13,
+      "floors": 2,
+      "facing": "west",
+      "palette": "traditional"
+    },
+    {
+      "id": 11,
+      "district_id": 4,
+      "kind": "house",
+      "x": 48,
+      "z": 85,
+      "width": 18,
+      "depth": 13,
+      "floors": 1,
+      "facing": "east",
+      "palette": "warm"
+    },
+    {
+      "id": 12,
+      "district_id": 4,
+      "kind": "house",
+      "x": 27,
+      "z": 101,
+      "width": 18,
+      "depth": 13,
+      "floors": 2,
+      "facing": "south",
+      "palette": "traditional"
+    },
+    {
+      "id": 13,
+      "district_id": 4,
+      "kind": "apartment",
+      "x": 48,
+      "z": 101,
+      "width": 18,
+      "depth": 13,
+      "floors": 2,
+      "facing": "south",
+      "palette": "warm"
+    },
+    {
+      "id": 14,
+      "district_id": 5,
+      "kind": "shop",
+      "x": 84,
+      "z": 69,
+      "width": 14,
+      "depth": 13,
+      "floors": 1,
+      "facing": "north",
+      "palette": "warm"
+    },
+    {
+      "id": 15,
+      "district_id": 5,
+      "kind": "mixed_use",
+      "x": 101,
+      "z": 69,
+      "width": 15,
+      "depth": 13,
+      "floors": 3,
+      "facing": "east",
+      "palette": "warm"
+    },
+    {
+      "id": 16,
+      "district_id": 5,
+      "kind": "mixed_use",
+      "x": 84,
+      "z": 85,
+      "width": 14,
+      "depth": 13,
+      "floors": 3,
+      "facing": "west",
+      "palette": "modern"
+    },
+    {
+      "id": 17,
+      "district_id": 5,
+      "kind": "shop",
+      "x": 101,
+      "z": 85,
+      "width": 15,
+      "depth": 13,
+      "floors": 2,
+      "facing": "east",
+      "palette": "traditional"
+    },
+    {
+      "id": 18,
+      "district_id": 5,
+      "kind": "mixed_use",
+      "x": 101,
+      "z": 101,
+      "width": 15,
+      "depth": 13,
+      "floors": 4,
+      "facing": "east",
+      "palette": "modern"
+    },
+    {
+      "id": 19,
+      "district_id": 6,
+      "kind": "mixed_use",
+      "x": 133,
+      "z": 68,
+      "width": 12,
+      "depth": 14,
+      "floors": 3,
+      "facing": "north",
+      "palette": "modern"
+    },
+    {
+      "id": 20,
+      "district_id": 6,
+      "kind": "shop",
+      "x": 148,
+      "z": 68,
+      "width": 12,
+      "depth": 14,
+      "floors": 2,
+      "facing": "north",
+      "palette": "modern"
+    },
+    {
+      "id": 21,
+      "district_id": 6,
+      "kind": "mixed_use",
+      "x": 163,
+      "z": 68,
+      "width": 11,
+      "depth": 14,
+      "floors": 2,
+      "facing": "north",
+      "palette": "warm"
+    },
+    {
+      "id": 22,
+      "district_id": 6,
+      "kind": "mixed_use",
+      "x": 133,
+      "z": 85,
+      "width": 12,
+      "depth": 13,
+      "floors": 4,
+      "facing": "west",
+      "palette": "warm"
+    },
+    {
+      "id": 23,
+      "district_id": 6,
+      "kind": "shop",
+      "x": 148,
+      "z": 85,
+      "width": 12,
+      "depth": 13,
+      "floors": 1,
+      "facing": "east",
+      "palette": "warm"
+    },
+    {
+      "id": 24,
+      "district_id": 6,
+      "kind": "mixed_use",
+      "x": 163,
+      "z": 85,
+      "width": 11,
+      "depth": 13,
+      "floors": 2,
+      "facing": "east",
+      "palette": "modern"
+    },
+    {
+      "id": 25,
+      "district_id": 6,
+      "kind": "mixed_use",
+      "x": 133,
+      "z": 101,
+      "width": 12,
+      "depth": 13,
+      "floors": 3,
+      "facing": "west",
+      "palette": "traditional"
+    },
+    {
+      "id": 26,
+      "district_id": 6,
+      "kind": "shop",
+      "x": 148,
+      "z": 101,
+      "width": 12,
+      "depth": 13,
+      "floors": 1,
+      "facing": "south",
+      "palette": "modern"
+    },
+    {
+      "id": 27,
+      "district_id": 6,
+      "kind": "mixed_use",
+      "x": 163,
+      "z": 101,
+      "width": 11,
+      "depth": 13,
+      "floors": 3,
+      "facing": "south",
+      "palette": "modern"
+    },
+    {
+      "id": 28,
+      "district_id": 8,
+      "kind": "mixed_use",
+      "x": 27,
+      "z": 131,
+      "width": 18,
+      "depth": 19,
+      "floors": 2,
+      "facing": "north",
+      "palette": "modern"
+    },
+    {
+      "id": 29,
+      "district_id": 8,
+      "kind": "shop",
+      "x": 27,
+      "z": 153,
+      "width": 18,
+      "depth": 18,
+      "floors": 2,
+      "facing": "south",
+      "palette": "modern"
+    },
+    {
+      "id": 30,
+      "district_id": 9,
+      "kind": "mixed_use",
+      "x": 83,
+      "z": 131,
+      "width": 15,
+      "depth": 12,
+      "floors": 3,
+      "facing": "west",
+      "palette": "traditional"
+    },
+    {
+      "id": 31,
+      "district_id": 9,
+      "kind": "mixed_use",
+      "x": 101,
+      "z": 131,
+      "width": 15,
+      "depth": 12,
+      "floors": 5,
+      "facing": "north",
+      "palette": "warm"
+    },
+    {
+      "id": 32,
+      "district_id": 9,
+      "kind": "shop",
+      "x": 83,
+      "z": 146,
+      "width": 15,
+      "depth": 11,
+      "floors": 1,
+      "facing": "west",
+      "palette": "traditional"
+    },
+    {
+      "id": 33,
+      "district_id": 9,
+      "kind": "mixed_use",
+      "x": 83,
+      "z": 160,
+      "width": 15,
+      "depth": 12,
+      "floors": 2,
+      "facing": "south",
+      "palette": "warm"
+    },
+    {
+      "id": 34,
+      "district_id": 9,
+      "kind": "mixed_use",
+      "x": 101,
+      "z": 160,
+      "width": 15,
+      "depth": 12,
+      "floors": 2,
+      "facing": "south",
+      "palette": "warm"
+    },
+    {
+      "id": 35,
+      "district_id": 10,
+      "kind": "shop",
+      "x": 134,
+      "z": 131,
+      "width": 11,
+      "depth": 12,
+      "floors": 2,
+      "facing": "north",
+      "palette": "modern"
+    },
+    {
+      "id": 36,
+      "district_id": 10,
+      "kind": "mixed_use",
+      "x": 134,
+      "z": 146,
+      "width": 11,
+      "depth": 11,
+      "floors": 2,
+      "facing": "west",
+      "palette": "modern"
+    },
+    {
+      "id": 37,
+      "district_id": 10,
+      "kind": "mixed_use",
+      "x": 148,
+      "z": 146,
+      "width": 12,
+      "depth": 11,
+      "floors": 3,
+      "facing": "east",
+      "palette": "traditional"
+    },
+    {
+      "id": 38,
+      "district_id": 10,
+      "kind": "shop",
+      "x": 163,
+      "z": 146,
+      "width": 11,
+      "depth": 11,
+      "floors": 2,
+      "facing": "east",
+      "palette": "modern"
+    },
+    {
+      "id": 39,
+      "district_id": 10,
+      "kind": "mixed_use",
+      "x": 134,
+      "z": 160,
+      "width": 11,
+      "depth": 12,
+      "floors": 2,
+      "facing": "south",
+      "palette": "warm"
+    },
+    {
+      "id": 40,
+      "district_id": 10,
+      "kind": "mixed_use",
+      "x": 148,
+      "z": 160,
+      "width": 12,
+      "depth": 12,
+      "floors": 2,
+      "facing": "south",
+      "palette": "traditional"
+    },
+    {
+      "id": 41,
+      "district_id": 10,
+      "kind": "shop",
+      "x": 163,
+      "z": 160,
+      "width": 11,
+      "depth": 12,
+      "floors": 1,
+      "facing": "south",
+      "palette": "warm"
+    },
+    {
+      "id": 42,
+      "district_id": 11,
+      "kind": "house",
+      "x": 192,
+      "z": 131,
+      "width": 17,
+      "depth": 18,
+      "floors": 1,
+      "facing": "north",
+      "palette": "traditional"
+    },
+    {
+      "id": 43,
+      "district_id": 11,
+      "kind": "house",
+      "x": 212,
+      "z": 131,
+      "width": 17,
+      "depth": 18,
+      "floors": 2,
+      "facing": "north",
+      "palette": "traditional"
+    },
+    {
+      "id": 44,
+      "district_id": 11,
+      "kind": "apartment",
+      "x": 192,
+      "z": 152,
+      "width": 17,
+      "depth": 19,
+      "floors": 5,
+      "facing": "south",
+      "palette": "modern"
+    },
+    {
+      "id": 45,
+      "district_id": 11,
+      "kind": "house",
+      "x": 212,
+      "z": 152,
+      "width": 17,
+      "depth": 19,
+      "floors": 1,
+      "facing": "south",
+      "palette": "traditional"
+    },
+    {
+      "id": 46,
+      "district_id": 12,
+      "kind": "house",
+      "x": 27,
+      "z": 188,
+      "width": 18,
+      "depth": 12,
+      "floors": 1,
+      "facing": "north",
+      "palette": "traditional"
+    },
+    {
+      "id": 47,
+      "district_id": 12,
+      "kind": "apartment",
+      "x": 48,
+      "z": 188,
+      "width": 17,
+      "depth": 12,
+      "floors": 5,
+      "facing": "north",
+      "palette": "modern"
+    },
+    {
+      "id": 48,
+      "district_id": 12,
+      "kind": "house",
+      "x": 27,
+      "z": 203,
+      "width": 18,
+      "depth": 11,
+      "floors": 2,
+      "facing": "west",
+      "palette": "traditional"
+    },
+    {
+      "id": 49,
+      "district_id": 12,
+      "kind": "house",
+      "x": 48,
+      "z": 203,
+      "width": 17,
+      "depth": 11,
+      "floors": 1,
+      "facing": "east",
+      "palette": "modern"
+    },
+    {
+      "id": 50,
+      "district_id": 12,
+      "kind": "apartment",
+      "x": 27,
+      "z": 217,
+      "width": 18,
+      "depth": 12,
+      "floors": 5,
+      "facing": "south",
+      "palette": "modern"
+    },
+    {
+      "id": 51,
+      "district_id": 12,
+      "kind": "house",
+      "x": 48,
+      "z": 217,
+      "width": 17,
+      "depth": 12,
+      "floors": 1,
+      "facing": "south",
+      "palette": "warm"
+    },
+    {
+      "id": 52,
+      "district_id": 13,
+      "kind": "house",
+      "x": 83,
+      "z": 189,
+      "width": 15,
+      "depth": 19,
+      "floors": 1,
+      "facing": "north",
+      "palette": "modern"
+    },
+    {
+      "id": 53,
+      "district_id": 13,
+      "kind": "apartment",
+      "x": 101,
+      "z": 189,
+      "width": 14,
+      "depth": 19,
+      "floors": 4,
+      "facing": "north",
+      "palette": "traditional"
+    },
+    {
+      "id": 54,
+      "district_id": 14,
+      "kind": "house",
+      "x": 133,
+      "z": 189,
+      "width": 11,
+      "depth": 11,
+      "floors": 1,
+      "facing": "north",
+      "palette": "modern"
+    },
+    {
+      "id": 55,
+      "district_id": 14,
+      "kind": "house",
+      "x": 147,
+      "z": 189,
+      "width": 12,
+      "depth": 11,
+      "floors": 1,
+      "facing": "north",
+      "palette": "traditional"
+    },
+    {
+      "id": 56,
+      "district_id": 14,
+      "kind": "apartment",
+      "x": 162,
+      "z": 189,
+      "width": 12,
+      "depth": 11,
+      "floors": 2,
+      "facing": "east",
+      "palette": "traditional"
+    },
+    {
+      "id": 57,
+      "district_id": 14,
+      "kind": "house",
+      "x": 133,
+      "z": 203,
+      "width": 11,
+      "depth": 12,
+      "floors": 1,
+      "facing": "west",
+      "palette": "warm"
+    },
+    {
+      "id": 58,
+      "district_id": 14,
+      "kind": "house",
+      "x": 162,
+      "z": 203,
+      "width": 12,
+      "depth": 12,
+      "floors": 2,
+      "facing": "east",
+      "palette": "modern"
+    },
+    {
+      "id": 59,
+      "district_id": 14,
+      "kind": "apartment",
+      "x": 133,
+      "z": 218,
+      "width": 11,
+      "depth": 11,
+      "floors": 5,
+      "facing": "south",
+      "palette": "traditional"
+    },
+    {
+      "id": 60,
+      "district_id": 14,
+      "kind": "house",
+      "x": 147,
+      "z": 218,
+      "width": 12,
+      "depth": 11,
+      "floors": 1,
+      "facing": "south",
+      "palette": "modern"
+    }
+  ],
+  "railway_z": 7,
+  "validation": {
+    "valid": true,
+    "roads_connected": true,
+    "road_components": 1,
+    "building_overlaps": 0,
+    "building_count": 61,
+    "district_count": 16,
+    "building_types": [
+      "apartment",
+      "house",
+      "mixed_use",
+      "school",
+      "shop"
+    ],
+    "achieved_building_coverage": 0.200714111328125
+  }
+}

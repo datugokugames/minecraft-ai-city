@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "name": "Aobamachi 42",
+  "description": "A compact original Japanese town synthesized from aggregate urban metrics.",
+  "style": "mixed",
+  "road_spacing": 50,
+  "road_width": 7,
+  "irregularity": 0.06116814692820413,
+  "residential_ratio": 0.6,
+  "commercial_ratio": 0.3,
+  "park_ratio": 0.1,
+  "building_coverage": 0.18,
+  "max_floors": 5,
+  "railway": true
+}

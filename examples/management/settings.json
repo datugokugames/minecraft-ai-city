@@ -1,0 +1,30 @@
+{
+  "city_name": "青葉市",
+  "wards": [
+    {"id": "ward-1", "name": "中央区"},
+    {"id": "north", "name": "北区"}
+  ],
+  "districts": [
+    {
+      "id": "district-0",
+      "name": "青葉駅前",
+      "ward_id": "ward-1",
+      "preferred_use": "commercial",
+      "preferred_style": "modern"
+    },
+    {
+      "id": "district-2",
+      "name": "北の住宅地区",
+      "ward_id": "north",
+      "preferred_use": "residential",
+      "preferred_style": "mixed"
+    },
+    {
+      "id": "north-future",
+      "name": "北区拡張予定地",
+      "ward_id": "north",
+      "preferred_use": "residential",
+      "preferred_style": "traditional"
+    }
+  ]
+}

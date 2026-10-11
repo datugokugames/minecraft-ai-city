@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "name": "kyoto-inspired synthetic sample",
+  "source": "synthetic_sample",
+  "attribution": "Project-generated synthetic fixture; not measured OSM data.",
+  "bounds": null,
+  "retrieved_at": null,
+  "notes": [
+    "Offline demonstration only; regional names describe inspiration, not measured facts."
+  ],
+  "metrics": {
+    "area_km2": 0.36,
+    "road_density_km_km2": 23.333333333333336,
+    "intersection_count": 45,
+    "intersection_density_km2": 125.0,
+    "building_count": 320,
+    "building_density_km2": 888.8888888888889,
+    "building_coverage": 0.1379027777777778,
+    "mean_building_area_m2": 155.140625,
+    "median_block_area_m2": 10000.0,
+    "mean_block_compactness": 0.7853981633974484,
+    "orthogonal_road_share": 1.0,
+    "mean_height_m": 8.4375,
+    "height_tag_coverage": 1.0,
+    "landuse_tag_coverage": 1.0,
+    "residential_share": 0.6,
+    "commercial_share": 0.3,
+    "park_share": 0.1
+  }
+}
