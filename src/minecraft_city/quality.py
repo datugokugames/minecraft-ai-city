@@ -79,7 +79,7 @@ def evaluate_city(city):
     station_taller = station.get("mean_floors", 0) > suburban.get("mean_floors", 0)
     if city.layout == "organic" and not station_taller:
         warnings.append("Station-area mean height does not exceed suburban mean height")
-    return {
+    result = {
         "metrics": stats,
         "orthogonal_concentration": orthogonality,
         "grid_monotony_detected": monotony,
@@ -106,6 +106,11 @@ def evaluate_city(city):
             "endings": "degree-1 endpoints must match recorded cul-de-sac or regional gateway",
         },
     }
+    if "exterior_quality" in city.quality:
+        from .urban_quality import measure_quality
+
+        result["exterior_quality"] = measure_quality(city)
+    return result
 
 
 def validate_organic(city):

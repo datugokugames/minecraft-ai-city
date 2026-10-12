@@ -200,6 +200,17 @@ public final class IntegrationHarness extends JavaPlugin implements Listener {
   }
 
   private void start() {
+    if (Files.exists(java.nio.file.Path.of("compat-city.schem"))
+        && !report.has("full_city_schematic_dimensions")) {
+      async(
+          () -> PatchLoader.schematicDimensions(java.nio.file.Path.of("compat-city.schem")),
+          dims -> {
+            report.add("full_city_schematic_dimensions", gson.toJsonTree(dims));
+            report.addProperty("full_city_worldedit_read", true);
+            start();
+          });
+      return;
+    }
     require(!city.isBusy(), "Plugin must be ready");
     require(Bukkit.getPluginCommand("city") != null, "city command registration");
     report.addProperty("paper", Bukkit.getVersion());

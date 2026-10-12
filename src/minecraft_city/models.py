@@ -8,7 +8,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_serializer, model_validator
 
-from .architecture_models import ArchitectureSpec
+from .architecture_models import ArchitectureSpec, FacadeRecipe
 
 
 class StrictModel(BaseModel):
@@ -116,6 +116,7 @@ class Building(StrictModel):
     variant: int = Field(default=0, ge=0, le=7)
     detail: Literal["convenience_store"] | None = None
     architecture: ArchitectureSpec | None = None
+    facade: FacadeRecipe | None = None
 
     @model_validator(mode="after")
     def consistent_architecture(self):
@@ -145,6 +146,8 @@ class Building(StrictModel):
             data.pop("detail", None)
         if self.architecture is None:
             data.pop("architecture", None)
+        if self.facade is None:
+            data.pop("facade", None)
         return data
 
 

@@ -123,3 +123,13 @@ class ArchitectureRequest(Contract):
         if self.brief is None:
             data.pop("brief", None)
         return data
+
+
+class FacadeRecipe(Contract):
+    roof: Literal["flat", "gable", "terrace"]
+    window_spacing: int = Field(ge=3, le=5)
+    window_width: int = Field(ge=1, le=2)
+    balconies: bool
+    canopy: bool
+    signage: bool
+    lighting: bool

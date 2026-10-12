@@ -28,6 +28,14 @@ def parser():
     from .architecture_cli import add_architecture_parser
 
     add_architecture_parser(sub)
+    improve = sub.add_parser(
+        "improve", help="Export an independently improved city with before/after quality metrics"
+    )
+    improve.add_argument("--project", type=Path, required=True)
+    improve.add_argument("--output", type=Path, required=True)
+    improve.add_argument("--seed", type=int, default=42)
+    improve.add_argument("--target-coverage", type=float, default=0.09)
+    improve.add_argument("--max-additions", type=int, default=24)
     web = sub.add_parser("web", help="Serve a private local/LAN city editing UI")
     web.add_argument("--project", type=Path, help="Initial project; omit when resuming")
     web.add_argument("--state-dir", type=Path, required=True)
@@ -239,6 +247,24 @@ def main(argv=None):
         run_architecture(args)
         return
     try:
+        if args.command == "improve":
+            from .project import load_project
+            from .urban_quality import export_improvement
+
+            print(
+                json.dumps(
+                    export_improvement(
+                        load_project(args.project),
+                        args.output,
+                        args.seed,
+                        args.target_coverage,
+                        args.max_additions,
+                    ),
+                    ensure_ascii=False,
+                    indent=2,
+                )
+            )
+            return
         run(args)
     except (ValueError, OSError) as exc:
         print(f"Error: {exc}", file=sys.stderr)

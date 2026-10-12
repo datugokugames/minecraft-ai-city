@@ -11,6 +11,21 @@ import java.util.*;
 import java.util.zip.GZIPInputStream;
 
 public final class PatchLoader {
+  /** Local compatibility probe used by the disposable integration harness, not an HTTP endpoint. */
+  public static int[] schematicDimensions(Path file) throws IOException {
+    if (Files.size(file) > 5 * 1024 * 1024) throw new IOException("Schematic exceeds file limit");
+    try (InputStream gzip = new GZIPInputStream(Files.newInputStream(file))) {
+      if (gzip.readNBytes(8 * 1024 * 1024 + 1).length > 8 * 1024 * 1024)
+        throw new IOException("Schematic expansion exceeds limit");
+    }
+    ClipboardFormat format = ClipboardFormats.findByFile(file.toFile());
+    if (format == null) throw new IOException("Unknown schematic format");
+    try (ClipboardReader reader = format.getReader(Files.newInputStream(file))) {
+      var size = reader.read().getDimensions();
+      return new int[] {size.x(), size.y(), size.z()};
+    }
+  }
+
   public static GameJob load(
       BackendClient client, UUID actor, JsonObject info, Path cache, int maxBlocks, int maxVolume)
       throws Exception {

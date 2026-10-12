@@ -3,6 +3,7 @@
 import numpy as np
 from PIL import Image, ImageDraw
 
+from . import architecture_parts as parts
 from .architecture_models import ArchitectureSpec
 from .schematic import BlockVolume
 
@@ -91,10 +92,7 @@ def render_architecture(spec, max_blocks=MAX_SOLID_BLOCKS):
     front = min(m.z for m in spec.masses)
     ex = spec.entrance_x
     # Door pair, sheltered path and generous hollow entrance. No furniture or block entities.
-    for half, y in (("lower", 2), ("upper", 3)):
-        v.put(
-            ex, y, front, f"oak_door[facing=north,half={half},hinge=left,open=false,powered=false]"
-        )
+    parts.door(v, ex, 2, front)
     v.fill(ex, 0, 0, ex + 1, 1, front, "smooth_stone")
     v.fill(min(ex, w // 2), 0, 0, max(ex, w // 2) + 1, 1, 1, "smooth_stone")
     v.put(ex, 1, front - 1, "oak_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]")

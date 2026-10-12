@@ -159,6 +159,7 @@ def run(
     instruction="中央区の空き地にコンビニを作って",
     at=None,
     max_blocks=5000,
+    compat_schematic=None,
 ):
     if not accept_eula:
         raise ValueError(
@@ -176,6 +177,10 @@ def run(
     server_files(root, cache)
     shutil.copy2(plugin, root / "plugins/MinecraftAICity.jar")
     shutil.copy2(harness, root / "plugins/CityIntegrationHarness.jar")
+    if compat_schematic is not None:
+        if compat_schematic.suffix != ".schem" or not compat_schematic.is_file():
+            raise ValueError("Expected a local schematic file for compatibility probe")
+        shutil.copy2(compat_schematic, root / "compat-city.schem")
     (root / "eula.txt").write_text("eula=true\n")
     (root / "server.properties").write_text(
         'server-ip=127.0.0.1\nserver-port=25585\nonline-mode=false\nlevel-type=minecraft:flat\ngenerator-settings={"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:grass_block","height":1}],"biome":"minecraft:plains","features":false,"lakes":false,"structure_overrides":[]}\ngenerate-structures=false\nallow-nether=false\nview-distance=3\nsimulation-distance=3\nspawn-protection=0\nspawn-monsters=false\nspawn-animals=false\nenable-rcon=false\nmax-players=1\n',
@@ -281,6 +286,7 @@ if __name__ == "__main__":
     parser.add_argument("--instruction", default="中央区の空き地にコンビニを作って")
     parser.add_argument("--at", type=float, nargs=2)
     parser.add_argument("--max-blocks", type=int, default=5000)
+    parser.add_argument("--compat-schematic", type=Path)
     args = parser.parse_args()
     run(
         args.server_dir.resolve(),
@@ -289,4 +295,5 @@ if __name__ == "__main__":
         args.instruction,
         args.at,
         args.max_blocks,
+        args.compat_schematic,
     )
