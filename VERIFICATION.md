@@ -127,3 +127,23 @@ Minecraft/WorldEdit本体による貼り付け、実APIキーを使うOpenAI呼�
 GitHub Actions上の実行は未実施です。API連携コード・CI設定は同梱しています。
 
 未実装の機能はREADMEの「MVPの制限・未実装」を参照してください。
+
+## Phase 4（2026-10-12）
+
+実装・公開物：Paper 1.21.4 build232、WorldEdit 7.3.10、Java21、Python 0.4.0。
+
+ローカルPython全体は255件成功（136.05秒）。その後、再起動時のPaperモード維持と「この辺」の解析/確認要求を3件追加し、関連49件を再実行して成功（61.56秒）。最終収集数は258件で、Python3.10/3.12の全体再検証はPRのGitHub Actionsが実行します。実行時点の結果は [PR #3](https://github.com/datugokugames/minecraft-ai-city/pull/3) のChecksを参照してください。
+
+- Java `mvn install` / fixture `mvn package`：成功。JUnit **15件**、失敗0。
+- 実Paperサーバー（heap1GiB / Linux）でプラグイン/WorldEditのロードとコマンド登録に成功。合成Playerから日本語plan→preview→approve、432ブロックの実ワールド変更を確認。
+- 二重承認拒否、既存goldブロックとの衝突拒否、Undoで全対象状態復元、21番目の書込を保護イベントで拒否した場合の完全復元、途中停止→再起動→`recover`に成功。最大64書込/tick、対象外のsentinelと元projectを保持。
+- Sponge v2の実WorldEdit読込・Bukkit状態変換・配置を検証。差分14×8×21、432変更。承認後全都市 `.schem` は256×32×256、28,392 bytes。
+- Playwright Chromium / iPhone13サイズ：既存Phase 3Bの選択・ピンチ・計画・承認・ダウンロード・Undo成功。追加したPaperモードでも同じ計画IDの受け渡し、Web単独の確定防止、15秒ポーリングによる建築/Undo後の地図更新に成功。JavaScript例外0。ブラウザ試験内のワールド完了通知は模擬、実ブロック試験は別のPaper試験。
+- `setup_paper.py` をLinuxで実行し、署名ではなく配布元チェックサムに照合したPaper/WorldEdit/Mojangダウンロード、新規限定生成、秘密情報を出力しない設定生成を確認。セットアップの再実行拒否・秘密保護・EULA未同意の既定値をpytestで検証。
+- Ruff静的解析・フォーマット検査、pip check、git diff --check成功。
+
+[実Paper検証JSON](examples/phase4/server-verification.json) / [ブラウザ検証JSON](examples/phase4/browser-verification.json) / [比較プレビュー](examples/phase4/comparison.png) / [Web画面](examples/phase4/mobile-paper-review.png)。実行コマンドは [docs/PAPER.md](docs/PAPER.md)。
+
+テストは実Minecraftクライアントを起動していません。実Windows・iPhone Safari・Geyser/Floodgate/Bedrockは未検証。Paperテストは管理者権限の合成Playerと必要な差分領域だけの地形fixtureを使い、オンライン認証/全都市の歩行は未検証です。管理環境からMojang公開鍵サーバーへ直接接続できない警告は、localhost限定offline-modeの試験に影響しません。通常セットアップはonline-mode=trueです。
+
+書込前WALと停止/再起動復元を検証していますが、kill -9・電源断・ディスク故障・他プラグインによる強制変更を含む完全な原子性は保証しません。ワールド全体のコピーはサーバー停止中に管理者が行ってください。WorldGuard有効時は地域権限未対応のため建築を拒否します。

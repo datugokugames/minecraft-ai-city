@@ -1,0 +1,16 @@
+backend-url: http://127.0.0.1:8765
+# Copy the private Paper token from the local setup. Never publish this file.
+backend-token: ''
+server-id: ''
+blocks-per-tick: 64
+millis-per-tick: 4
+max-changed-blocks: 5000
+max-patch-volume: 262144
+protected-materials: [BEDROCK, CHEST, TRAPPED_CHEST, BARREL, HOPPER, SPAWNER, COMMAND_BLOCK]
+anchor:
+  configured: false
+  world-name: world
+  world-uuid: ''
+  x: 0
+  y: 0
+  z: 0

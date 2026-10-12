@@ -34,6 +34,7 @@ def project(blended):
         ("指定した建物の外観をもっと現代的にして", Selection(building_id=1), "restyle", None, 1),
         ("建物1の外観を和風にして", Selection(), "restyle", None, 1),
         ("ここに戸建てを建てて", Selection(point=(25, 30)), "add_buildings", "house", 1),
+        ("この辺に公園を作って", Selection(point=(25, 30)), "add_park", None, 1),
         ("青葉市に住宅を５棟追加して。", Selection(), "add_buildings", "house", 5),
         ("X=20,Z=30にコンビニを作って", Selection(), "add_buildings", "convenience_store", 1),
     ],
@@ -47,6 +48,7 @@ def test_supported_japanese(project, text, selection, action, kind, count):
     "text",
     [
         "ここにコンビニを作って",
+        "この辺に公園を作って",
         "この範囲に公園を作って",
         "この地区に住宅を5棟追加して",
         "指定した建物の外観をもっと現代的にして",

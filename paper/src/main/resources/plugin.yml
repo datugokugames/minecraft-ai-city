@@ -1,0 +1,17 @@
+name: MinecraftAICity
+version: '${project.version}'
+main: jp.aicity.CityPlugin
+api-version: '1.21'
+depend: [WorldEdit]
+description: Approved Japanese city editing via a local Python backend
+commands:
+  city:
+    description: 日本語で都市を計画・承認・建築・Undo
+    usage: /city plan|review|preview|approve|cancel|undo|status|anchor|pos1|pos2|clear|recover|identity
+    permission: city.use
+permissions:
+  city.use: {default: op}
+  city.plan: {default: op}
+  city.approve: {default: op}
+  city.undo: {default: op}
+  city.admin: {default: op}

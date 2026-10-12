@@ -2,6 +2,8 @@
 
 PCでPythonサーバーを動かし、ブラウザから既存都市を選択・編集します。Web専用の生成器はなく、Phase 3Aの `prepare_edit` / `apply_edit` / `undo_edit` を共有します。外部の地図サービスやJavaScript CDNへの通信は不要です。
 
+Phase 4の `--paper-config` 使用時は、Webの直接承認/Undoを無効化し、同じ計画を `/city review` でゲーム内へ渡します。ワールド完了後に地図を自動更新します。[Paper連携手順](PAPER.md)。以下のWeb単独承認手順はPaper設定なしの場合です。
+
 ## PCで起動する
 
 READMEの環境構築後、リポジトリ内で実行します。

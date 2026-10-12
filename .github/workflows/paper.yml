@@ -1,0 +1,32 @@
+name: paper
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -e '.[dev]'
+      - run: mvn -B -f paper/pom.xml install
+      - run: mvn -B -f paper/integration/pom.xml package
+      - name: Disposable localhost Paper world (explicit test EULA acceptance)
+        run: python scripts/check_paper_server.py --server-dir output/paper-test --accept-eula
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: paper-plugin-and-verification
+          # Never upload configs, tokens, complete server folders or world backups.
+          path: |
+            paper/target/minecraft-ai-city-paper-*.jar
+            paper/target/surefire-reports/*.xml
+            output/paper-test/verification.json

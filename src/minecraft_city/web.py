@@ -35,6 +35,8 @@ class CityServer(ThreadingHTTPServer):
 
     def __init__(self, workspace, host="127.0.0.1", port=8765, lan=False):
         validate_bind(host, lan)
+        if workspace.paper is None and (workspace.root / "paper-state.json").exists():
+            raise ValueError("Paper連携済みの都市です。再開時も --paper-config が必要です。")
         self.workspace = workspace
         self.token = secrets.token_urlsafe(32)
         self.slots = threading.BoundedSemaphore(8)
@@ -77,6 +79,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(status)
         self.send_header("Content-Type", mime)
         self.send_header("Content-Length", str(len(body)))
+        self.send_header("Connection", "close")
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Referrer-Policy", "no-referrer")
@@ -105,14 +108,25 @@ class Handler(BaseHTTPRequestHandler):
             )
         if not path.startswith("/api/"):
             return self.send(404, {"error": "Not found"})
+        paper = self.server.workspace.paper if path.startswith("/api/paper/") else None
+        if path.startswith("/api/paper/") and not paper:
+            return self.send(404, {"error": "Paper API is disabled"})
+        expected_token = paper.config.token if paper else self.server.token
         if not hmac.compare_digest(
-            self.headers.get("Authorization", ""), "Bearer " + self.server.token
+            self.headers.get("Authorization", ""), "Bearer " + expected_token
         ):
             return self.send(401, {"error": "起動時の接続URLから開いてください。"})
         workspace = self.server.workspace
         if not workspace.lock.acquire(blocking=False):
             return self.send(409, {"error": "他の処理を実行中です。完了後に再試行してください。"})
         try:
+            if paper and not post:
+                result = paper.api(
+                    "GET", path[len("/api/paper/") :], None, self.headers.get("X-City-Player", "")
+                )
+                if isinstance(result, Path):
+                    return self.send(200, result.read_bytes(), "application/octet-stream")
+                return self.send(200, result)
             if not post:
                 if path == "/api/state":
                     return self.send(200, workspace.state())
@@ -131,6 +145,16 @@ class Handler(BaseHTTPRequestHandler):
             if not 0 < length <= 16384 or self.headers.get("Transfer-Encoding"):
                 return self.send(413, {"error": "Request must be 1..16384 bytes"})
             data = json.loads(self.rfile.read(length))
+            if paper:
+                return self.send(
+                    200,
+                    paper.api(
+                        "POST",
+                        path[len("/api/paper/") :],
+                        data,
+                        self.headers.get("X-City-Player", ""),
+                    ),
+                )
             action = {
                 "/api/plan": workspace.plan,
                 "/api/apply": workspace.apply,
@@ -141,6 +165,8 @@ class Handler(BaseHTTPRequestHandler):
             return self.send(200, action(data))
         except Conflict as exc:
             self.send(409, {"error": str(exc)})
+        except PermissionError:
+            self.send(403, {"error": "Paperプレイヤーの権限がありません。"})
         except FileNotFoundError:
             self.send(404, {"error": "保存ファイルが見つかりません。"})
         except ValueError as exc:
@@ -169,6 +195,10 @@ def serve(args):
     validate_bind(args.host, args.lan)
     workspace = Workspace(args.state_dir, args.project, args.parser)
     try:
+        if args.paper_config:
+            from .paper import PaperCoordinator
+
+            PaperCoordinator(workspace, args.paper_config)
         with CityServer(workspace, args.host, args.port, args.lan) as server:
             print(
                 f"接続URL（このPCと信頼するLAN端末だけで使用）: http://{args.host}:{server.server_port}/#token={server.token}",
