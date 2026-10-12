@@ -26,7 +26,7 @@ citygen = "minecraft_city.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-minecraft_city = ["web_static/*"]
+minecraft_city = ["web_static/*", "architecture_data/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

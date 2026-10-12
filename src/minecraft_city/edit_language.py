@@ -142,7 +142,8 @@ def _schema():
                 items = item.pop("prefixItems")
                 item["items"] = items[0]
             if item.get("type") == "object":
-                item["required"] = list(item.get("properties", {}))
+                item.setdefault("properties", {})
+                item["required"] = list(item["properties"])
                 item["additionalProperties"] = False
             for value in item.values():
                 visit(value)

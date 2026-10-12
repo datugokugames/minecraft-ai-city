@@ -251,6 +251,10 @@ def find_park(city, selection, area, physical, rng):
 
 
 def compute_delta(project, intent, seed):
+    if intent.action == "add_architecture":
+        from .architecture_edit import architecture_delta
+
+        return architecture_delta(project, intent, seed)
     area, physical = resolve_area(project, intent.selection)
     city = project.city
     if intent.action == "restyle":

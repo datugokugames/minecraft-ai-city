@@ -97,9 +97,19 @@ def _make_plan(project, instruction, source, intent, seed):
         assumptions.append(
             "矩形指定の公園は周囲2ブロックを確保して内側を使用。地区指定は10×10の公園を1つ配置。"
         )
+    if intent.action == "add_architecture":
+        assumptions += [
+            "Phase 5：幅は道路側、奥行きは道路から離れる方向の敷地最大寸法。指定寸法は自動縮小しない。",
+            "道路に最も近い四方位へ入口を向ける。建物・庇・ベランダ・植栽は敷地内。内部は空洞、家具は生成しない。",
+            "LLMの設計は検証後にこの計画へ固定される。承認・Undo時は外部AIへ問い合わせない。",
+        ]
+        validation["architecture_execution"] = intent.architecture.execution
+        validation["architecture_specs"] = [
+            b.architecture.model_dump(mode="json") for b in changes.added_buildings
+        ]
     payload = {
         "schema_version": 1,
-        "engine_version": "phase3a-1",
+        "engine_version": "phase5-1" if intent.action == "add_architecture" else "phase3a-1",
         "base_project_sha256": digest(project),
         "instruction": instruction,
         "parser_source": source,
@@ -113,8 +123,18 @@ def _make_plan(project, instruction, source, intent, seed):
     return EditPlan(plan_id=digest(payload), **payload), after
 
 
-def prepare_edit(project, instruction, selection=None, seed=42, mode="auto", *, session=None):
-    intent, source = interpret(instruction, project, selection, mode, session=session)
+def prepare_edit(
+    project, instruction, selection=None, seed=42, mode="auto", *, session=None, architecture=None
+):
+    from .architecture import is_architecture, parse_architecture
+    from .edit_models import EditIntent
+
+    if architecture is not None or is_architecture(instruction):
+        request, selected = parse_architecture(instruction, project, selection, architecture)
+        intent = EditIntent(action="add_architecture", selection=selected, architecture=request)
+        source = "rules"
+    else:
+        intent, source = interpret(instruction, project, selection, mode, session=session)
     return _make_plan(project, instruction, source, intent, seed)
 
 
@@ -173,6 +193,13 @@ def write_preview(project, plan, output):
     _comparison(
         output / "before.png", output / "after.png", plan.changes, output / "comparison.png"
     )
+    if plan.intent.action == "add_architecture":
+        from .architecture_geometry import render_architecture, render_isometric
+
+        render_isometric(
+            render_architecture(plan.changes.added_buildings[0].architecture),
+            output / "architecture.png",
+        )
     # This is a review snapshot only; there is no new project.json or schematic here.
     save_project(output / "before.project.json", project)
     save_json(output / "complete.json", {"plan_id": plan.plan_id, "status": "awaiting_approval"})

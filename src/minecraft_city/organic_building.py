@@ -14,6 +14,11 @@ from .schematic import BlockVolume
 
 
 def rotated_structure(volume, building):
+    if building.architecture is not None:
+        from .architecture_geometry import paste_architecture
+
+        paste_architecture(volume, building)
+        return
     local = BlockVolume(building.width + 4, volume.blocks.shape[0], building.depth + 4)
     local.fill(0, 3, 0, building.width + 4, 4, building.depth + 4, "grass_block[snowy=false]")
     build_structure(
@@ -69,7 +74,13 @@ def build_organic(city):
 
     validate_organic(city)
     size = city.size
-    height = max(28, max(b.floors for b in city.buildings) * 4 + 12)
+    height = max(
+        28,
+        max(
+            (b.architecture.height + 4 if b.architecture else b.floors * 4 + 12)
+            for b in city.buildings
+        ),
+    )
     v = BlockVolume(size, height, size)
     v.fill(0, 0, 0, size, 1, size, "stone")
     v.fill(0, 1, 0, size, 3, size, "dirt")
@@ -81,7 +92,7 @@ def build_organic(city):
     zz, xx = np.mgrid[0:size, 0:size]
     clear = streets | water
     for building in city.buildings:
-        clear |= mask(building_area(building).buffer(5), size)
+        clear |= mask(building_area(building).buffer(0 if building.architecture else 5), size)
         clear |= mask(LineString(building.access_path).buffer(2), size)
     for site in city.sites:
         clear |= mask(Polygon(site.polygon).buffer(2), size)
