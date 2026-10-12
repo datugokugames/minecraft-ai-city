@@ -10,7 +10,7 @@
 
 [6シードの比較画像](examples/natural-comparison/comparison.png) / [品質比較JSON](examples/natural-comparison/comparison.json)
 
-**v0.3.0 / Phase 3Aでは、日本語から既存都市へ建物・公園を追加し、建物の外観を変更できます。** `edit plan` で変更前後の地図とJSONを確認し、`edit apply --approve ...` で確定、`edit undo` で復元します。APIキーなしでも限定日本語文法で動きます。[編集機能の使い方](docs/EDITING.md) / [管理機能](docs/PROJECTS.md) / [段階的な開発方針](docs/ROADMAP.md)。Web地図は下記Phase 3Bで追加。Paper連携は後続フェーズです。
+**v0.3.0 / Phase 3Aでは、日本語から既存都市へ建物・公園を追加し、建物の外観を変更できます。** `edit plan` で変更前後の地図とJSONを確認し、`edit apply --approve ...` で確定、`edit undo` で復元します。APIキーなしでも限定日本語文法で動きます。[編集機能の使い方](docs/EDITING.md) / [管理機能](docs/PROJECTS.md) / [段階的な開発方針](docs/ROADMAP.md)。Web地図は下記Phase 3Bで追加。Paper連携は下記Phase 4で追加しました。
 
 既存172テストを含む**232テスト**が成功し、旧形式の再現性も維持しています。[検証記録](VERIFICATION.md) / [開発・再開ログ](DEVELOPMENT_LOG.md) / [生成例一覧](examples/README.md)
 
@@ -28,7 +28,23 @@ citygen web --project examples/managed-city/project.json --state-dir output/web-
 
 [Web UIの起動・iPhone接続・使い方](docs/WEB_UI.md) / [スマートフォン画面](examples/phase3b/mobile-review.png) / [PC画面](examples/phase3b/desktop-map.png) / [ブラウザで編集したschematic](examples/phase3b/edited-city.schem)
 
-既存232件を含む **245テスト成功**。実サーバーとiPhoneサイズのChromiumで一連の操作を自動検証しました。実iPhoneでの検証状況は [検証記録](VERIFICATION.md) を参照してください。外部公開・Paper・Bedrock対応は含みません。
+既存232件を含む **245テスト成功**。実サーバーとiPhoneサイズのChromiumで一連の操作を自動検証しました。実iPhoneでの検証状況は [検証記録](VERIFICATION.md) を参照してください。このPhase 3B単体には外部公開・Paper・Bedrock対応は含みません。
+
+## Minecraftゲーム内から編集する（v0.4.0 / Phase 4）
+
+Paper **1.21.4 / Java 21 / WorldEdit 7.3.10** 用プラグインを追加しました。既存都市を配置して原点を合わせると、日本語の計画→プレビュー→承認→差分建築→ワールドを含むUndoが使えます。Webと同じ編集エンジン・計画IDを使用します。
+
+```text
+/city plan 中央区の空き地にコンビニを作って
+/city preview
+/city approve
+/city undo
+/city approve
+```
+
+[Windowsセットアップ・起動・初回都市配置・API・安全制限](docs/PAPER.md) / [実Paper検証結果](examples/phase4/server-verification.json) / [変更前後プレビュー](examples/phase4/comparison.png)。プラグインは `mvn -f paper/pom.xml package` でビルド、Windowsでは `scripts/setup_windows.ps1` が環境準備を補助します。
+
+実Paperで432ブロックの建築、Undo、衝突拒否、書込失敗時の復元、途中停止・再起動後の復元を検証しました。実Minecraftクライアント・Windows実機・Bedrockは未検証です。全都市の初回自動貼り付け、対話による駅/道路追加は未対応です。
 
 ## 日本語でコンビニを追加する
 

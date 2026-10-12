@@ -35,6 +35,8 @@ class CityServer(ThreadingHTTPServer):
 
     def __init__(self, workspace, host="127.0.0.1", port=8765, lan=False):
         validate_bind(host, lan)
+        if workspace.paper is None and (workspace.root / "paper-state.json").exists():
+            raise ValueError("Paper連携済みの都市です。再開時も --paper-config が必要です。")
         self.workspace = workspace
         self.token = secrets.token_urlsafe(32)
         self.slots = threading.BoundedSemaphore(8)

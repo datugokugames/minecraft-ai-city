@@ -132,6 +132,8 @@ class PaperCoordinator:
         )
         self.committing = False
         workspace.paper = self
+        if not self.path.exists():
+            self.save()  # Persist mode before the first plan, including across restarts.
 
     def save(self):
         temporary = self.path.with_suffix(".tmp")

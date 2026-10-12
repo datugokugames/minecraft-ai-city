@@ -269,3 +269,11 @@ def test_cancel_rejects_approval_and_patch_symlinks(coordinator, tmp_path):
     patch.symlink_to(outside)
     with pytest.raises(FileNotFoundError):
         paper.api("GET", f"jobs/{job['id']}/before.schem", None, actor)
+
+
+def test_restart_cannot_drop_paper_safety_mode(coordinator):
+    paper, _, _ = coordinator
+    assert paper.path.exists()
+    paper.workspace.paper = None  # Restarting without --paper-config.
+    with pytest.raises(ValueError, match="--paper-config"):
+        CityServer(paper.workspace, port=0)
