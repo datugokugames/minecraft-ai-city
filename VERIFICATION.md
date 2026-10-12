@@ -132,6 +132,8 @@ GitHub Actions上の実行は未実施です。API連携コード・CI設定は�
 
 実装・公開物：Paper 1.21.4 build232、WorldEdit 7.3.10、Java21、Python 0.4.0。
 
+ローカルPython全体は255件成功（136.05秒）。その後、再起動時のPaperモード維持と「この辺」の解析/確認要求を3件追加し、関連49件を再実行して成功（61.56秒）。最終収集数は258件で、Python3.10/3.12の全体再検証はPRのGitHub Actionsが実行します。実行時点の結果は [PR #3](https://github.com/datugokugames/minecraft-ai-city/pull/3) のChecksを参照してください。
+
 - Java `mvn install` / fixture `mvn package`：成功。JUnit **15件**、失敗0。
 - 実Paperサーバー（heap1GiB / Linux）でプラグイン/WorldEditのロードとコマンド登録に成功。合成Playerから日本語plan→preview→approve、432ブロックの実ワールド変更を確認。
 - 二重承認拒否、既存goldブロックとの衝突拒否、Undoで全対象状態復元、21番目の書込を保護イベントで拒否した場合の完全復元、途中停止→再起動→`recover`に成功。最大64書込/tick、対象外のsentinelと元projectを保持。

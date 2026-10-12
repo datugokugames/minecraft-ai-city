@@ -28,6 +28,25 @@ build/
 dist/
 *.zip
 
+# Local Minecraft server data (keep only deliberate examples/ exports)
+plugins/
+world/
+world_nether/
+world_the_end/
+logs/
+*.mca
+server.properties
+eula.txt
+bukkit.yml
+spigot.yml
+paper-global.yml
+paper-world-defaults.yml
+usercache.json
+ops.json
+whitelist.json
+banned-ips.json
+banned-players.json
+
 # Local credentials. Only a deliberately empty/template env file may be committed.
 .env
 .env.*
