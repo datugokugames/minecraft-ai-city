@@ -21,3 +21,8 @@
 ## Phase 4 Paper連携
 
 [phase4/](phase4/README.md)：実Paperサーバーでの432ブロック建築・Undo・再起動復旧結果、共通計画の前後プレビュー、差分/全都市schematic、Web連携のモバイル画面。認証情報とテストワールドは含みません。
+
+
+## Phase 5 AI外装
+
+[phase5/](phase5/README.md)：5カテゴリ×2サイズの外装JSON・上面・アイソメトリック・単体schematic、既存都市の30×40マンション計画・承認後project/schematic、Web画面、Phase 4再検証とPhase 5実Paper検証を含みます。

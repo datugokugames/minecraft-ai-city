@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "templates": [
+    {"category":"house","label":"戸建住宅","width":18,"depth":22,"floors":[1,2],"story_height":4,"shapes":["rectangle","l_shape"],"roofs":["gable","flat"],"walls":["white_terracotta","smooth_sandstone","bricks"],"balconies":false,"canopy":true,"signage":false,"parking":true},
+    {"category":"rental_apartment","label":"アパート","width":20,"depth":26,"floors":[2,3],"story_height":4,"shapes":["rectangle","l_shape"],"roofs":["flat","gable"],"walls":["white_terracotta","bricks"],"balconies":true,"canopy":true,"signage":false,"parking":true},
+    {"category":"apartment","label":"マンション","width":30,"depth":40,"floors":[3,6],"story_height":4,"shapes":["rectangle","stepped","courtyard"],"roofs":["terrace","flat"],"walls":["white_concrete","light_gray_concrete","smooth_sandstone"],"balconies":true,"canopy":true,"signage":false,"parking":true},
+    {"category":"office","label":"オフィスビル","width":32,"depth":40,"floors":[3,8],"story_height":5,"shapes":["rectangle","stepped","l_shape"],"roofs":["flat","terrace"],"walls":["white_concrete","gray_concrete","stone_bricks"],"balconies":false,"canopy":true,"signage":true,"parking":false},
+    {"category":"commercial","label":"商業ビル","width":24,"depth":30,"floors":[2,5],"story_height":5,"shapes":["rectangle","stepped"],"roofs":["terrace","flat"],"walls":["white_concrete","bricks","smooth_sandstone"],"balconies":false,"canopy":true,"signage":true,"parking":false},
+    {"category":"convenience_store","label":"コンビニ","width":20,"depth":30,"floors":[1,2],"story_height":4,"shapes":["rectangle","l_shape"],"roofs":["flat"],"walls":["white_concrete","white_terracotta"],"balconies":false,"canopy":true,"signage":true,"parking":true},
+    {"category":"supermarket","label":"スーパーマーケット","width":32,"depth":40,"floors":[1,2],"story_height":6,"shapes":["rectangle","l_shape"],"roofs":["flat"],"walls":["white_concrete","light_gray_concrete"],"balconies":false,"canopy":true,"signage":true,"parking":true},
+    {"category":"school","label":"学校","width":36,"depth":42,"floors":[2,4],"story_height":4,"shapes":["l_shape","courtyard"],"roofs":["flat","terrace"],"walls":["smooth_sandstone","white_terracotta"],"balconies":false,"canopy":true,"signage":true,"parking":false},
+    {"category":"station","label":"駅舎","width":28,"depth":34,"floors":[1,2],"story_height":5,"shapes":["rectangle","l_shape"],"roofs":["gable","flat"],"walls":["white_concrete","bricks","stone_bricks"],"balconies":false,"canopy":true,"signage":true,"parking":false},
+    {"category":"factory","label":"工場","width":36,"depth":42,"floors":[1,2],"story_height":6,"shapes":["rectangle","l_shape"],"roofs":["gable","flat"],"walls":["light_gray_concrete","white_terracotta"],"balconies":false,"canopy":true,"signage":true,"parking":true},
+    {"category":"warehouse","label":"倉庫","width":30,"depth":36,"floors":[1,2],"story_height":6,"shapes":["rectangle"],"roofs":["gable","flat"],"walls":["light_gray_concrete","stone_bricks"],"balconies":false,"canopy":true,"signage":false,"parking":true},
+    {"category":"public","label":"公共施設","width":28,"depth":34,"floors":[2,4],"story_height":4,"shapes":["l_shape","courtyard","stepped"],"roofs":["terrace","flat"],"walls":["smooth_sandstone","stone_bricks","white_concrete"],"balconies":false,"canopy":true,"signage":true,"parking":false}
+  ]
+}

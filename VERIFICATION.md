@@ -147,3 +147,17 @@ GitHub Actions上の実行は未実施です。API連携コード・CI設定は�
 テストは実Minecraftクライアントを起動していません。実Windows・iPhone Safari・Geyser/Floodgate/Bedrockは未検証。Paperテストは管理者権限の合成Playerと必要な差分領域だけの地形fixtureを使い、オンライン認証/全都市の歩行は未検証です。管理環境からMojang公開鍵サーバーへ直接接続できない警告は、localhost限定offline-modeの試験に影響しません。通常セットアップはonline-mode=trueです。
 
 書込前WALと停止/再起動復元を検証していますが、kill -9・電源断・ディスク故障・他プラグインによる強制変更を含む完全な原子性は保証しません。ワールド全体のコピーはサーバー停止中に管理者が行ってください。WorldGuard有効時は地域権限未対応のため建築を拒否します。
+
+## v0.5 / Phase 5と都市品質（2026-10-12）
+
+- 最初にPhase 4のPython258件、Java15件、実Paper432変更・Undo・衝突・途中失敗・再起動復元、Web整合性を再実行して成功。元ワールドは使わず/tmpの使い捨てワールド。
+- 追加後Python全310件成功（182.35秒）、Ruff/format/pip check成功。最後に旧屋根分類の計測条件（houseまたはtraditional）を実レンダラへ合わせ、対象/CIで再確認する。旧例・旧JSON/planの読み込みとダイジェスト、schematic再現を回帰テストで維持。
+- Phase 5：12カテゴリの仕様/境界/窓/入口/空洞・同seed再現/別seed外観・不正材料/出力/LLMモック・スナップショット/承認/Undo。5カテゴリ×2サイズのJSON/PNG/Sponge v2生成。
+- 実Paper1.21.4 build232 / WorldEdit7.3.10 / Java21で「ここに30×40のマンションを建てて」、4,410変更を5,000上限で配置、Undo・衝突・途中保護拒否・停止/再起動復元に成功。64/tick以下。改善全都市256×32×256schematicをWorldEdit読込成功。全都市の実貼り付けはこの試験に含まない。
+- ChromiumのiPhone13サイズでPhase 5位置・カテゴリ/幅/奥行き・外装PNG・未承認不変・承認・schematicダウンロード・Undo完全復元に成功、JS例外0。Chromium/WebKitはCIで継続確認。
+- 都市品質：seed42/7/19の全件で本体投影被覆率と形状/屋根/窓の多様性が改善。道路・登録空地・元ID/敷地を保持、連結・衝突・接道を検証。目標9%は未達と記録。
+- Python0.5.0のインストール/pip check/wheelビルドとJSONテンプレート・Webアセットの同梱を確認。外部建築データ不使用、内部パーツはMIT、都市のOSM出典は維持。
+
+[品質3シード](examples/quality-v05/comparison.json) / [全都市WorldEdit・建築・復旧](examples/quality-v05/paper-verification.json) / [外装10例](examples/phase5/buildings/comparison.png) / [Web結果](examples/phase5/browser-architecture-verification.json)。
+
+実Minecraftクライアント/Windows8GB HDD/iPhone/Geyser/Bedrock/電源断は未検証。LLMはAPIクライアントとモックのみで、実外部API接続は未検証。v0.6の敷地分割・実歩行・負荷測定・地域保護とともに [ROADMAP](docs/ROADMAP.md) へ記録。

@@ -1,0 +1,13 @@
+{
+  "category": "convenience_store",
+  "site": [
+    20,
+    30
+  ],
+  "height": 7,
+  "floors": 1,
+  "solid_blocks": 1640,
+  "mode": "local",
+  "approved_world_changes": 0,
+  "hollow_interior": true
+}

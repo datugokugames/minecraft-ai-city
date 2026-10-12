@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "engine_version": "phase5-1",
+  "plan_id": "549e88f9e66b97b27e66e7b8be63cd806715b88faffa90548f2a279369bcce8c",
+  "base_project_sha256": "67ea5eb60069f8a9b7a9dfbb7af44a5b99759fe9eef17bdd5862c4c25c0d7246",
+  "instruction": "ここに30×40のマンションを建てて",
+  "parser_source": "rules",
+  "seed": 42,
+  "intent": {
+    "action": "add_architecture",
+    "building_type": null,
+    "count": 1,
+    "palette": null,
+    "selection": {
+      "city_name": null,
+      "ward": null,
+      "district": null,
+      "building_id": null,
+      "point": [
+        64.5,
+        20.5
+      ],
+      "bounds": null,
+      "station_side": null
+    },
+    "architecture": {
+      "category": "apartment",
+      "width": 30,
+      "depth": 40,
+      "height": null,
+      "mode": "local",
+      "design": {
+        "schema_version": 1,
+        "category": "apartment",
+        "site_width": 30,
+        "site_depth": 40,
+        "height": 15,
+        "floors": 3,
+        "story_height": 4,
+        "shape": "stepped",
+        "masses": [
+          {
+            "x": 2,
+            "z": 7,
+            "width": 26,
+            "depth": 30,
+            "floors": 1
+          },
+          {
+            "x": 4,
+            "z": 9,
+            "width": 22,
+            "depth": 26,
+            "floors": 3
+          }
+        ],
+        "wall": "smooth_sandstone",
+        "accent": "stone_bricks",
+        "roof_material": "gray_concrete",
+        "roof": "flat",
+        "windows": {
+          "spacing": 3,
+          "width": 2,
+          "height": 2
+        },
+        "entrance_x": 15,
+        "balconies": true,
+        "canopy": true,
+        "signage": false,
+        "parking": true,
+        "planting": true,
+        "stairs": false,
+        "road_facing": "east",
+        "seed": 42
+      },
+      "execution": {
+        "source": "local",
+        "external_contacted": false,
+        "usage": null,
+        "estimated_cost_usd": null
+      }
+    }
+  },
+  "changes": {
+    "added_buildings": [
+      {
+        "id": 51,
+        "district_id": 0,
+        "kind": "apartment",
+        "x": 44,
+        "z": 6,
+        "width": 40,
+        "depth": 30,
+        "floors": 3,
+        "facing": "east",
+        "palette": "modern",
+        "angle": 0.0,
+        "footprint": [
+          [
+            84.0,
+            6.0
+          ],
+          [
+            84.0,
+            36.0
+          ],
+          [
+            44.0,
+            36.0
+          ],
+          [
+            44.0,
+            6.0
+          ],
+          [
+            84.0,
+            6.0
+          ]
+        ],
+        "entrance": [
+          84.0,
+          21.0
+        ],
+        "access_path": [
+          [
+            84.0,
+            21.0
+          ],
+          [
+            99.84,
+            10.0
+          ]
+        ],
+        "variant": 0,
+        "architecture": {
+          "schema_version": 1,
+          "category": "apartment",
+          "site_width": 30,
+          "site_depth": 40,
+          "height": 15,
+          "floors": 3,
+          "story_height": 4,
+          "shape": "stepped",
+          "masses": [
+            {
+              "x": 2,
+              "z": 7,
+              "width": 26,
+              "depth": 30,
+              "floors": 1
+            },
+            {
+              "x": 4,
+              "z": 9,
+              "width": 22,
+              "depth": 26,
+              "floors": 3
+            }
+          ],
+          "wall": "smooth_sandstone",
+          "accent": "stone_bricks",
+          "roof_material": "gray_concrete",
+          "roof": "flat",
+          "windows": {
+            "spacing": 3,
+            "width": 2,
+            "height": 2
+          },
+          "entrance_x": 15,
+          "balconies": true,
+          "canopy": true,
+          "signage": false,
+          "parking": true,
+          "planting": true,
+          "stairs": false,
+          "road_facing": "east",
+          "seed": 42
+        }
+      }
+    ],
+    "changed_buildings": [],
+    "added_sites": [],
+    "site_district_ids": []
+  },
+  "after_project_sha256": "34d5d9afd52f52be2c61c9d139bb88b7a480520a141536fbc6b72fa48fac16af",
+  "validation": {
+    "valid": true,
+    "roads_connected": true,
+    "road_components": 1,
+    "building_overlaps": 0,
+    "building_count": 52,
+    "district_count": 6,
+    "building_types": [
+      "apartment",
+      "factory",
+      "house",
+      "mixed_use",
+      "school",
+      "shop",
+      "station"
+    ],
+    "frontage_validated": 52,
+    "achieved_building_coverage": 0.06976318359375001,
+    "roads_unchanged": true,
+    "landscape_unchanged": true,
+    "existing_buildings_preserved": 51,
+    "added_building_ids": [
+      51
+    ],
+    "changed_building_ids": [],
+    "added_site_indices": [],
+    "errors": [],
+    "architecture_execution": {
+      "source": "local",
+      "external_contacted": false,
+      "usage": null,
+      "estimated_cost_usd": null
+    },
+    "architecture_specs": [
+      {
+        "schema_version": 1,
+        "category": "apartment",
+        "site_width": 30,
+        "site_depth": 40,
+        "height": 15,
+        "floors": 3,
+        "story_height": 4,
+        "shape": "stepped",
+        "masses": [
+          {
+            "x": 2,
+            "z": 7,
+            "width": 26,
+            "depth": 30,
+            "floors": 1
+          },
+          {
+            "x": 4,
+            "z": 9,
+            "width": 22,
+            "depth": 26,
+            "floors": 3
+          }
+        ],
+        "wall": "smooth_sandstone",
+        "accent": "stone_bricks",
+        "roof_material": "gray_concrete",
+        "roof": "flat",
+        "windows": {
+          "spacing": 3,
+          "width": 2,
+          "height": 2
+        },
+        "entrance_x": 15,
+        "balconies": true,
+        "canopy": true,
+        "signage": false,
+        "parking": true,
+        "planting": true,
+        "stairs": false,
+        "road_facing": "east",
+        "seed": 42
+      }
+    ]
+  },
+  "assumptions": [
+    "座標は都市ローカルX/Z。Xの増加は東、Zの増加は南。",
+    "空き地は既存の建物・登録敷地・交通施設・通路に占有されていない土地。既存登録敷地は置換しない。",
+    "建物本体と屋根余白を範囲内に配置。新しい接道通路は既存道路へ接続するため範囲外に出る場合がある。",
+    "Phase 5：幅は道路側、奥行きは道路から離れる方向の敷地最大寸法。指定寸法は自動縮小しない。",
+    "道路に最も近い四方位へ入口を向ける。建物・庇・ベランダ・植栽は敷地内。内部は空洞、家具は生成しない。",
+    "LLMの設計は検証後にこの計画へ固定される。承認・Undo時は外部AIへ問い合わせない。"
+  ]
+}

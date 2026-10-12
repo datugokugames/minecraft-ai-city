@@ -8,6 +8,8 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_serializer, model_validator
 
+from .architecture_models import ArchitectureSpec, FacadeRecipe
+
 
 class StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid", allow_inf_nan=False)
@@ -104,7 +106,7 @@ class Building(StrictModel):
     z: int
     width: int = Field(ge=7)
     depth: int = Field(ge=7)
-    floors: int = Field(ge=1, le=8)
+    floors: int = Field(ge=1, le=23)
     facing: Literal["north", "south", "east", "west"]
     palette: Literal["traditional", "modern", "warm"]
     angle: float = 0
@@ -113,6 +115,28 @@ class Building(StrictModel):
     access_path: list[tuple[float, float]] = Field(default_factory=list)
     variant: int = Field(default=0, ge=0, le=7)
     detail: Literal["convenience_store"] | None = None
+    architecture: ArchitectureSpec | None = None
+    facade: FacadeRecipe | None = None
+
+    @model_validator(mode="after")
+    def consistent_architecture(self):
+        if self.architecture is not None:
+            spec = self.architecture
+            expected = (
+                (spec.site_depth, spec.site_width)
+                if self.facing in {"east", "west"}
+                else (spec.site_width, spec.site_depth)
+            )
+            if (
+                (self.width, self.depth) != expected
+                or self.floors != spec.floors
+                or self.facing != spec.road_facing
+                or self.angle != 0
+            ):
+                raise ValueError(
+                    "architecture dimensions/floors/facing must match the city building"
+                )
+        return self
 
     @model_serializer(mode="wrap")
     def compatible_detail(self, handler):
@@ -120,6 +144,10 @@ class Building(StrictModel):
         # Preserve v0.2.1 City JSON/digests exactly when no new template is used.
         if self.detail is None:
             data.pop("detail", None)
+        if self.architecture is None:
+            data.pop("architecture", None)
+        if self.facade is None:
+            data.pop("facade", None)
         return data
 
 

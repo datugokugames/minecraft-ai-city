@@ -135,6 +135,43 @@ def build_structure(v: BlockVolume, b):
             ax, az = _front_point(b, along, 1)
             v.put(ax, 7, az, "lime_concrete" if along % 3 else "blue_concrete")
 
+    if b.facade is not None:
+        from . import architecture_parts as parts
+
+        r = b.facade
+        # Replace facade bays, keeping the original footprint/entrance and floor grid.
+        for level in range(b.floors):
+            base = 3 + 4 * level
+            for yy in range(base + 1, base + 4):
+                v.fill(x, yy, z, x + w, yy + 1, z + 1, wall)
+                v.fill(x, yy, z + d - 1, x + w, yy + 1, z + d, wall)
+                v.fill(x, yy, z, x + 1, yy + 1, z + d, wall)
+                v.fill(x + w - 1, yy, z, x + w, yy + 1, z + d, wall)
+            for wx in range(x + 2, x + w - 1, r.window_spacing):
+                for zz in (z, z + d - 1):
+                    parts.window(v, wx, zz, min(wx + r.window_width, x + w - 1), zz + 1, base + 2)
+            for zz in range(z + 2, z + d - 1, r.window_spacing):
+                for xx in (x, x + w - 1):
+                    parts.window(v, xx, zz, xx + 1, min(zz + r.window_width, z + d - 1), base + 2)
+            if r.balconies and level > 0:
+                parts.balcony(v, [_front_point(b, i, 1) for i in range(1, front_length - 1)], base)
+        # Clear the old roof only, then build a bounded alternative.
+        v.fill(x - 1, roof_y, z - 1, x + w + 1, v.blocks.shape[0], z + d + 1, "air")
+        parts.roof(v, x, z, w, d, roof_y, r.roof, roof)
+        parts.door(v, dx, 4, dz, b.facing)
+        if r.canopy:
+            for i in range(
+                max(1, front_length // 2 - 1), min(front_length - 1, front_length // 2 + 2)
+            ):
+                xx, zz = _front_point(b, i, 1)
+                parts.canopy(v, xx, zz, xx + 1, zz + 1, 6)
+        if r.signage:
+            parts.fascia(v, [_front_point(b, i) for i in range(1, front_length - 1)], 7)
+        if r.lighting:
+            for i in (1, front_length - 2):
+                xx, zz = _front_point(b, i)
+                parts.light(v, xx, 6, zz)
+
 
 def _tree(v, x, z):
     v.fill(x, 4, z, x + 1, 9, z + 1, "oak_log[axis=y]")

@@ -1,0 +1,17 @@
+{
+  "browser": "chromium",
+  "site": [
+    30,
+    40
+  ],
+  "category": "apartment",
+  "mode": "local",
+  "point_selection": true,
+  "exterior_preview": true,
+  "unapproved_unchanged": true,
+  "approval_applied": true,
+  "undo_project_exact": true,
+  "undo_schematic_exact": true,
+  "javascript_errors": [],
+  "minecraft_client": "not tested"
+}

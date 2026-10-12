@@ -12,6 +12,7 @@ from pathlib import Path
 from PIL import Image
 from pydantic import Field
 
+from .architecture_models import ArchitectureRequest
 from .edit_models import Selection, digest
 from .editing import apply_edit, load_plan, prepare_edit, undo_edit, write_preview
 from .exporting import export_city
@@ -25,6 +26,7 @@ class Conflict(ValueError):
 
 
 class PlanRequest(StrictModel):
+    architecture: ArchitectureRequest | None = None
     revision: str
     instruction: str = Field(min_length=1, max_length=2000)
     selection: Selection = Field(default_factory=Selection)
@@ -120,8 +122,14 @@ class Workspace:
     def state(self):
         p = self.project
         physical = {d.id: d for d in p.city.districts}
+        from .architecture import templates
+
         return {
             "paper": self.paper.summary() if self.paper else None,
+            "architecture_templates": [
+                {"id": t.category, "name": t.label, "width": t.width, "depth": t.depth}
+                for t in templates().values()
+            ],
             "city_name": p.city_name,
             "size": p.city.size,
             "revision": self.data["revision"],
@@ -138,7 +146,7 @@ class Workspace:
             "buildings": [
                 {
                     "id": b.id,
-                    "kind": b.detail or b.kind,
+                    "kind": b.architecture.category if b.architecture else b.detail or b.kind,
                     "district_id": b.district_id,
                     "floors": b.floors,
                     "polygon": list(building_area(b).exterior.coords),
@@ -156,7 +164,14 @@ class Workspace:
             self.paper.guard()
         req = PlanRequest.model_validate(value)
         self.check_revision(req.revision)
-        plan, _ = prepare_edit(self.project, req.instruction, req.selection, req.seed, self.parser)
+        plan, _ = prepare_edit(
+            self.project,
+            req.instruction,
+            req.selection,
+            req.seed,
+            self.parser,
+            architecture=req.architecture,
+        )
         name = uuid.uuid4().hex
         write_preview(self.project, plan, self.directory(name))
         self.save({**self.data, "reviews": [*self.data["reviews"][-19:], name]})
@@ -232,6 +247,7 @@ class Workspace:
                 "plan.json",
                 "diff.json",
                 "validation.json",
+                "architecture.png",
             }
         ):
             directory, filename = self.directory(parts[1]), parts[2]

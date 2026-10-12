@@ -6,8 +6,9 @@ import hashlib
 import json
 from typing import Literal
 
-from pydantic import Field, model_validator
+from pydantic import Field, model_serializer, model_validator
 
+from .architecture_models import ArchitectureRequest
 from .models import Building, Site, StrictModel
 
 
@@ -38,14 +39,32 @@ class Selection(StrictModel):
 
 
 class EditIntent(StrictModel):
-    action: Literal["add_buildings", "add_park", "restyle"]
+    action: Literal["add_buildings", "add_park", "restyle", "add_architecture"]
     building_type: Literal["house", "apartment", "convenience_store"] | None = None
     count: int = Field(default=1, ge=1, le=10)
     palette: Literal["modern", "traditional", "warm"] | None = None
     selection: Selection = Field(default_factory=Selection)
+    architecture: ArchitectureRequest | None = None
+
+    @model_serializer(mode="wrap")
+    def compatible(self, handler):
+        data = handler(self)
+        if self.architecture is None:
+            data.pop("architecture", None)
+        return data
 
     @model_validator(mode="after")
     def coherent_action(self):
+        if self.action == "add_architecture":
+            if (
+                self.architecture is None
+                or self.building_type is not None
+                or self.count != 1
+                or self.selection.building_id is not None
+            ):
+                raise ValueError("architecture adds one bounded building")
+        elif self.architecture is not None:
+            raise ValueError("architecture is only allowed for add_architecture")
         if self.action == "add_buildings":
             if self.building_type is None or self.selection.building_id is not None:
                 raise ValueError("building addition needs a type and a location, not a building ID")
@@ -83,7 +102,7 @@ def digest(value) -> str:
 
 class EditPlan(StrictModel):
     schema_version: Literal[1] = 1
-    engine_version: Literal["phase3a-1"] = "phase3a-1"
+    engine_version: Literal["phase3a-1", "phase5-1"] = "phase3a-1"
     plan_id: str = Field(pattern=r"^[0-9a-f]{64}$")
     base_project_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     instruction: str = Field(min_length=1, max_length=2000)

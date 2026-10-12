@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "category": "convenience_store",
+  "site_width": 18,
+  "site_depth": 22,
+  "height": 7,
+  "floors": 1,
+  "story_height": 4,
+  "shape": "rectangle",
+  "masses": [
+    {
+      "x": 2,
+      "z": 7,
+      "width": 13,
+      "depth": 13,
+      "floors": 1
+    }
+  ],
+  "wall": "white_terracotta",
+  "accent": "stone_bricks",
+  "roof_material": "gray_concrete",
+  "roof": "flat",
+  "windows": {
+    "spacing": 3,
+    "width": 2,
+    "height": 2
+  },
+  "entrance_x": 8,
+  "balconies": false,
+  "canopy": true,
+  "signage": true,
+  "parking": true,
+  "planting": true,
+  "stairs": false,
+  "road_facing": "north",
+  "seed": 46
+}

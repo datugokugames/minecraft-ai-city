@@ -45,7 +45,14 @@ public final class IntegrationHarness extends JavaPlugin implements Listener {
                       case "getName" -> "IntegrationOperator";
                       case "getWorld" -> world;
                       case "getServer" -> Bukkit.getServer();
-                      case "getLocation" -> new Location(world, .5, 84, .5, 90, 0);
+                      case "getLocation" ->
+                          new Location(
+                              world,
+                              getConfig().getDouble("test-x", .5),
+                              84,
+                              getConfig().getDouble("test-z", .5),
+                              90,
+                              0);
                       case "hasPermission", "isOnline", "isOp" -> true;
                       case "sendMessage" -> {
                         getLogger().info("PLAYER: " + Arrays.toString(args));
@@ -188,11 +195,22 @@ public final class IntegrationHarness extends JavaPlugin implements Listener {
   }
 
   private void plan(Consumer<GameJob> done) {
-    command("plan", "中央区の空き地にコンビニを作って");
+    command("plan", getConfig().getString("test-instruction", "中央区の空き地にコンビニを作って"));
     awaitPending(false, done, 0);
   }
 
   private void start() {
+    if (Files.exists(java.nio.file.Path.of("compat-city.schem"))
+        && !report.has("full_city_schematic_dimensions")) {
+      async(
+          () -> PatchLoader.schematicDimensions(java.nio.file.Path.of("compat-city.schem")),
+          dims -> {
+            report.add("full_city_schematic_dimensions", gson.toJsonTree(dims));
+            report.addProperty("full_city_worldedit_read", true);
+            start();
+          });
+      return;
+    }
     require(!city.isBusy(), "Plugin must be ready");
     require(Bukkit.getPluginCommand("city") != null, "city command registration");
     report.addProperty("paper", Bukkit.getVersion());

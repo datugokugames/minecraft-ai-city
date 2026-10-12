@@ -1,0 +1,23 @@
+{
+  "paper": "1.21.4-232-12d8fe0 (MC: 1.21.4)",
+  "java": "21.0.12.1",
+  "worldedit": "7.3.10+7004-768a436",
+  "double_approval_blocked": true,
+  "world_applied": true,
+  "changed_blocks": 432,
+  "world_undo_exact": true,
+  "collision_rejected": true,
+  "failed_write_rollback_exact": true,
+  "max_writes_per_tick": 64,
+  "phase_one": true,
+  "restart_world_recovery": true,
+  "success": true,
+  "python_project_restored": true,
+  "source_project_preserved": true,
+  "paper_build": 232,
+  "paper_jar_sha256": "5ee4f542f628a14c644410b08c94ea42e772ef4d29fe92973636b6813d4eaffc",
+  "plugin_jar_sha256": "9134df21f9b6321f170316d5ad7252b366821fbb804b20a5d06f3cdcfa2eaad7",
+  "harness_jar_sha256": "90dd7554811741d989ac31f020378065766e357257b43a8ec9850fdba244f9fc",
+  "minecraft_client": "not tested; console-only synthetic operator",
+  "eula": "accepted explicitly for this disposable test"
+}

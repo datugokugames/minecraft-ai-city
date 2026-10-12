@@ -1,0 +1,88 @@
+{
+  "seed": 42,
+  "success": true,
+  "before": {
+    "actual_roof_coverage": 0.04701232910156251,
+    "reserved_building_parcel_coverage": 0.04701232910156251,
+    "building_count": 47,
+    "shape_types": {
+      "rectangle": 47
+    },
+    "shape_type_count": 1,
+    "roof_types": {
+      "gable": 29,
+      "flat": 18
+    },
+    "roof_type_count": 2,
+    "form_signature_count": 26,
+    "facade_recipe_fraction": 0.0,
+    "explicit_facade_lighting_fraction": 0.0,
+    "window_pattern_count": 1,
+    "road_surface_fraction": 0.1953137777637777,
+    "site_counts": {
+      "parking": 3
+    },
+    "registered_open_space_fraction": 0.003189086914062499,
+    "footprint_area_cv": 0.26963344154850133,
+    "district_roof_coverage": {
+      "station": 0.052201956713965325,
+      "old_town": 0.07395962177044173,
+      "suburban": 0.0617723004087085,
+      "planned": 0.04710912190572267,
+      "industrial": 0.02405582253849535,
+      "riverside": 0.034811647286068614
+    },
+    "notes": [
+      "Roof coverage measures mass projection, not the entire reserved yard.",
+      "Signatures are diagnostics, not a human realism score."
+    ]
+  },
+  "after": {
+    "actual_roof_coverage": 0.060043334960937514,
+    "reserved_building_parcel_coverage": 0.06828308105468751,
+    "building_count": 58,
+    "shape_types": {
+      "rectangle": 56,
+      "l_shape": 2
+    },
+    "shape_type_count": 2,
+    "roof_types": {
+      "gable": 13,
+      "flat": 26,
+      "terrace": 19
+    },
+    "roof_type_count": 3,
+    "form_signature_count": 37,
+    "facade_recipe_fraction": 0.9655172413793104,
+    "explicit_facade_lighting_fraction": 0.9655172413793104,
+    "window_pattern_count": 6,
+    "road_surface_fraction": 0.1953137777637777,
+    "site_counts": {
+      "parking": 3
+    },
+    "registered_open_space_fraction": 0.003189086914062499,
+    "footprint_area_cv": 0.2904741417847546,
+    "district_roof_coverage": {
+      "station": 0.05967709656781834,
+      "old_town": 0.08784798166796161,
+      "suburban": 0.0837834916238606,
+      "planned": 0.0636165253497432,
+      "industrial": 0.04319415649177342,
+      "riverside": 0.034811647286068614
+    },
+    "notes": [
+      "Roof coverage measures mass projection, not the entire reserved yard.",
+      "Signatures are diagnostics, not a human realism score."
+    ]
+  },
+  "added_buildings": 11,
+  "target_roof_coverage": 0.09,
+  "target_reached": false,
+  "attempts": 20,
+  "rejected_candidates": 12,
+  "roads_unchanged": true,
+  "sites_unchanged": true,
+  "existing_ids_preserved": true,
+  "source_digest": "fb9b63b4650b9d7692685ca3488ca819506e9294b82e0aba1e13a221ba4f2ebe",
+  "result_digest": "eb9e7e61678cad47878afdea4e1f888968da5f429608dbcec729f53d2d88a906"
+}

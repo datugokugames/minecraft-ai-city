@@ -1,0 +1,101 @@
+{
+  "added_buildings": [
+    {
+      "id": 51,
+      "district_id": 0,
+      "kind": "apartment",
+      "x": 44,
+      "z": 6,
+      "width": 40,
+      "depth": 30,
+      "floors": 3,
+      "facing": "east",
+      "palette": "modern",
+      "angle": 0.0,
+      "footprint": [
+        [
+          84.0,
+          6.0
+        ],
+        [
+          84.0,
+          36.0
+        ],
+        [
+          44.0,
+          36.0
+        ],
+        [
+          44.0,
+          6.0
+        ],
+        [
+          84.0,
+          6.0
+        ]
+      ],
+      "entrance": [
+        84.0,
+        21.0
+      ],
+      "access_path": [
+        [
+          84.0,
+          21.0
+        ],
+        [
+          99.84,
+          10.0
+        ]
+      ],
+      "variant": 0,
+      "architecture": {
+        "schema_version": 1,
+        "category": "apartment",
+        "site_width": 30,
+        "site_depth": 40,
+        "height": 15,
+        "floors": 3,
+        "story_height": 4,
+        "shape": "stepped",
+        "masses": [
+          {
+            "x": 2,
+            "z": 7,
+            "width": 26,
+            "depth": 30,
+            "floors": 1
+          },
+          {
+            "x": 4,
+            "z": 9,
+            "width": 22,
+            "depth": 26,
+            "floors": 3
+          }
+        ],
+        "wall": "smooth_sandstone",
+        "accent": "stone_bricks",
+        "roof_material": "gray_concrete",
+        "roof": "flat",
+        "windows": {
+          "spacing": 3,
+          "width": 2,
+          "height": 2
+        },
+        "entrance_x": 15,
+        "balconies": true,
+        "canopy": true,
+        "signage": false,
+        "parking": true,
+        "planting": true,
+        "stairs": false,
+        "road_facing": "east",
+        "seed": 42
+      }
+    }
+  ],
+  "changed_buildings": [],
+  "added_sites": [],
+  "site_district_ids": []
+}

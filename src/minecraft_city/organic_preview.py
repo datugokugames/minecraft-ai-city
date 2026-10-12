@@ -94,12 +94,19 @@ def render_organic(city, path, scale=4):
         )
     for building in city.buildings:
         shape = building_area(building)
+        if building.architecture is not None:
+            from .urban_quality import roof_footprint
+
+            draw.polygon(points(list(shape.exterior.coords)), fill="#aebd99", outline="#e5e5cf")
+            shape = roof_footprint(building)
         coords = list(shape.exterior.coords)
         draw.line(points(building.access_path), fill="#d8c7a7", width=max(2, scale))
         draw.polygon([(x * scale + 2, z * scale + 3) for x, z in coords], fill="#85877b")
         rgb = np.array(ImageColor.getrgb(BUILDING_COLORS[building.kind]))
         color = tuple(np.clip(rgb + (building.variant % 3 - 1) * 10, 0, 255).tolist())
         draw.polygon(points(coords), fill=color, outline="#f7f0de", width=max(1, scale // 3))
+        for interior in shape.interiors:
+            draw.polygon(points(list(interior.coords)), fill="#aebd99")
         center = shape.centroid
         if scale >= 3:
             draw.text(

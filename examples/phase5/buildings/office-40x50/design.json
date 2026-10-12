@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "category": "office",
+  "site_width": 40,
+  "site_depth": 50,
+  "height": 60,
+  "floors": 11,
+  "story_height": 5,
+  "shape": "stepped",
+  "masses": [
+    {
+      "x": 2,
+      "z": 5,
+      "width": 36,
+      "depth": 41,
+      "floors": 5
+    },
+    {
+      "x": 4,
+      "z": 7,
+      "width": 32,
+      "depth": 37,
+      "floors": 11
+    }
+  ],
+  "wall": "white_concrete",
+  "accent": "dark_oak_planks",
+  "roof_material": "gray_concrete",
+  "roof": "terrace",
+  "windows": {
+    "spacing": 4,
+    "width": 2,
+    "height": 2
+  },
+  "entrance_x": 20,
+  "balconies": false,
+  "canopy": true,
+  "signage": true,
+  "parking": false,
+  "planting": true,
+  "stairs": false,
+  "road_facing": "north",
+  "seed": 49
+}

@@ -152,7 +152,15 @@ class Process:
         self.thread.join(timeout=10)
 
 
-def run(root, cache, accept_eula):
+def run(
+    root,
+    cache,
+    accept_eula,
+    instruction="中央区の空き地にコンビニを作って",
+    at=None,
+    max_blocks=5000,
+    compat_schematic=None,
+):
     if not accept_eula:
         raise ValueError(
             "Minecraft EULA https://aka.ms/MinecraftEULA を確認し --accept-eula を指定してください。"
@@ -162,11 +170,17 @@ def run(root, cache, accept_eula):
     harness = repo / "paper/integration/target/city-integration-harness-0.4.0.jar"
     if not plugin.exists() or not harness.exists():
         raise ValueError("先にpaperとpaper/integrationをMavenでビルドしてください。")
+    if not 1 <= max_blocks <= 20000 or not instruction.strip() or len(instruction) > 2000:
+        raise ValueError("Invalid integration instruction/limit")
     root.mkdir(parents=True, exist_ok=False)
     (root / "plugins").mkdir()
     server_files(root, cache)
     shutil.copy2(plugin, root / "plugins/MinecraftAICity.jar")
     shutil.copy2(harness, root / "plugins/CityIntegrationHarness.jar")
+    if compat_schematic is not None:
+        if compat_schematic.suffix != ".schem" or not compat_schematic.is_file():
+            raise ValueError("Expected a local schematic file for compatibility probe")
+        shutil.copy2(compat_schematic, root / "compat-city.schem")
     (root / "eula.txt").write_text("eula=true\n")
     (root / "server.properties").write_text(
         'server-ip=127.0.0.1\nserver-port=25585\nonline-mode=false\nlevel-type=minecraft:flat\ngenerator-settings={"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:grass_block","height":1}],"biome":"minecraft:plains","features":false,"lakes":false,"structure_overrides":[]}\ngenerate-structures=false\nallow-nether=false\nview-distance=3\nsimulation-distance=3\nspawn-protection=0\nspawn-monsters=false\nspawn-animals=false\nenable-rcon=false\nmax-players=1\n',
@@ -181,7 +195,9 @@ def run(root, cache, accept_eula):
     token = secrets.token_urlsafe(40)
     actor = str(uuid.uuid4())
     config = root / "paper-private.json"
-    config.write_text(json.dumps({"token": token, "players": [actor]}), encoding="utf-8")
+    config.write_text(
+        json.dumps({"token": token, "players": [actor], "max_blocks": max_blocks}), encoding="utf-8"
+    )
     workspace = Workspace(root / "backend", source, "rules")
     paper = PaperCoordinator(workspace, config)
     process = None
@@ -193,7 +209,19 @@ def run(root, cache, accept_eula):
                 settings = root / "plugins/MinecraftAICity"
                 settings.mkdir()
                 (settings / "config.yml").write_text(
-                    f"backend-url: http://127.0.0.1:{server.server_port}\nbackend-token: '{token}'\nserver-id: '{uuid.uuid4()}'\nblocks-per-tick: 64\nmillis-per-tick: 4\nmax-changed-blocks: 5000\nmax-patch-volume: 262144\nprotected-materials: [BEDROCK, CHEST, HOPPER, SPAWNER, COMMAND_BLOCK]\ntest-player-uuid: '{actor}'\n",
+                    f"backend-url: http://127.0.0.1:{server.server_port}\nbackend-token: '{token}'\nserver-id: '{uuid.uuid4()}'\nblocks-per-tick: 64\nmillis-per-tick: 4\nmax-changed-blocks: {max_blocks}\nmax-patch-volume: 262144\nprotected-materials: [BEDROCK, CHEST, HOPPER, SPAWNER, COMMAND_BLOCK]\ntest-player-uuid: '{actor}'\n",
+                    encoding="utf-8",
+                )
+                fixture = root / "plugins/CityIntegrationHarness"
+                fixture.mkdir()
+                (fixture / "config.yml").write_text(
+                    "test-instruction: "
+                    + json.dumps(instruction, ensure_ascii=False)
+                    + "\ntest-x: "
+                    + str(at[0] if at else 0.5)
+                    + "\ntest-z: "
+                    + str(at[1] if at else 0.5)
+                    + "\n",
                     encoding="utf-8",
                 )
                 print("Starting disposable Paper 1.21.4 / WorldEdit 7.3.10", flush=True)
@@ -228,6 +256,8 @@ def run(root, cache, accept_eula):
                     **second,
                     "python_project_restored": True,
                     "source_project_preserved": digest(load_project(source)) == original,
+                    "instruction": instruction,
+                    "max_blocks_limit": max_blocks,
                     "paper_build": PAPER_BUILD,
                     "paper_jar_sha256": PAPER_SHA256,
                     "plugin_jar_sha256": hashlib.sha256(plugin.read_bytes()).hexdigest(),
@@ -253,5 +283,17 @@ if __name__ == "__main__":
     parser.add_argument("--server-dir", type=Path, required=True)
     parser.add_argument("--download-cache", type=Path, default=Path("output/paper-downloads"))
     parser.add_argument("--accept-eula", action="store_true")
+    parser.add_argument("--instruction", default="中央区の空き地にコンビニを作って")
+    parser.add_argument("--at", type=float, nargs=2)
+    parser.add_argument("--max-blocks", type=int, default=5000)
+    parser.add_argument("--compat-schematic", type=Path)
     args = parser.parse_args()
-    run(args.server_dir.resolve(), args.download_cache.resolve(), args.accept_eula)
+    run(
+        args.server_dir.resolve(),
+        args.download_cache.resolve(),
+        args.accept_eula,
+        args.instruction,
+        args.at,
+        args.max_blocks,
+        args.compat_schematic,
+    )

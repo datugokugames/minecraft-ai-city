@@ -299,6 +299,23 @@ public final class CityPlugin extends JavaPlugin implements CommandExecutor, Lis
             + " / 原点 "
             + job.binding().get("origin")
             + "。承認 /city approve、見送り /city cancel");
+    if (job.info().has("architecture") && !job.info().get("architecture").isJsonNull()) {
+      JsonObject spec = job.info().getAsJsonObject("architecture");
+      tell(
+          player,
+          "外装 "
+              + spec.get("category")
+              + " / 道路側幅 "
+              + spec.get("site_width")
+              + " × 奥行き "
+              + spec.get("site_depth")
+              + " / 高さ "
+              + spec.get("height")
+              + " / "
+              + spec.get("floors")
+              + "階 / "
+              + spec.get("shape"));
+    }
     try {
       Run check = new Run(job, player, new CompletableFuture<>());
       particles(check);

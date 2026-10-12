@@ -16,6 +16,7 @@ from typing import Literal
 import numpy as np
 from pydantic import Field, model_validator
 
+from .architecture_models import ArchitectureRequest
 from .building import build_city
 from .edit_models import Selection, digest
 from .editing import load_plan, verify_plan
@@ -47,6 +48,7 @@ class Binding(StrictModel):
 
 
 class GamePlan(StrictModel):
+    architecture: ArchitectureRequest | None = None
     revision: str
     instruction: str = Field(min_length=1, max_length=2000)
     selection: Selection = Field(default_factory=Selection)
@@ -245,6 +247,11 @@ class PaperCoordinator:
             "after_revision": digest(after),
             "status": "planned",
             "completed": 0,
+            "architecture": (
+                plan.changes.added_buildings[0].architecture.model_dump(mode="json")
+                if not undo and plan.intent.action == "add_architecture"
+                else None
+            ),
             **patch,
         }
         self.data["jobs"][identifier] = job

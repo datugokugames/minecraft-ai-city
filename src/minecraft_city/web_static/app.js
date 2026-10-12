@@ -189,6 +189,11 @@ async function refresh(reset = false, supplied = null) {
   $("city-name").textContent = state.city_name;
   $("city-stats").textContent =
     `${state.size} × ${state.size} blocks · ${state.buildings.length}棟 · ${state.wards.length}区 · 編集 ${state.history_depth}件`;
+  options(
+    "arch-category",
+    state.architecture_templates || [],
+    "従来の編集／日本語で指定",
+  );
   options("ward", state.wards, "区を選択");
   options("district", state.districts, "地区を選択");
   $("ward").value = selection.ward || "";
@@ -255,6 +260,19 @@ $("chat").onsubmit = (e) => {
       instruction,
       selection,
       seed: Number($("seed").value),
+      ...($("arch-category").value
+        ? {
+            architecture: {
+              category: $("arch-category").value,
+              width: Number($("arch-width").value),
+              depth: Number($("arch-depth").value),
+              height: $("arch-height").value
+                ? Number($("arch-height").value)
+                : null,
+              mode: $("arch-mode").value,
+            },
+          }
+        : {}),
     });
     const p = pending.plan,
       c = p.changes;
@@ -272,6 +290,12 @@ $("chat").onsubmit = (e) => {
       null,
       2,
     );
+    $("architecture-view").hidden = p.intent.action !== "add_architecture";
+    if (p.intent.action === "add_architecture")
+      await picture(
+        "architecture-preview",
+        `/api/files/reviews/${pending.review}/architecture.png`,
+      );
     await picture("before", `/api/files/reviews/${pending.review}/before.png`);
     await picture("after", `/api/files/reviews/${pending.review}/after.png`);
     paint();
@@ -282,6 +306,18 @@ $("chat").onsubmit = (e) => {
     $("review").scrollIntoView({ behavior: "smooth", block: "nearest" });
   });
 };
+$("arch-category").onchange = () => {
+  const template = state.architecture_templates.find(
+    (t) => t.id === $("arch-category").value,
+  );
+  if (template) {
+    $("arch-width").value = template.width;
+    $("arch-depth").value = template.depth;
+  }
+  invalidate();
+};
+for (const id of ["arch-width", "arch-depth", "arch-height", "arch-mode"])
+  $(id).addEventListener("input", invalidate);
 $("instruction").addEventListener("input", invalidate);
 $("seed").addEventListener("input", invalidate);
 $("cancel").onclick = () => {

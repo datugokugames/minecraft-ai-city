@@ -46,6 +46,28 @@ Paper **1.21.4 / Java 21 / WorldEdit 7.3.10** 用プラグインを追加しま�
 
 実Paperで432ブロックの建築、Undo、衝突拒否、書込失敗時の復元、途中停止・再起動後の復元を検証しました。実Minecraftクライアント・Windows実機・Bedrockは未検証です。全都市の初回自動貼り付け、対話による駅/道路追加は未対応です。
 
+## サイズを指定してオリジナル外装を設計する（v0.5.0 / Phase 5）
+
+住宅・アパート・マンション・オフィス・商業ビル・コンビニ・スーパー・学校・駅舎・工場・倉庫・公共施設の12カテゴリに対応しました。敷地内の棟の組合せ、窓のベイ、屋根、材料、入口、ベランダなどを設計し、空洞の内部と各階の床を生成します。幅12〜64、奥行き14〜64、高さ7〜96ブロック。寸法は敷地上限で、建物を単純拡大する方式ではありません。
+
+```bash
+citygen architecture --instruction "ここに20×30のコンビニを作って" --mode local --seed 42 --output output/exterior-store
+```
+
+単体のdesign.json、上面/アイソメトリックPNG、building.schemを出力します。Webの「自由建築の外装・寸法を指定」とPaperの `/city plan ここに30×40のマンションを建てて` も同じ生成器を使用し、プレビュー・承認・Undoが使えます。
+
+[Phase 5の仕様・使い方・LLM設定・制限](docs/ARCHITECTURE.md) / [10種類のサイズ別サンプル](examples/phase5/buildings/comparison.png) / [Web画面](examples/phase5/mobile-exterior-review.png) / [実Paper検証](examples/phase5/paper-architecture-verification.json)。APIなしのlocalと、検証付き外部LLM＋fallbackに対応。実LLM通信・実Minecraftクライアント・Windows/Bedrock実機は未検証です。
+
+## 既存都市の建築・景観品質を改善する（v0.5）
+
+`improve` は独立した新規出力へ都市を複製し、接道する空き地の追加建築、用途/地区別の窓・屋根・庇・看板・照明、駐車場/空き地内の植栽を生成します。予約敷地と建物本体の被覆率を分けて評価します。
+
+```bash
+citygen improve --project examples/managed-city/project.json --seed 42 --output output/quality-v05
+```
+
+[新旧都市プレビュー](examples/quality-v05/seed-42/comparison.png) / [3シード比較JSON](examples/quality-v05/comparison.json) / [改善内容・数値・制限](docs/QUALITY_V05.md)。3シードで投影被覆率と形状多様性が改善しました。9%目標は未達で、次の敷地分割改善へ残しています。改善全都市schematicをPaper 1.21.4 / WorldEdit 7.3.10上で読込確認済みです。既存ワールド/バックエンドへの一括置換は行いません。
+
 ## 日本語でコンビニを追加する
 
 ```bash
