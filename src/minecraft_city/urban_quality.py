@@ -83,7 +83,20 @@ def measure_quality(city):
         "facade_recipe_fraction": len(recipes) / max(1, len(city.buildings)),
         "explicit_facade_lighting_fraction": sum(r.lighting for r in recipes)
         / max(1, len(city.buildings)),
-        "window_pattern_count": len({(r.window_spacing, r.window_width) for r in recipes}),
+        "window_pattern_count": len(
+            {
+                (
+                    b.architecture.windows.spacing,
+                    b.architecture.windows.width,
+                    b.architecture.windows.height,
+                )
+                if b.architecture
+                else (b.facade.window_spacing, b.facade.window_width, 2)
+                if b.facade
+                else (3, 2, 2)
+                for b in city.buildings
+            }
+        ),
         "road_surface_fraction": streets / city.size**2,
         "site_counts": dict(site_counts),
         "registered_open_space_fraction": sum(Polygon(s.polygon).area for s in city.sites)

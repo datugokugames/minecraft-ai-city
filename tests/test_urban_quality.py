@@ -19,6 +19,7 @@ def test_multi_seed_density_shape_and_geometry(seed):
     )
     project = create_project(city)
     before = digest(project)
+    assert measure_quality(project.city)["window_pattern_count"] >= 1
     improved, report = improve(project, seed=seed, max_additions=12)
     assert digest(project) == before
     assert report["after"]["actual_roof_coverage"] > report["before"]["actual_roof_coverage"]

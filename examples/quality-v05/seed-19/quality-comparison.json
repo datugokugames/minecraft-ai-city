@@ -17,7 +17,7 @@
     "form_signature_count": 26,
     "facade_recipe_fraction": 0.0,
     "explicit_facade_lighting_fraction": 0.0,
-    "window_pattern_count": 0,
+    "window_pattern_count": 1,
     "road_surface_fraction": 0.1862325336502822,
     "site_counts": {
       "parking": 5
