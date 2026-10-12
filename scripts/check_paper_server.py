@@ -230,6 +230,8 @@ def run(root, cache, accept_eula):
                     "source_project_preserved": digest(load_project(source)) == original,
                     "paper_build": PAPER_BUILD,
                     "paper_jar_sha256": PAPER_SHA256,
+                    "plugin_jar_sha256": hashlib.sha256(plugin.read_bytes()).hexdigest(),
+                    "harness_jar_sha256": hashlib.sha256(harness.read_bytes()).hexdigest(),
                     "minecraft_client": "not tested; console-only synthetic operator",
                     "eula": "accepted explicitly for this disposable test",
                 }

@@ -229,3 +229,43 @@ def test_paper_http_auth_and_job_files(coordinator):
         finally:
             server.shutdown()
             thread.join()
+
+
+def test_repeated_apply_undo_keeps_unique_history(coordinator):
+    paper, actor, binding = coordinator
+    original = digest(paper.workspace.project)
+    for _ in range(2):
+        applied = plan(paper, actor, binding)["job"]
+        for job in (applied,):
+            prepare(paper, actor, job, binding)
+            paper.api(
+                "POST", "progress", {"job": job["id"], "completed": job["changed_blocks"]}, actor
+            )
+            finish(paper, actor, job, "commit")
+        reverse = paper.create(actor, binding, undo=True)
+        assert reverse["undo_of"] == applied["id"]
+        prepare(paper, actor, reverse, binding)
+        paper.api(
+            "POST",
+            "progress",
+            {"job": reverse["id"], "completed": reverse["changed_blocks"]},
+            actor,
+        )
+        finish(paper, actor, reverse, "commit")
+        assert applied["status"] == "undone"
+        assert digest(paper.workspace.project) == original
+
+
+def test_cancel_rejects_approval_and_patch_symlinks(coordinator, tmp_path):
+    paper, actor, binding = coordinator
+    job = plan(paper, actor, binding)["job"]
+    paper.api("POST", "cancel", {"job": job["id"]}, actor)
+    with pytest.raises(Conflict):
+        prepare(paper, actor, job, binding)
+    patch = paper.workspace.directory(job["id"]) / "before.schem"
+    patch.unlink()
+    outside = tmp_path / "private.txt"
+    outside.write_text("must not be served")
+    patch.symlink_to(outside)
+    with pytest.raises(FileNotFoundError):
+        paper.api("GET", f"jobs/{job['id']}/before.schem", None, actor)

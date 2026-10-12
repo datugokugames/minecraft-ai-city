@@ -236,6 +236,7 @@ public final class CityPlugin extends JavaPlugin implements CommandExecutor, Lis
         },
         error -> {
           busy = false;
+          cancellations.remove(actor);
           tell(player, "計画失敗: " + error.getMessage());
           result.completeExceptionally(error);
         });
@@ -264,11 +265,21 @@ public final class CityPlugin extends JavaPlugin implements CommandExecutor, Lis
         },
         job -> {
           busy = false;
+          if (cancellations.remove(actor)) {
+            JsonObject cancel = new JsonObject();
+            cancel.addProperty("job", job.id());
+            async(
+                () -> backend.call("cancel", actor, cancel),
+                ignored -> tell(player, "計画を見送りました。"),
+                error -> tell(player, error.getMessage()));
+            return;
+          }
           pending.put(actor, job);
           preview(player, job);
         },
         error -> {
           busy = false;
+          cancellations.remove(actor);
           tell(player, "計画取得失敗: " + error.getMessage());
         });
   }
@@ -357,7 +368,7 @@ public final class CityPlugin extends JavaPlugin implements CommandExecutor, Lis
     final Set<Long> chunks = new HashSet<>();
     final CompletableFuture<Void> result;
     boolean cancelling, restoring, committing;
-    int lastReported;
+    int lastReported, backendReported;
     final Map<String, BlockData> palette = new HashMap<>();
 
     Run(GameJob job, Player player, CompletableFuture<Void> result) {
@@ -471,8 +482,7 @@ public final class CityPlugin extends JavaPlugin implements CommandExecutor, Lis
           i < run.transaction.size() && n < perTick && (n == 0 || System.nanoTime() < deadline);
           n++, i++) {
         BlockChange c = run.job.changes().get(i);
-        String before = run.data(c.before()).getAsString(),
-            after = run.data(c.after()).getAsString();
+        String before = run.data(c.before()).getAsString();
         // WorldEdit states contain all properties, normalized by the installed Bukkit version.
         if (!run.transactionWorld(c).equals(before))
           throw new IllegalStateException("既存ワールドと都市が不一致: " + c.x() + "," + c.y() + "," + c.z());
@@ -495,6 +505,7 @@ public final class CityPlugin extends JavaPlugin implements CommandExecutor, Lis
     try {
       if (run.player != null && !run.player.isOnline())
         throw new IllegalStateException("プレイヤーが退出しました。");
+      if (run.player != null) permitted(run.player, "city.approve");
       entities(run);
     } catch (Exception error) {
       fail(run, error);
@@ -503,11 +514,24 @@ public final class CityPlugin extends JavaPlugin implements CommandExecutor, Lis
     int end = Math.min(run.transaction.size(), start + perTick);
     async(
         () -> {
+          if (start / 256 > run.backendReported / 256) {
+            JsonObject progress = new JsonObject();
+            progress.addProperty("job", run.job.id());
+            progress.addProperty("completed", start);
+            backend.call("progress", run.job.actor(), progress);
+            run.backendReported = start;
+          }
           journal.beforeBatch(run.job.id(), end);
           return true;
         },
         ignored -> {
           try {
+            if (run.cancelling) throw new IllegalStateException("建築をキャンセルしました。");
+            if (run.player != null) {
+              if (!run.player.isOnline()) throw new IllegalStateException("プレイヤーが退出しました。");
+              permitted(run.player, "city.approve");
+            }
+            entities(run);
             int i = start;
             long deadline = System.nanoTime() + nanos;
             for (int n = 0; i < end && (n == 0 || System.nanoTime() < deadline); n++, i++)
@@ -896,6 +920,29 @@ public final class CityPlugin extends JavaPlugin implements CommandExecutor, Lis
   @EventHandler(ignoreCancelled = true)
   public void physics(BlockPhysicsEvent event) {
     if (protectedByJob(event.getBlock())) event.setCancelled(true);
+  }
+
+  @EventHandler(ignoreCancelled = true)
+  public void piston(BlockPistonExtendEvent event) {
+    if (protectedByJob(event.getBlock())
+        || event.getBlocks().stream()
+            .anyMatch(
+                b -> protectedByJob(b) || protectedByJob(b.getRelative(event.getDirection()))))
+      event.setCancelled(true);
+  }
+
+  @EventHandler(ignoreCancelled = true)
+  public void pistonRetract(BlockPistonRetractEvent event) {
+    if (protectedByJob(event.getBlock())
+        || event.getBlocks().stream()
+            .anyMatch(
+                b -> protectedByJob(b) || protectedByJob(b.getRelative(event.getDirection()))))
+      event.setCancelled(true);
+  }
+
+  @EventHandler(ignoreCancelled = true)
+  public void blockExplode(BlockExplodeEvent event) {
+    event.blockList().removeIf(this::protectedByJob);
   }
 
   @EventHandler(ignoreCancelled = true)

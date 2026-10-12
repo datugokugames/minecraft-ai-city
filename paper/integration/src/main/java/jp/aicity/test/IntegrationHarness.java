@@ -406,7 +406,7 @@ public final class IntegrationHarness extends JavaPlugin implements Listener {
       report.addProperty("restart_world_recovery", true);
       report.addProperty("success", true);
       saveReport();
-      getLogger().info("CITY_INTEGRATION_SUCCESS");
+
     } catch (Exception e) {
       fail(e);
     }
@@ -419,6 +419,8 @@ public final class IntegrationHarness extends JavaPlugin implements Listener {
           try {
             Files.createDirectories(getDataFolder().toPath());
             Files.writeString(getDataFolder().toPath().resolve("report.json"), gson.toJson(copy));
+            if (copy.has("success") && copy.get("success").getAsBoolean())
+              getLogger().info("CITY_INTEGRATION_SUCCESS");
           } catch (Exception error) {
             getLogger().severe(error.toString());
           }
