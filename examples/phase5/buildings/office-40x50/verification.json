@@ -1,0 +1,13 @@
+{
+  "category": "office",
+  "site": [
+    40,
+    50
+  ],
+  "height": 60,
+  "floors": 11,
+  "solid_blocks": 25026,
+  "mode": "local",
+  "approved_world_changes": 0,
+  "hollow_interior": true
+}

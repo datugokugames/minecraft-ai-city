@@ -2,7 +2,7 @@
 
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_serializer, model_validator
 
 Category = Literal[
     "house",
@@ -92,6 +92,12 @@ class ArchitectureSpec(Contract):
         for m in self.masses:
             if m.x + m.width > self.site_width - 2 or m.z + m.depth > self.site_depth - 2:
                 raise ValueError("建物と外装の余白が敷地に収まりません。")
+        from shapely.geometry import box
+        from shapely.ops import unary_union
+
+        geometry = unary_union([box(m.x, m.z, m.x + m.width, m.z + m.depth) for m in self.masses])
+        if geometry.geom_type != "Polygon":
+            raise ValueError("建物の棟を接続してください。離れた棟は1建築案にしません。")
         front = min(m.z for m in self.masses)
         if not any(
             m.z == front and m.x + 1 <= self.entrance_x < m.x + m.width - 1 for m in self.masses
@@ -101,6 +107,7 @@ class ArchitectureSpec(Contract):
 
 
 class ArchitectureRequest(Contract):
+    brief: str | None = Field(default=None, max_length=2000)
     category: Category
     width: int = Field(ge=12, le=64)
     depth: int = Field(ge=14, le=64)
@@ -109,3 +116,10 @@ class ArchitectureRequest(Contract):
     # Validated design is frozen into the plan. Approval never calls the LLM again.
     design: ArchitectureSpec | None = None
     execution: dict | None = None
+
+    @model_serializer(mode="wrap")
+    def compatible_brief(self, handler):
+        data = handler(self)
+        if self.brief is None:
+            data.pop("brief", None)
+        return data

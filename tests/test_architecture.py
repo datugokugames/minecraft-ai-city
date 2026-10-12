@@ -15,6 +15,7 @@ from minecraft_city.architecture import (
 from minecraft_city.architecture_geometry import render_architecture
 from minecraft_city.architecture_models import ArchitectureRequest, ArchitectureSpec
 from minecraft_city.edit_models import ClarificationRequired, Selection, digest
+from minecraft_city.editing import prepare_edit, verify_plan
 from minecraft_city.project import load_project
 from minecraft_city.schematic import write_schematic
 
@@ -152,3 +153,87 @@ def test_llm_validation_fallback_and_usage(monkeypatch):
 def test_old_project_digest_unchanged():
     raw = json.loads(SOURCE.read_text())
     assert digest(load_project(SOURCE)) == digest(raw)
+
+
+def test_template_edit_validation(tmp_path):
+    raw = {"schema_version": 1, "templates": [templates()["house"].model_dump(mode="json")]}
+    target = tmp_path / "templates.json"
+    target.write_text(json.dumps(raw))
+    assert templates(target)["house"].label == "戸建住宅"
+    raw["templates"][0]["walls"] = ["command_block"]
+    target.write_text(json.dumps(raw))
+    with pytest.raises(ValueError):
+        templates(target)
+
+
+def test_city_architecture_plan_approval_collision_and_preservation(tmp_path):
+    from minecraft_city.building import build_city
+    from minecraft_city.editing import apply_edit, undo_edit, write_preview
+
+    project = load_project(SOURCE)
+    plan, after = prepare_edit(project, "青葉市に30×40のマンションを建てて", mode="rules")
+    repeated, _ = prepare_edit(project, "青葉市に30×40のマンションを建てて", mode="rules")
+    assert plan == repeated and plan.engine_version == "phase5-1"
+    assert project.city.buildings == after.city.buildings[:-1]
+    assert project.city.roads == after.city.roads
+    building = after.city.buildings[-1]
+    point = (building.x + building.width / 2, building.z + building.depth / 2)
+    with pytest.raises(ValueError):
+        prepare_edit(after, "ここに30×40のマンションを建てて", Selection(point=point), mode="rules")
+    with pytest.raises(ValueError):
+        apply_edit(project, plan, None, tmp_path / "not-approved")
+    assert not (tmp_path / "not-approved").exists()
+    write_preview(project, plan, tmp_path / "review")
+    assert (tmp_path / "review/architecture.png").exists()
+    saved = apply_edit(project, plan, plan.plan_id, tmp_path / "applied")
+    assert len(saved.city.buildings) == 52 and (tmp_path / "applied/city.schem").exists()
+    restored = undo_edit(
+        saved, tmp_path / "applied/history.json", plan.plan_id, tmp_path / "undone"
+    )
+    assert digest(restored) == digest(project)
+    assert np.array_equal(build_city(restored.city).blocks, build_city(project.city).blocks)
+
+
+def test_frozen_design_never_calls_external_service(monkeypatch):
+    project = load_project(SOURCE)
+    plan, _ = prepare_edit(project, "青葉市に18×22の駅舎を建てて", mode="rules")
+
+    def fail(*args, **kwargs):
+        raise AssertionError("approval must not design again")
+
+    monkeypatch.setattr("minecraft_city.architecture_edit.design", fail)
+    assert len(verify_plan(project, plan).city.buildings) == 52
+
+
+def test_exact_height_and_optional_stairs():
+    req = ArchitectureRequest(category="office", width=40, depth=50, height=60)
+    spec = local_design(req, 42)
+    volume = render_architecture(spec)
+    assert np.any(volume.blocks[60]) and volume.blocks.shape[0] == 61
+    spec = spec.model_copy(update={"stairs": True})
+    stairs = render_architecture(spec)
+    assert any("oak_stairs" in key for key in stairs.palette)
+    assert not np.array_equal(stairs.blocks, volume.blocks)
+
+
+def test_disconnected_ai_masses_fail():
+    data = local_design(ArchitectureRequest(category="office", width=40, depth=50), 42).model_dump()
+    data["masses"] = [
+        {"x": 2, "z": 4, "width": 5, "depth": 5, "floors": data["floors"]},
+        {"x": 20, "z": 20, "width": 5, "depth": 5, "floors": 1},
+    ]
+    data["entrance_x"] = 4
+    with pytest.raises(ValueError, match="接続"):
+        ArchitectureSpec.model_validate(data)
+
+
+def test_restyle_new_architecture_preserves_shape():
+    project = load_project(SOURCE)
+    _plan, after = prepare_edit(project, "青葉市に18×22の駅舎を建てて", mode="rules")
+    b = after.city.buildings[-1]
+    restyle, restyled = prepare_edit(after, f"建物{b.id}の外観を和風にして", mode="rules")
+    changed = restyled.city.buildings[-1]
+    assert changed.architecture.wall == "white_terracotta"
+    assert changed.architecture.masses == b.architecture.masses
+    assert changed.footprint == b.footprint and changed.id == b.id
+    assert len(verify_plan(after, restyle).city.buildings) == 52

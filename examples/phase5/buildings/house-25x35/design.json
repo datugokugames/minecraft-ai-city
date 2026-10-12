@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "category": "house",
+  "site_width": 25,
+  "site_depth": 35,
+  "height": 11,
+  "floors": 2,
+  "story_height": 4,
+  "shape": "rectangle",
+  "masses": [
+    {
+      "x": 2,
+      "z": 6,
+      "width": 19,
+      "depth": 26,
+      "floors": 2
+    }
+  ],
+  "wall": "white_terracotta",
+  "accent": "stone_bricks",
+  "roof_material": "deepslate_tiles",
+  "roof": "flat",
+  "windows": {
+    "spacing": 4,
+    "width": 2,
+    "height": 2
+  },
+  "entrance_x": 11,
+  "balconies": false,
+  "canopy": true,
+  "signage": false,
+  "parking": true,
+  "planting": true,
+  "stairs": false,
+  "road_facing": "north",
+  "seed": 43
+}

@@ -117,6 +117,26 @@ class Building(StrictModel):
     detail: Literal["convenience_store"] | None = None
     architecture: ArchitectureSpec | None = None
 
+    @model_validator(mode="after")
+    def consistent_architecture(self):
+        if self.architecture is not None:
+            spec = self.architecture
+            expected = (
+                (spec.site_depth, spec.site_width)
+                if self.facing in {"east", "west"}
+                else (spec.site_width, spec.site_depth)
+            )
+            if (
+                (self.width, self.depth) != expected
+                or self.floors != spec.floors
+                or self.facing != spec.road_facing
+                or self.angle != 0
+            ):
+                raise ValueError(
+                    "architecture dimensions/floors/facing must match the city building"
+                )
+        return self
+
     @model_serializer(mode="wrap")
     def compatible_detail(self, handler):
         data = handler(self)

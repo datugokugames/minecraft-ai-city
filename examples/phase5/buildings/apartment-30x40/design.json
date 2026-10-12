@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "category": "apartment",
+  "site_width": 30,
+  "site_depth": 40,
+  "height": 15,
+  "floors": 3,
+  "story_height": 4,
+  "shape": "stepped",
+  "masses": [
+    {
+      "x": 2,
+      "z": 6,
+      "width": 20,
+      "depth": 30,
+      "floors": 1
+    },
+    {
+      "x": 4,
+      "z": 8,
+      "width": 16,
+      "depth": 26,
+      "floors": 3
+    }
+  ],
+  "wall": "smooth_sandstone",
+  "accent": "light_gray_concrete",
+  "roof_material": "gray_concrete",
+  "roof": "flat",
+  "windows": {
+    "spacing": 4,
+    "width": 2,
+    "height": 2
+  },
+  "entrance_x": 12,
+  "balconies": true,
+  "canopy": true,
+  "signage": false,
+  "parking": true,
+  "planting": true,
+  "stairs": false,
+  "road_facing": "north",
+  "seed": 45
+}

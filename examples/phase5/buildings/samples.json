@@ -1,0 +1,132 @@
+[
+  {
+    "category": "house",
+    "site": [
+      18,
+      22
+    ],
+    "height": 11,
+    "floors": 2,
+    "solid_blocks": 1370,
+    "mode": "local",
+    "approved_world_changes": 0,
+    "hollow_interior": true
+  },
+  {
+    "category": "house",
+    "site": [
+      25,
+      35
+    ],
+    "height": 11,
+    "floors": 2,
+    "solid_blocks": 3065,
+    "mode": "local",
+    "approved_world_changes": 0,
+    "hollow_interior": true
+  },
+  {
+    "category": "apartment",
+    "site": [
+      18,
+      22
+    ],
+    "height": 15,
+    "floors": 3,
+    "solid_blocks": 1626,
+    "mode": "local",
+    "approved_world_changes": 0,
+    "hollow_interior": true
+  },
+  {
+    "category": "apartment",
+    "site": [
+      30,
+      40
+    ],
+    "height": 15,
+    "floors": 3,
+    "solid_blocks": 4378,
+    "mode": "local",
+    "approved_world_changes": 0,
+    "hollow_interior": true
+  },
+  {
+    "category": "convenience_store",
+    "site": [
+      18,
+      22
+    ],
+    "height": 7,
+    "floors": 1,
+    "solid_blocks": 988,
+    "mode": "local",
+    "approved_world_changes": 0,
+    "hollow_interior": true
+  },
+  {
+    "category": "convenience_store",
+    "site": [
+      20,
+      30
+    ],
+    "height": 7,
+    "floors": 1,
+    "solid_blocks": 1640,
+    "mode": "local",
+    "approved_world_changes": 0,
+    "hollow_interior": true
+  },
+  {
+    "category": "office",
+    "site": [
+      24,
+      30
+    ],
+    "height": 18,
+    "floors": 3,
+    "solid_blocks": 3302,
+    "mode": "local",
+    "approved_world_changes": 0,
+    "hollow_interior": true
+  },
+  {
+    "category": "office",
+    "site": [
+      40,
+      50
+    ],
+    "height": 60,
+    "floors": 11,
+    "solid_blocks": 25026,
+    "mode": "local",
+    "approved_world_changes": 0,
+    "hollow_interior": true
+  },
+  {
+    "category": "station",
+    "site": [
+      18,
+      22
+    ],
+    "height": 13,
+    "floors": 2,
+    "solid_blocks": 1274,
+    "mode": "local",
+    "approved_world_changes": 0,
+    "hollow_interior": true
+  },
+  {
+    "category": "station",
+    "site": [
+      28,
+      34
+    ],
+    "height": 13,
+    "floors": 2,
+    "solid_blocks": 3682,
+    "mode": "local",
+    "approved_world_changes": 0,
+    "hollow_interior": true
+  }
+]

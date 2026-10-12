@@ -1,0 +1,13 @@
+{
+  "category": "apartment",
+  "site": [
+    18,
+    22
+  ],
+  "height": 15,
+  "floors": 3,
+  "solid_blocks": 1626,
+  "mode": "local",
+  "approved_world_changes": 0,
+  "hollow_interior": true
+}

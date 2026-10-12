@@ -30,6 +30,7 @@ jobs:
       - run: python -m playwright install --with-deps ${{ matrix.browser }}
       - run: python scripts/check_web_browser.py --browser ${{ matrix.browser }} --output output/browser-${{ matrix.browser }}
       - run: python scripts/check_paper_web.py --browser ${{ matrix.browser }} --output output/paper-browser-${{ matrix.browser }}
+      - run: python scripts/check_architecture_web.py --browser ${{ matrix.browser }} --output output/architecture-browser-${{ matrix.browser }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -37,3 +38,4 @@ jobs:
           path: |
             output/browser-${{ matrix.browser }}/
             output/paper-browser-${{ matrix.browser }}/
+            output/architecture-browser-${{ matrix.browser }}/

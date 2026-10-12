@@ -271,6 +271,28 @@ def compute_delta(project, intent, seed):
                 "外観を変更する建物を1棟だけ指定してください。--building-id を使用できます。"
             )
         before = candidates[0]
+        if before.architecture is not None:
+            spec = before.architecture.model_copy(
+                update={
+                    "wall": {
+                        "modern": "white_concrete",
+                        "traditional": "white_terracotta",
+                        "warm": "smooth_sandstone",
+                    }[intent.palette],
+                    "accent": {
+                        "modern": "light_gray_concrete",
+                        "traditional": "dark_oak_planks",
+                        "warm": "oak_planks",
+                    }[intent.palette],
+                },
+                deep=True,
+            )
+            after = before.model_copy(
+                update={"palette": intent.palette, "architecture": spec}, deep=True
+            )
+            if before == after:
+                raise EditError("指定した建物は既にその外観です。")
+            return EditDelta(changed_buildings=[BuildingChange(before=before, after=after)])
         if before.kind in {"school", "factory", "station"}:
             raise EditError("学校・工場・駅の専用外観変更はPhase 3Aでは未対応です。")
         after = before.model_copy(

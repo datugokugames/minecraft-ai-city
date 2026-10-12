@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "category": "station",
+  "site_width": 28,
+  "site_depth": 34,
+  "height": 13,
+  "floors": 2,
+  "story_height": 5,
+  "shape": "rectangle",
+  "masses": [
+    {
+      "x": 2,
+      "z": 7,
+      "width": 22,
+      "depth": 23,
+      "floors": 2
+    }
+  ],
+  "wall": "white_concrete",
+  "accent": "stone_bricks",
+  "roof_material": "deepslate_tiles",
+  "roof": "gable",
+  "windows": {
+    "spacing": 5,
+    "width": 2,
+    "height": 2
+  },
+  "entrance_x": 13,
+  "balconies": false,
+  "canopy": true,
+  "signage": true,
+  "parking": false,
+  "planting": true,
+  "stairs": false,
+  "road_facing": "north",
+  "seed": 51
+}

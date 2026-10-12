@@ -1,0 +1,13 @@
+{
+  "category": "house",
+  "site": [
+    18,
+    22
+  ],
+  "height": 11,
+  "floors": 2,
+  "solid_blocks": 1370,
+  "mode": "local",
+  "approved_world_changes": 0,
+  "hollow_interior": true
+}

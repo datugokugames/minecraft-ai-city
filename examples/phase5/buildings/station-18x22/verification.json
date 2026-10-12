@@ -1,0 +1,13 @@
+{
+  "category": "station",
+  "site": [
+    18,
+    22
+  ],
+  "height": 13,
+  "floors": 2,
+  "solid_blocks": 1274,
+  "mode": "local",
+  "approved_world_changes": 0,
+  "hollow_interior": true
+}

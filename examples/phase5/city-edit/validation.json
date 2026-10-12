@@ -1,0 +1,81 @@
+{
+  "status": "awaiting_approval",
+  "valid": true,
+  "roads_connected": true,
+  "road_components": 1,
+  "building_overlaps": 0,
+  "building_count": 52,
+  "district_count": 6,
+  "building_types": [
+    "apartment",
+    "factory",
+    "house",
+    "mixed_use",
+    "school",
+    "shop",
+    "station"
+  ],
+  "frontage_validated": 52,
+  "achieved_building_coverage": 0.06976318359375001,
+  "roads_unchanged": true,
+  "landscape_unchanged": true,
+  "existing_buildings_preserved": 51,
+  "added_building_ids": [
+    51
+  ],
+  "changed_building_ids": [],
+  "added_site_indices": [],
+  "errors": [],
+  "architecture_execution": {
+    "source": "local",
+    "external_contacted": false,
+    "usage": null,
+    "estimated_cost_usd": null
+  },
+  "architecture_specs": [
+    {
+      "schema_version": 1,
+      "category": "apartment",
+      "site_width": 30,
+      "site_depth": 40,
+      "height": 15,
+      "floors": 3,
+      "story_height": 4,
+      "shape": "stepped",
+      "masses": [
+        {
+          "x": 2,
+          "z": 7,
+          "width": 26,
+          "depth": 30,
+          "floors": 1
+        },
+        {
+          "x": 4,
+          "z": 9,
+          "width": 22,
+          "depth": 26,
+          "floors": 3
+        }
+      ],
+      "wall": "smooth_sandstone",
+      "accent": "stone_bricks",
+      "roof_material": "gray_concrete",
+      "roof": "flat",
+      "windows": {
+        "spacing": 3,
+        "width": 2,
+        "height": 2
+      },
+      "entrance_x": 15,
+      "balconies": true,
+      "canopy": true,
+      "signage": false,
+      "parking": true,
+      "planting": true,
+      "stairs": false,
+      "road_facing": "east",
+      "seed": 42
+    }
+  ]
+}

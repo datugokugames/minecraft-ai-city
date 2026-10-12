@@ -173,11 +173,12 @@ def parse_architecture(instruction, project=None, selection=None, explicit=None)
         "mode": os.environ.get("ARCHITECTURE_DEFAULT_MODE", "local"),
     }
     if explicit:
-        values.update(explicit.model_dump(exclude={"design", "execution"}))
+        values.update(explicit.model_dump(exclude={"design", "execution", "brief"}))
         for name, value in dimensions.items():
             if values.get(name) is not None and values[name] != value:
                 raise ClarificationRequired(f"日本語と入力欄の{name}が矛盾しています。")
     values.update(dimensions)
+    values["brief"] = instruction
     try:
         request = ArchitectureRequest.model_validate(values)
     except ValueError as error:
@@ -374,6 +375,9 @@ def design(request, seed, context=None, facing="north", *, session=None):
         spec = validate_request_design(
             ArchitectureSpec.model_validate_json(content), request, seed, facing
         )
+        from .architecture_geometry import render_architecture
+
+        render_architecture(spec)
         usage = data.get("usage", {})
         usage = {
             k: max(0, min(100000, int(usage.get(k, 0))))
