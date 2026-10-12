@@ -166,7 +166,12 @@ def parse_architecture(instruction, project=None, selection=None, explicit=None)
     if explicit and category != explicit.category:
         raise ClarificationRequired("日本語のカテゴリと選択したカテゴリが矛盾しています。")
     template = templates()[category]
-    values = {"category": category, "width": template.width, "depth": template.depth}
+    values = {
+        "category": category,
+        "width": template.width,
+        "depth": template.depth,
+        "mode": os.environ.get("ARCHITECTURE_DEFAULT_MODE", "local"),
+    }
     if explicit:
         values.update(explicit.model_dump(exclude={"design", "execution"}))
         for name, value in dimensions.items():

@@ -94,6 +94,50 @@
             placeholder="中央区の空き地にコンビニを作って"
             required
           ></textarea>
+          <details class="architecture-settings">
+            <summary>自由建築の外装・寸法を指定</summary>
+            <label
+              >カテゴリ<select id="arch-category">
+                <option value="">従来の編集／日本語で指定</option>
+              </select></label
+            >
+            <div class="selectors">
+              <label
+                >道路側の幅<input
+                  id="arch-width"
+                  type="number"
+                  min="12"
+                  max="64"
+                  value="20"
+              /></label>
+              <label
+                >奥行き<input
+                  id="arch-depth"
+                  type="number"
+                  min="14"
+                  max="64"
+                  value="30"
+              /></label>
+              <label
+                >高さ（省略可）<input
+                  id="arch-height"
+                  type="number"
+                  min="7"
+                  max="96"
+                  placeholder="周囲に合わせる"
+              /></label>
+              <label
+                >設計モード<select id="arch-mode">
+                  <option value="local">ローカル・APIキー不要</option>
+                  <option value="llm">外部LLM・失敗時ローカル</option>
+                  <option value="auto">自動</option>
+                </select></label
+              >
+            </div>
+            <p>
+              寸法はブロック単位の敷地上限。外装と庭を敷地内に配置します。ここに／この土地に、の指示は地図で位置・範囲を選択してください。
+            </p>
+          </details>
           <div class="compose-bottom">
             <label class="seed"
               >シード
@@ -126,6 +170,13 @@
               <img id="after" alt="変更後の都市" />
             </figure>
           </div>
+          <figure id="architecture-view" hidden>
+            <figcaption>提案した外装</figcaption>
+            <img
+              id="architecture-preview"
+              alt="建築外装のアイソメトリック表示"
+            />
+          </figure>
           <details>
             <summary>対象・検査結果・補完条件</summary>
             <pre id="plan-details"></pre>

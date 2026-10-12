@@ -25,6 +25,9 @@ def parser():
     from .edit_cli import add_edit_parser
 
     add_edit_parser(sub)
+    from .architecture_cli import add_architecture_parser
+
+    add_architecture_parser(sub)
     web = sub.add_parser("web", help="Serve a private local/LAN city editing UI")
     web.add_argument("--project", type=Path, help="Initial project; omit when resuming")
     web.add_argument("--state-dir", type=Path, required=True)
@@ -230,6 +233,11 @@ def run(args):
 
 def main(argv=None):
     args = parser().parse_args(argv)
+    if args.command == "architecture":
+        from .architecture_cli import run_architecture
+
+        run_architecture(args)
+        return
     try:
         run(args)
     except (ValueError, OSError) as exc:
