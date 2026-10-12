@@ -1,0 +1,31 @@
+{
+  "full_city_schematic_dimensions": [
+    256,
+    32,
+    256
+  ],
+  "full_city_worldedit_read": true,
+  "paper": "1.21.4-232-12d8fe0 (MC: 1.21.4)",
+  "java": "21.0.12.1",
+  "worldedit": "7.3.10+7004-768a436",
+  "double_approval_blocked": true,
+  "world_applied": true,
+  "changed_blocks": 4410,
+  "world_undo_exact": true,
+  "collision_rejected": true,
+  "failed_write_rollback_exact": true,
+  "max_writes_per_tick": 64,
+  "phase_one": true,
+  "restart_world_recovery": true,
+  "success": true,
+  "python_project_restored": true,
+  "source_project_preserved": true,
+  "instruction": "ここに30×40のマンションを建てて",
+  "max_blocks_limit": 5000,
+  "paper_build": 232,
+  "paper_jar_sha256": "5ee4f542f628a14c644410b08c94ea42e772ef4d29fe92973636b6813d4eaffc",
+  "plugin_jar_sha256": "2d3637462e7791d89b96f32b01b63844a44d290373572fc871ae39e8bac75457",
+  "harness_jar_sha256": "282703eae52d1929442460ef6f219b0b2e797b69da83c0c3804b357d4f757972",
+  "minecraft_client": "not tested; console-only synthetic operator",
+  "eula": "accepted explicitly for this disposable test"
+}

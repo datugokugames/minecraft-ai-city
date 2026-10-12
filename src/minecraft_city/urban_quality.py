@@ -45,7 +45,7 @@ def measure_quality(city):
         else b.facade.roof
         if b.facade
         else "gable"
-        if b.palette == "traditional" and b.kind == "house"
+        if b.palette == "traditional" or b.kind == "house"
         else "flat"
         for b in city.buildings
     )
@@ -57,7 +57,13 @@ def measure_quality(city):
             round(p.area, 1),
             round(p.length**2 / max(p.area, 1), 2),
             b.floors,
-            b.architecture.roof if b.architecture else b.facade.roof if b.facade else "default",
+            b.architecture.roof
+            if b.architecture
+            else b.facade.roof
+            if b.facade
+            else "gable"
+            if b.kind == "house" or b.palette == "traditional"
+            else "flat",
         )
         for p, b in zip(roofs, city.buildings)
     }

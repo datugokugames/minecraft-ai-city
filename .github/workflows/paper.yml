@@ -21,8 +21,10 @@ jobs:
       - run: mvn -B -f paper/integration/pom.xml package
       - name: Disposable localhost Paper world (explicit test EULA acceptance)
         run: python scripts/check_paper_server.py --server-dir output/paper-test --accept-eula
-      - name: Approved 30x40 architecture with real world undo
-        run: python scripts/check_paper_server.py --server-dir output/architecture-paper-test --accept-eula --instruction 'ここに30×40のマンションを建てて' --at 64 20
+      - name: Generate improved city without replacing a source project
+        run: python -m minecraft_city improve --project examples/managed-city/project.json --output output/quality-ci --max-additions 12
+      - name: Approved 30x40 architecture and full improved schematic compatibility
+        run: python scripts/check_paper_server.py --server-dir output/architecture-paper-test --accept-eula --instruction 'ここに30×40のマンションを建てて' --at 64 20 --compat-schematic output/quality-ci/after/city.schem
       - uses: actions/upload-artifact@v4
         if: always()
         with:
