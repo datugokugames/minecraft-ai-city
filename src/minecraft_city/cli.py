@@ -241,12 +241,12 @@ def run(args):
 
 def main(argv=None):
     args = parser().parse_args(argv)
-    if args.command == "architecture":
-        from .architecture_cli import run_architecture
-
-        run_architecture(args)
-        return
     try:
+        if args.command == "architecture":
+            from .architecture_cli import run_architecture
+
+            run_architecture(args)
+            return
         if args.command == "improve":
             from .project import load_project
             from .urban_quality import export_improvement
