@@ -332,7 +332,10 @@ class PaperCoordinator:
                 return job
             if parts[2] not in {"before.schem", "after.schem"}:
                 raise FileNotFoundError()
-            return self.workspace.directory(job["id"]) / parts[2]
+            file = self.workspace.directory(job["id"]) / parts[2]
+            if file.is_symlink() or not file.is_file():
+                raise FileNotFoundError()
+            return file
         if method != "POST":
             raise FileNotFoundError()
         if route == "plan":
