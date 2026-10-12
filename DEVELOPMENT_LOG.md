@@ -131,3 +131,10 @@
 - PR #4作成済み（base: feature/phase4-paper-integration、PR #3依存）。品質地図はPhase 5の本体形状を庭/予約敷地から分けて描画する補修を追加し、新規/tmp出力から比較画像を更新。旧モデルのプレビューは変更しない。
 
 - 最後の指標補修：旧生成器の窓は「0種類」ではなく固定の1種類として計測し、FacadeRecipe/自由外装の窓仕様と同じ集合で比較。比較JSONと改善projectの品質メタデータを新規/tmp出力から更新。建築・schematicの内容は変えていない。
+
+## v0.6開始 / 2026-10-12
+
+- 基点: feature/phase5-ai-architecture / 2deb973。git fetch済み、変更なし。PR #3/#4は未マージで保持。専用ブランチfeature/phase6-urban-planningを作成。
+- README、ROADMAP、NATURAL_CITY、QUALITY_V05、ARCHITECTURE、PAPER、VERIFICATIONと生成/敷地/編集コードを調査。既存の占有敷地モデルを計画宅地へ転用せず、None省略のurban_planを追加する。
+- 基準Python全310件の初回実行: 304成功、HTTP 6件は実行サンドボックスのsocket禁止で失敗/エラー。localhost通信を許可して対象を再実行中。Java15件/build成功。使い捨てPaperで基準確認中。
+- 実装順序: 既存道路から街区抽出→深い空地への安全な接続路→不整形街区の敷地分割/駅・道路距離による用途密度→歩行を塞がない道路標示と景観→全seed比較/計測/互換性試験。元project/ワールド/authは変更しない。新規出力のみ。

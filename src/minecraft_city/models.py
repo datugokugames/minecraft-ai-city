@@ -9,6 +9,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, model_serializer, model_validator
 
 from .architecture_models import ArchitectureSpec, FacadeRecipe
+from .urban_models import UrbanPlan
 
 
 class StrictModel(BaseModel):
@@ -191,6 +192,14 @@ class City(StrictModel):
     sites: list[Site] = Field(default_factory=list)
     landscape: Landscape = Field(default_factory=Landscape)
     quality: dict = Field(default_factory=dict)
+    urban_plan: UrbanPlan | None = None
+
+    @model_serializer(mode="wrap")
+    def compatible_urban_plan(self, handler):
+        data = handler(self)
+        if self.urban_plan is None:
+            data.pop("urban_plan", None)
+        return data
 
 
 def save_json(path: str | Path, value: BaseModel | dict | list) -> None:
