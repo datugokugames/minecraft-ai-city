@@ -1,0 +1,10 @@
+{
+  "browser": "chromium",
+  "web_requires_game_approval": true,
+  "same_plan_id": true,
+  "automatic_map_refresh": true,
+  "undo_requires_game_approval": true,
+  "python_state_restored": true,
+  "world_operation": "simulated protocol here; real Paper tested separately",
+  "javascript_errors": []
+}

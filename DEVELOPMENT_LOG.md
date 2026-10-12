@@ -80,3 +80,10 @@
 - Windowsセットアップ補助、新規サーバー生成（既存フォルダ拒否）、認証UUID許可リスト、低メモリ設定、README/docs/PAPER.md、GitHub ActionsのJava/実Paperジョブを追加。
 - 認証情報を含む試験サーバーフォルダはリポジトリ外。公開する例はPNG、計画/差分JSON、schematic、サニタイズ済み検証結果のみ。
 - 実Minecraftクライアント、Windows、Geyser/Bedrock、電源断によるチャンク保存喪失、WorldGuard地域権限は未検証/未対応。初回全都市は手動WorldEdit配置。新規駅/道路の対話編集と大都市拡張は次フェーズ。
+
+## Phase 5開始チェックポイント（2026-10-12）
+
+- Phase 4の `c5a7524` を維持して `feature/phase5-ai-architecture` を作成。PR #1/#2はmainにマージ済み、PR #3はOPEN。Phase 5はPhase 4ブランチを基点に積み重ね、PR #3の成果を保持する。
+- 再検証：Java15テストとMavenビルド、使い捨てPaper起動、日本語計画、432ブロック建築、二重承認拒否、ワールドUndo、衝突拒否、途中失敗復元、停止・再起動復元に成功。ChromiumによるWeb/Paper計画共有・地図更新も再確認。既存ワールドは触っていない。
+- 次の作業：JSONテンプレートの制約、サイズ指定解析、検証済み建築仕様、ローカル設計、外装ジオメトリ。LLM・Web・Paperは同じ仕様と生成器を使う。
+- 実クライアント・Windows実機・Bedrockは引き続き未検証。試験の秘密値・ワールドは/tmp内、公開保存は検証JSONのみ。
