@@ -127,3 +127,5 @@
 - 新旧比較、quality-v05のproject/schematic、310テストの記録、QUALITY_V05、README/NATURAL_CITY/ROADMAPを保存。v0.6は未実装項目として明示。
 - 次はPhase 4ブランチをbaseにv0.5 PRを作成し、最終コミットのGitHub Actionsを確認。認証はgh REST/Gitを使用（GraphQLの一時401/旧Projects API失敗時はRESTへ切替）。PR #3は未マージ、mainを勝手に変更していない。
 - 利用制限で止まった場合はこのブランチの最新git log/statusとPR Checksから再開し、旧成果物を作り直さない。
+
+- PR #4作成済み（base: feature/phase4-paper-integration、PR #3依存）。品質地図はPhase 5の本体形状を庭/予約敷地から分けて描画する補修を追加し、新規/tmp出力から比較画像を更新。旧モデルのプレビューは変更しない。
