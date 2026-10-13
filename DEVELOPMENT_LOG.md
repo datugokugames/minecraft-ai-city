@@ -138,3 +138,15 @@
 - README、ROADMAP、NATURAL_CITY、QUALITY_V05、ARCHITECTURE、PAPER、VERIFICATIONと生成/敷地/編集コードを調査。既存の占有敷地モデルを計画宅地へ転用せず、None省略のurban_planを追加する。
 - 基準Python全310件の初回実行: 304成功、HTTP 6件は実行サンドボックスのsocket禁止で失敗/エラー。localhost通信を許可して対象を再実行中。Java15件/build成功。使い捨てPaperで基準確認中。
 - 実装順序: 既存道路から街区抽出→深い空地への安全な接続路→不整形街区の敷地分割/駅・道路距離による用途密度→歩行を塞がない道路標示と景観→全seed比較/計測/互換性試験。元project/ワールド/authは変更しない。新規出力のみ。
+
+### v0.6再開チェックポイント
+
+- 利用制限で停止後、feca944がGitHubへpush済みと確認。未コミットのstreet_design.py、urban_metrics.py、organic_building.py、test_urban_compatibility.pyを保持して継続。
+- 中断前のHTTP許可付き再試験14件成功。Java15件と実Paper432ブロックのUndo/衝突/失敗/再起動復旧、Chromiumの外装・Web/Paper共通計画が成功した。ただし再開時に/tmpレポートが消失したため、最終検証記録は再取得する。
+- 旧city/project/planのハッシュとv0.5schematicバイト一致の互換7テスト成功。都市品質8テスト成功。街区・接続路・敷地分割の実装を継続中。
+
+### 2026-10-13 再開・中間保存
+
+- 再度の利用制限から再開。作業ツリーと/tmp試作都市を保持。街路階層の描画・標示・安全な景観、品質計測、旧形式互換テストは実装済み（街路6、品質8、互換7件成功）。
+- 街区抽出/接続路/道路沿いVoronoi分割/深い敷地の探索を試作。seed42で旧建物保持の被覆率6.00%→7.80%（10棟追加）。9%はまだ未達。全面再配置オプションの敷地重複検出を修正中で、未検証の完成機能として公開しない。
+- 次: 敷地探索と分割の改善、CLI接続、複数seedで比較、全回帰と新都市schematicの実WorldEdit読込。urban_exportは実装途中。現行ワールド/auth/元projectは変更していない。

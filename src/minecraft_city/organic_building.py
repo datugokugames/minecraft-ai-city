@@ -4,7 +4,7 @@ import math
 import re
 
 import numpy as np
-from shapely.geometry import LineString, Point, Polygon
+from shapely.geometry import LineString, Point, Polygon, box
 
 from .building import _tree, build_structure
 from .generation import building_area, road_area
@@ -73,6 +73,7 @@ def build_organic(city):
     from .quality import validate_organic
 
     validate_organic(city)
+    urban = city.urban_plan is not None
     size = city.size
     height = max(
         28,
@@ -105,22 +106,35 @@ def build_organic(city):
             )
             surface = (heights == y) & ~clear
             v.blocks[3 + y, surface] = v.state("grass_block[snowy=false]")
-    v.blocks[3, streets] = v.state("smooth_stone")
-    v.blocks[3, asphalt] = v.state("gray_concrete")
-    v.blocks[3, water & streets] = v.state("stone_bricks")
-    for road, spec in zip(city.roads, city.road_specs):
-        line = LineString(road)
-        if spec.kind == "alley":
-            alley = mask(line.buffer(spec.width / 2), size)
-            v.blocks[3, alley] = v.state("andesite")
-        if spec.kind == "arterial":
-            for t in np.arange(3, line.length - 2, 7):
-                for dt in (0, 1):
-                    p = line.interpolate(t + dt)
-                    v.put(int(p.x), 3, int(p.y), "white_concrete")
-        if spec.intentional_end and spec.purpose != "regional_gateway":
-            bulb = mask(Point(road[-1]).buffer(spec.width * 0.6), size) & ~water
-            v.blocks[3, bulb] = v.state("gray_concrete")
+    if urban:
+        from .street_design import access_exclusion, render_street_surface
+
+        render_street_surface(v, city)
+        protected_access = access_exclusion(city)
+    else:
+        v.blocks[3, streets] = v.state("smooth_stone")
+        v.blocks[3, asphalt] = v.state("gray_concrete")
+        v.blocks[3, water & streets] = v.state("stone_bricks")
+        for road, spec in zip(city.roads, city.road_specs):
+            line = LineString(road)
+            if spec.kind == "alley":
+                alley = mask(line.buffer(spec.width / 2), size)
+                v.blocks[3, alley] = v.state("andesite")
+            if spec.kind == "arterial":
+                for t in np.arange(3, line.length - 2, 7):
+                    for dt in (0, 1):
+                        p = line.interpolate(t + dt)
+                        v.put(int(p.x), 3, int(p.y), "white_concrete")
+            if spec.intentional_end and spec.purpose != "regional_gateway":
+                bulb = mask(Point(road[-1]).buffer(spec.width * 0.6), size) & ~water
+                v.blocks[3, bulb] = v.state("gray_concrete")
+
+    def safe_park_detail(x, z, radius=0):
+        if not urban:
+            return True
+        footprint = box(x - radius, z - radius, x + radius + 1, z + radius + 1)
+        return not footprint.intersects(protected_access)
+
     for site in city.sites:
         area = mask(Polygon(site.polygon), size)
         if site.access_path:
@@ -151,11 +165,13 @@ def build_organic(city):
                 ):
                     if not polygon.covers(Point(x + 0.5, z + 0.5)) or path[z, x]:
                         continue
-                    if x % 4 == 0 and z % 4 == 0:
+                    if x % 4 == 0 and z % 4 == 0 and safe_park_detail(x, z):
                         v.put(x, 4, z, "poppy")
-            if polygon.covers(Point(cx - 3, cz - 3).buffer(2)):
+            if polygon.covers(Point(cx - 3, cz - 3).buffer(2)) and safe_park_detail(
+                cx - 3, cz - 3, 2
+            ):
                 _tree(v, cx - 3, cz - 3)
-            if polygon.covers(Point(cx + 2, cz + 2)):
+            if polygon.covers(Point(cx + 2, cz + 2)) and safe_park_detail(cx + 2, cz + 2):
                 v.put(
                     cx + 2,
                     4,
@@ -186,6 +202,7 @@ def build_organic(city):
                         region.covers(point)
                         and point.distance(region.boundary) < 1.6
                         and (access.is_empty or point.distance(access) > 1.5)
+                        and safe_park_detail(x, z)
                     ):
                         v.put(
                             x,
@@ -202,17 +219,23 @@ def build_organic(city):
                 park.covers(Point(x, z).buffer(3))
                 and not clear[z - 3 : z + 4, x - 3 : x + 4].any()
                 and not np.any(v.blocks[4:11, z - 2 : z + 3, x - 2 : x + 3])
+                and safe_park_detail(x, z, 2)
             ):
                 _tree(v, x, z)
     for building in city.buildings:
         path = mask(LineString(building.access_path).buffer(0.9), size)
         v.blocks[3, path & ~asphalt] = v.state("smooth_sandstone")
         rotated_structure(v, building)
-    for z in range(10, size - 10, 17):
-        for x in range(10, size - 10, 17):
-            if streets[z, x] and not asphalt[z, x] and not water[z, x]:
-                v.fill(x, 4, z, x + 1, 8, z + 1, "iron_bars")
-                v.put(x, 8, z, "sea_lantern")
+    if urban:
+        from .street_design import render_street_furniture
+
+        render_street_furniture(v, city)
+    else:
+        for z in range(10, size - 10, 17):
+            for x in range(10, size - 10, 17):
+                if streets[z, x] and not asphalt[z, x] and not water[z, x]:
+                    v.fill(x, 4, z, x + 1, 8, z + 1, "iron_bars")
+                    v.put(x, 8, z, "sea_lantern")
     if city.railway_z is not None:
         z = city.railway_z
         v.fill(0, 12, z - 2, size, 13, z + 3, "stone_bricks")
